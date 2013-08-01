@@ -47,7 +47,7 @@
  *
  * \subsection introduction_update   1.2. Update Notes
  *
- * Current and upcoming <b>Update Notes</b> are available <a href="update_notes.html" >here</a>.
+ * Current <b>Update Notes</b> are available <a href="update_notes.html" >here</a>.
  *
  * \section features   2. Features
  *

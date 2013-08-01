@@ -123,7 +123,7 @@ int main()
 
     // login with user
     if(API.Login(true) != GJ_OK)
-        API.Login(true, "MausGames", "lenia");
+        API.Login(true, "user_name", "user_token"); // should I ever forget my credentials here, get some trophies for me, thx
 
     // test trophies
     TestTrophy testTrophyObject;
