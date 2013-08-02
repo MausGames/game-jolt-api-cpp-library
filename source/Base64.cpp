@@ -1,5 +1,6 @@
 #include "Base64.h"
 
+#include <stdlib.h>
 
 /**
  * characters used for Base64 encoding
