@@ -21,4 +21,4 @@ Documentation for the library can be found in the download or [here][4].
 [2]: http://gamejolt.com/developers/achievements-new/
 [3]: http://gamejolt.com/games/other/game-jolt-api-c-library/15490/
 [4]: http://www.maus-games.at/files/gamejolt/html/
-[5]: http://www.maus-games.at/site/images/additional/gamejolt/gamejolt_big.png
+[5]: http://www.maus-games.at/site/images/additional/gamejolt/gamejolt_cpp_3.png

@@ -1,6 +1,6 @@
 /*! \mainpage Main Page
  *
- * <img src="../gamejolt_big.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo"><br clear="all"><br clear="all"><br clear="all">
+ * <img src="../gamejolt_cpp_3.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;"><br clear="all"><br clear="all"><br clear="all"><br clear="all">
  *
  * 1. \link introduction Introduction \endlink\n
  * 1.1. \link introduction_setup Setup \endlink\n
@@ -342,14 +342,14 @@
  * \endcode
  *
  * \subsection features_cross   2.6. Cross-Platform Support
- * <img src="../icon_windows.png" align="left" title="(c) Game Jolt" alt="Windows Logo"> <img src="../icon_linux.png" align="left" title="(c) Game Jolt" alt="Linux Logo"><br clear="all"><br clear="all">
- * This library is developed and tested with Windows and Linux. The cURL library for Windows and Linux 64-bit is enclosed to the project files.\n
- * If someone is willing and able to implement an OSX version (or a version for another platform),\n
- * please get in contact with me to integrate it into the main library, and to credit you properly.
+ * <img src="../icon_windows.png" align="left" title="(c) Game Jolt" alt="Windows Logo"> <img src="../icon_linux.png" align="left" title="(c) Game Jolt" alt="Linux Logo"><img src="../icon_osx.png" align="left" title="(c) Game Jolt" alt="OSX Logo"><br clear="all"><br clear="all">
+ * This library is developed and tested with Windows, Linux and OSX. The cURL library for Windows and Linux 64-bit is enclosed to the project files.\n
+ * Thanks to <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a> for adding OSX support.
  *
  * \section credits   3. Credits
  * <b>Author:</b> Martin Mauersics\n
- * <b>Special Thanks to:</b> David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell\n
+ * <b>OSX support by:</b> <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>\n
+ * <b>Special Thanks to:</b> <a href="http://gamejolt.com/" target="_blank">David "CROS" DeCarmine</a>, <a href="http://servut.us/erakko/" target="_blank">Joona "erakko" Melartin</a>, <a href="http://forceofhab.it/" target="_blank">Ashley Gwinnell</a>\n
  *
  * \subsection credits_libraries   3.1. Additional Libraries
  * cURL Library (<a href="http://curl.haxx.se/" target="_blank">http://curl.haxx.se/</a>)\n
@@ -383,10 +383,15 @@
 
 /*! \page update_notes Update Notes
  *
+ * v0.8.1a (2013-08-02)
+ * ------------------
+ * <ul>
+ *      <li>added OSX support (by <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>)
+ * </ul>
  * v0.8a (2013-07-22)
  * ------------------
  * <ul>
- *      <li>new feature: \link features_caching_offline Offline Caching \endlink\n
+ *      <li>new feature: \link features_caching_offline Offline Caching \endlink
  *      <li>implemented POST request for larger data uploads
  *      <li>implemented handling of identical requests
  *      <li>implemented connection and request timeouts
