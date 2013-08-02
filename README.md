@@ -1,4 +1,4 @@
-![Game Jolt][5]
+![Game Jolt][6]
 
 # Description
 
@@ -12,13 +12,14 @@ And if your game is written in C++, then **this library is able to connect your 
 
 # Download
 
-The current library is available from [here][3] (or from the repo) and contains all necessary files for **Windows** and **Linux 64-bit**.  
+The current library is available from [here][3] (or from the repo) and contains all necessary files for **Windows** and **Linux 64-bit**. For OSX you may need to download the latest [cURL library][4].  
 You also need to **create an account** and **upload your game to Game Jolt** to retrieve a game ID and a private key.
 
-Documentation for the library can be found in the download or [here][4].
+Documentation for the library can be found in the download or [here][5].
 
 [1]: http://gamejolt.com
 [2]: http://gamejolt.com/developers/achievements-new/
 [3]: http://gamejolt.com/games/other/game-jolt-api-c-library/15490/
-[4]: http://www.maus-games.at/files/gamejolt/html/
-[5]: http://www.maus-games.at/site/images/additional/gamejolt/gamejolt_cpp_3.png
+[4]: http://curl.haxx.se/
+[5]: http://www.maus-games.at/files/gamejolt/html/
+[6]: http://www.maus-games.at/site/images/additional/gamejolt/gamejolt_cpp_3.png
