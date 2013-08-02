@@ -33,6 +33,8 @@ documentation and/or software.
 /* interface header */
 #include "MD5.h"
 
+#include <sstream>
+
 // Constants for MD5Transform routine.
 #define S11 7
 #define S12 12

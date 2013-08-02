@@ -114,6 +114,8 @@
 #include "Base64.h"
 #include "curl/curl.h"
 
+#include <stdlib.h>
+
 #undef GetUserName
 
 class gjAPI;
