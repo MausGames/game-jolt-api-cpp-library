@@ -9,6 +9,7 @@ gjTrophy::gjTrophy(const gjData &aTrophyData, gjAPI* pAPI)
 , m_sDescription  (SAFE_MAP_GET(aTrophyData, "description"))
 , m_sDifficulty   (SAFE_MAP_GET(aTrophyData, "difficulty"))
 , m_sImageURL     (SAFE_MAP_GET(aTrophyData, "image_url"))
+, m_bSecret       (false)
 , m_pAPI          (pAPI)
 {
     // set difficulty value for easier access
@@ -65,9 +66,13 @@ int gjTrophy::__UpdateDataCallback(const std::string &sData, void* pAdd, gjTroph
         return GJ_REQUEST_FAILED;
     }
 
+    const bool bSecret = m_bSecret;
+
     // copy new trophy over old trophy
     gjTrophy NewTrophy(aaReturn[0], m_pAPI);
     *this = NewTrophy;
+
+    m_bSecret = bSecret;
 
     if(pOutput) (*pOutput) = this;
     return GJ_OK;
@@ -87,7 +92,7 @@ int gjTrophy::__AchieveCallback(const std::string &sData, void* pAdd, gjTrophyPt
     }
 
     // set time string
-    m_sAchievedDate = GJ_API_NOW;
+    m_sAchievedDate = GJ_API_TEXT_NOW;
 
     if(ppOutput) (*ppOutput) = this; 
     return GJ_OK;

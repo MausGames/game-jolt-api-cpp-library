@@ -33,7 +33,9 @@ documentation and/or software.
 /* interface header */
 #include "MD5.h"
 
-#include <sstream>
+#ifdef __APPLE__
+    #include <sstream>
+#endif
 
 // Constants for MD5Transform routine.
 #define S11 7

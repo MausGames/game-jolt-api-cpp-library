@@ -20,6 +20,8 @@ private:
     std::string m_sImageURL;       //!< URL of the thumbnail
     std::string m_sAchievedDate;   //!< time string when the trophy was achieved (e.g. 4 weeks ago)
 
+    bool m_bSecret;                //!< secret trophy (may return different thumbnail and description)
+
     gjAPI* m_pAPI;                 //!< main interface access pointer
 
 
@@ -66,19 +68,26 @@ public:
      *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
      *          <b>GJ_INVALID_INPUT</b> if target folder string is empty\n
      *          (see #GJ_ERROR) */
-                          inline int DownloadThumbnailNow(const std::string &sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(m_sImageURL, sToFolder, "", psOutput);}
-    template <typename T> inline int DownloadThumbnailCall(const std::string &sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(m_sImageURL, sToFolder, "", GJ_NETWORK_OUTPUT_FW);}
+                          inline int DownloadThumbnailNow(const std::string &sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(this->GetImageURL(), sToFolder, "", psOutput);}
+    template <typename T> inline int DownloadThumbnailCall(const std::string &sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(this->GetImageURL(), sToFolder, "", GJ_NETWORK_OUTPUT_FW);}
     //!@}
 
     /*! @name Get Attributes */
     //!@{
     inline const int&         GetID()const              {return m_iID;}                //!< \copybrief m_iID
     inline const std::string& GetTitle()const           {return m_sTitle;}             //!< \copybrief m_sTitle
-    inline const std::string& GetDescription()const     {return m_sDescription;}       //!< \copybrief m_sDescription
+    inline const std::string& GetDescriptionTrue()const {return m_sDescription;}       //!< \copybrief m_sDescription
     inline const std::string& GetDifficulty()const      {return m_sDifficulty;}        //!< \copybrief m_sDifficulty
     inline const int&         GetDifficultyValue()const {return m_iDifficultyValue;}   //!< \copybrief m_iDifficultyValue
-    inline const std::string& GetImageURL()const        {return m_sImageURL;}          //!< \copybrief m_sImageURL
+    inline const std::string& GetImageURLTrue()const    {return m_sImageURL;}          //!< \copybrief m_sImageURL
     inline const std::string& GetAchievedDate()const    {return m_sAchievedDate;}      //!< \copybrief m_sAchievedDate
+    inline const bool&        GetSecret()const          {return m_bSecret;}            //!< \copybrief m_bSecret
+    /*! */ //!@}
+
+    /*! @name Get Secret Modified Attributes */
+    //!@{
+    inline const std::string GetDescription()const {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TEXT_SECRET : m_sDescription;}   //!< \copybrief m_sDescription
+    inline const std::string GetImageURL()const    {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TROPHY_SECRET : m_sImageURL;}    //!< \copybrief m_sImageURL
     /*! */ //!@}
 
     /*! @name Check Status */
@@ -106,6 +115,11 @@ private:
     int __UpdateDataCallback(const std::string &sData, void* pAdd, gjTrophyPtr* pOutput);
     int __AchieveCallback(const std::string &sData, void* pAdd, gjTrophyPtr* ppOutput);
     //!@}
+
+    /*! @name Set Attributes */
+    //!@{
+    inline void __SetSecret(const bool &bSecret) {m_bSecret = bSecret;}
+    /*! */ //!@}
 };
 
 
@@ -139,7 +153,7 @@ template <typename T> int gjTrophy::__Achieve(const bool &bNow, GJ_NETWORK_OUTPU
     // achieve offline-cached trophy
     if(!m_pAPI->IsConnected())
     {
-        m_sAchievedDate = GJ_API_NOW;
+        m_sAchievedDate = GJ_API_TEXT_NOW;
         return GJ_NOT_CONNECTED;
     }
 

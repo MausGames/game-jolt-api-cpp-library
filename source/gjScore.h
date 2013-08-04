@@ -97,15 +97,15 @@ public:
     inline const int&         GetSortDirection()const {return m_iSortDir;}       //!< \copybrief m_iSortDir
     /*! */ //!@}
 
-    /*! @name Check Status */
-    //!@{
-    inline bool IsPrimary()const {return m_bPrimary;}
-    //!@}
-
     /*! @name Get Static Attributes */
     //!@{
     static inline gjScoreTable* GetPrimary() {return s_pPrimary;}   //!< \copybrief s_pPrimary
     /*! */ //!@}
+
+    /*! @name Check Status */
+    //!@{
+    inline bool IsPrimary()const {return m_bPrimary;}
+    //!@}
 
 
 private:
@@ -182,7 +182,7 @@ public:
     inline const gjScoreTable* GetScoreTable()const {return m_pScoreTable;}   //!< \copybrief m_pScoreTable
     /*! */ //!@}
 
-    /*! @name Get Attributes Base64 */
+    /*! @name Ge tBase64 Attributes */
     //!@{
     inline int GetExtraDataBase64(void* pTarget, const size_t &iSize)const {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; base64_decode(m_sExtraData.c_str(), (unsigned char*)pTarget, iSize); return GJ_OK;}   //!< \copybrief m_sExtraData
     /*! */ //!@}
@@ -300,7 +300,7 @@ template <typename T> int gjScoreTable::__AddScore(const std::string &sScore, co
     asScoreData["score"]      = sScore;
     asScoreData["sort"]       = m_pAPI->UtilIntToString(iSort);
     asScoreData["extra_data"] = sExtraData;
-    asScoreData["stored"]     = GJ_API_NOW;
+    asScoreData["stored"]     = GJ_API_TEXT_NOW;
     asScoreData["guest"]      = sGuestName;
 
     // add score entry to verification list

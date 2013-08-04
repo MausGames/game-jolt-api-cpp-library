@@ -6,16 +6,16 @@
 class TestTrophy
 {
 public:
-    void InitTrophies(const gjTrophyMap &apTrophies, void* pData)
+    void InitTrophies(const gjTrophyList &apTrophies, void* pData)
     {
         // show finished trophy fetch
         std::cout << "[Trophy] Init Trophies" << std::endl;
         for(auto it = apTrophies.begin(); it != apTrophies.end(); ++it)
         {
-            gjTrophy* pTrophy = it->second;
+            gjTrophy* pTrophy = (*it);
 
             // download trophy thumbnails (parallel non-blocking download of all images)
-            std::cout << "[Trophy]  Trophy <" << pTrophy->GetID() << "> \"" << pTrophy->GetTitle() << "\"" << std::endl;
+            std::cout << "[Trophy]  Trophy <" << pTrophy->GetID() << "> \"" << pTrophy->GetTitle() << ":" << pTrophy->GetDescription() << "\"" << std::endl;
             pTrophy->DownloadThumbnailCall("pictures/trophies", this, &TestTrophy::InitTrophyImage, pTrophy);
         }
     }
@@ -52,7 +52,7 @@ public:
         std::cout << "[Score]   Init Scores <" << ((gjScoreTable*)pData)->GetID() << ">" << std::endl;
         for(auto it = apScores.begin(); it != apScores.end(); ++it)
         {
-            gjScore* pScore = *it;
+            gjScore* pScore = (*it);
 
             // get user of each specific score (parallel and non-blocking)
             std::cout << "[Score]    Score <" << pScore->GetUserName() << ":" << pScore->GetScore() << ">" << std::endl;
@@ -120,6 +120,16 @@ int main()
 {
     // data from the test-game
     gjAPI API(15490, "0dbe90d7e46fbcaed459d434e5f835da");
+
+    // set trophy attributes
+    const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
+    API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(int));
+
+    const int iSecret[] = {2546, 2547};
+    API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(int));
+
+    const int iHidden[] = {3105};
+    API.InterTrophy()->SetHidden(iHidden, sizeof(iHidden)/sizeof(int));
 
     // login with user
     if(API.Login(true) != GJ_OK)

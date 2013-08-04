@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 
 // ****************************************************************
@@ -160,6 +161,11 @@ gjAPI::gjInterTrophy::gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork)
     pNullData["image_url"]  = GJ_API_TROPHY_DEFAULT_1;
     m_apTrophy[0] = new gjTrophy(pNullData, m_pAPI);
 
+    // reserve some memory
+    m_aiSort.reserve(GJ_API_RESERVE_TROPHY);
+    m_aiSecret.reserve(GJ_API_RESERVE_TROPHY);
+    m_aiHidden.reserve(GJ_API_RESERVE_TROPHY);
+
     // retrieve offline-cached trophy data
     this->__LoadOffCache();
 }
@@ -173,8 +179,11 @@ gjAPI::gjInterTrophy::~gjInterTrophy()
     for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
         SAFE_DELETE(it->second)
 
-    // clear container
+    // clear containers
     m_apTrophy.clear();
+    m_aiSort.clear();
+    m_aiSecret.clear();
+    m_aiHidden.clear();
 }
 
 
@@ -189,8 +198,8 @@ gjTrophy* gjAPI::gjInterTrophy::GetTrophy(const int &iID)
         if(GJ_API_PREFETCH) m_pNetwork->Wait(2);
         if(m_apTrophy.size() <= 1)
         {
-            gjTrophyMap papOutput;
-            this->FetchTrophiesNow(0, &papOutput);
+            gjTrophyList apOutput;
+            this->FetchTrophiesNow(0, &apOutput);
         }
     }
     return m_apTrophy.count(iID) ? m_apTrophy[iID] : m_apTrophy[0];
@@ -223,20 +232,92 @@ void gjAPI::gjInterTrophy::ClearCache(const bool &bFull)
 
 
 // ****************************************************************
+/* define layout of the returned trophy list */
+void gjAPI::gjInterTrophy::SetSort(const int* piIDList, const size_t &iNum)
+{
+    // clear sort list
+    m_aiSort.clear();
+
+    // add IDs to sort list
+    for(size_t i = 0; i < iNum; ++i)
+        m_aiSort.push_back(piIDList[i]);
+}
+
+
+// ****************************************************************
+/* define secret trophy objects */
+void gjAPI::gjInterTrophy::SetSecret(const int* piIDList, const size_t &iNum)
+{
+    if(iNum)
+    {
+        // clear secret list
+        m_aiSecret.clear();
+
+        // add IDs to secret list
+        for(size_t i = 0; i < iNum; ++i)
+            m_aiSecret.push_back(piIDList[i]);
+    }
+
+    // apply secret attribute
+    for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+        it->second->__SetSecret(false);
+    for(auto it = m_aiSecret.begin(); it != m_aiSecret.end(); ++it)
+        m_apTrophy[(*it)]->__SetSecret(true);
+}
+
+
+// ****************************************************************
+/* define hidden trophy objects */
+void gjAPI::gjInterTrophy::SetHidden(const int* piIDList, const size_t &iNum)
+{
+    if(iNum)
+    {
+        // clear hidden list
+        m_aiHidden.clear();
+
+        // add IDs to hidden list
+        for(size_t i = 0; i < iNum; ++i)
+            m_aiHidden.push_back(piIDList[i]);
+    }
+
+    // apply hidden attribute and remove all hidden trophy objects
+    for(auto it = m_aiHidden.begin(); it != m_aiHidden.end(); ++it)
+        m_apTrophy.erase(m_apTrophy.find((*it)));
+}
+
+
+// ****************************************************************
 /* check for cached trophy objects */
-int gjAPI::gjInterTrophy::__CheckCache(const int &iAchieved, gjTrophyMap* papOutput)
+int gjAPI::gjInterTrophy::__CheckCache(const int &iAchieved, gjTrophyList* papOutput)
 {
     // retrieve cached trophies
     if(m_apTrophy.size() > 1)
     {
         if(papOutput)
         {
+            gjTrophyList apConvert;
+            apConvert.reserve(GJ_API_RESERVE_TROPHY);
+
+            // add sorted trophies
+            for(size_t i = 0; i < m_aiSort.size(); ++i)
+                if(m_apTrophy.count(m_aiSort[i])) apConvert.push_back(m_apTrophy[m_aiSort[i]]);
+
+            // add missing unsorted trophies
             for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
             {
-                // check for achieved status
-                if((iAchieved > 0 &&  it->second->IsAchieved()) ||
-                   (iAchieved < 0 && !it->second->IsAchieved()) || !iAchieved)
-                    if(it->first) (*papOutput)[it->first] = it->second;
+                if(it->first)
+                {
+                    if(std::find(apConvert.begin(), apConvert.end(), it->second) == apConvert.end())
+                        apConvert.push_back(it->second);
+                }
+            }
+
+            // check for achieved status
+            for(size_t i = 0; i < apConvert.size(); ++i)
+            {
+                if((iAchieved > 0 &&  apConvert[i]->IsAchieved()) ||
+                   (iAchieved < 0 && !apConvert[i]->IsAchieved()) || !iAchieved)
+                    (*papOutput).push_back(apConvert[i]);
             }
         }
         return GJ_OK;
@@ -247,7 +328,7 @@ int gjAPI::gjInterTrophy::__CheckCache(const int &iAchieved, gjTrophyMap* papOut
 
 // ****************************************************************
 /* process trophy data and cache trophy objects */
-int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrophyMap* papOutput)
+int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrophyList* papOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -274,6 +355,10 @@ int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrop
         }
         else m_apTrophy[iID] = pNewTrophy;
     }
+
+    // apply secret and hidden attribute
+    this->SetSecret(NULL, 0);
+    this->SetHidden(NULL, 0);
 
     return (this->__CheckCache((long)pAdd, papOutput) == GJ_OK) ? GJ_OK : GJ_NO_DATA_FOUND;
 }
@@ -378,8 +463,8 @@ gjScoreTable* gjAPI::gjInterScore::GetScoreTable(const int &iID)
         if(GJ_API_PREFETCH) m_pNetwork->Wait(2);
         if(m_apScoreTable.size() <= 1)
         {
-            gjScoreTableMap papOutput;
-            this->FetchScoreTablesNow(&papOutput);
+            gjScoreTableMap apOutput;
+            this->FetchScoreTablesNow(&apOutput);
         }
     }
     gjScoreTable* pPrimary = gjScoreTable::GetPrimary();
@@ -473,9 +558,9 @@ gjDataItem* gjAPI::gjInterDataStore::GetDataItem(const std::string &sKey)
     // create new data store item
     if(!m_apDataItem.count(sKey))
     {
-        gjData pDataItemData;
-        pDataItemData["key"] = sKey;
-        m_apDataItem[sKey] = new gjDataItem(pDataItemData,m_iType, m_pAPI);
+        gjData asDataItemData;
+        asDataItemData["key"] = sKey;
+        m_apDataItem[sKey] = new gjDataItem(asDataItemData,m_iType, m_pAPI);
     }
 
     return m_apDataItem.count(sKey) ? m_apDataItem[sKey] : NULL;
@@ -714,7 +799,7 @@ int gjAPI::Login(const bool bSession, const std::string &sUserName, const std::s
     if(GJ_API_PREFETCH)
     {
         m_pInterUser->FetchUserCall(0, GJ_NETWORK_NULL_THIS(gjUserPtr));
-        m_pInterTrophy->FetchTrophiesCall(0, GJ_NETWORK_NULL_THIS(gjTrophyMap));
+        m_pInterTrophy->FetchTrophiesCall(0, GJ_NETWORK_NULL_THIS(gjTrophyList));
         m_pInterDataStoreUser->FetchDataItemsCall(GJ_NETWORK_NULL_THIS(gjDataItemMap));
     }
 

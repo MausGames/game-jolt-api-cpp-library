@@ -54,8 +54,8 @@ public:
      *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
      *          <b>GJ_INVALID_INPUT</b> if target folder string is empty\n
      *          (see #GJ_ERROR) */
-                          inline int DownloadAvatarNow(const std::string &sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(m_sAvatarURL, sToFolder, m_sName + GJ_API_AVATAR_FORMAT, psOutput);}
-    template <typename T> inline int DownloadAvatarCall(const std::string &sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(m_sAvatarURL, sToFolder, m_sName + GJ_API_AVATAR_FORMAT, GJ_NETWORK_OUTPUT_FW);}
+                          inline int DownloadAvatarNow(const std::string &sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(this->GetAvatarURL(), sToFolder, m_sName + GJ_API_AVATAR_FORMAT, psOutput);}
+    template <typename T> inline int DownloadAvatarCall(const std::string &sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(this->GetAvatarURL(), sToFolder, m_sName + GJ_API_AVATAR_FORMAT, GJ_NETWORK_OUTPUT_FW);}
     //!@}
 
     /*! @name Get Attributes */

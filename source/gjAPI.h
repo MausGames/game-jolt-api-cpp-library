@@ -55,15 +55,18 @@
 #define GJ_API_TROPHY_DEFAULT_2    "http://gamejolt.com/img/trophy-silver-1.jpg"
 #define GJ_API_TROPHY_DEFAULT_3    "http://gamejolt.com/img/trophy-gold-1.jpg"
 #define GJ_API_TROPHY_DEFAULT_4    "http://gamejolt.com/img/trophy-platinum-1.jpg"
+#define GJ_API_TROPHY_SECRET       "http://gamejolt.com/img/trophy-secret-1.jpg"
 #define GJ_API_PING_TIME           30
 #define GJ_API_CRED                "gjapi-credentials.txt"
-#define GJ_API_NOW                 "now"
+#define GJ_API_TEXT_NOW            "now"
+#define GJ_API_TEXT_SECRET         "???"
 #define GJ_API_RESERVE_CALL        16
 #define GJ_API_RESERVE_CALL_OUTPUT 4
+#define GJ_API_RESERVE_TROPHY      32
 #define GJ_API_RESERVE_SCORE       128
 #define GJ_API_RESERVE_FILE        64
-#define GJ_API_TIMEOUT_CONNECTION  5
-#define GJ_API_TIMEOUT_REQUEST     15
+#define GJ_API_TIMEOUT_CONNECTION  10
+#define GJ_API_TIMEOUT_REQUEST     20
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
@@ -88,13 +91,13 @@
  *      API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
  *  }
  *  \endcode */
-#define GJ_NETWORK_OUTPUT(x)    T* pOutputObj, void (T::*OutputCallback)(const x&, void*), void* pOutputData
+#define GJ_NETWORK_OUTPUT(x)    T* pOutputObj,  void (T::*OutputCallback)(const x&, void*),               void* pOutputData
 #define GJ_NETWORK_PROCESS      P* pProcessObj, int (P::*ProcessCallback)(const std::string&, void*, D*), void* pProcessData
 
-#define GJ_NETWORK_OUTPUT_FW    pOutputObj, OutputCallback, pOutputData
+#define GJ_NETWORK_OUTPUT_FW    pOutputObj,  OutputCallback,  pOutputData
 #define GJ_NETWORK_PROCESS_FW   pProcessObj, ProcessCallback, pProcessData
 
-#define GJ_NETWORK_NULL_THIS(d) this, &gjAPI::Null<d>, NULL
+#define GJ_NETWORK_NULL_THIS(d) this,   &gjAPI::Null<d>, NULL
 #define GJ_NETWORK_NULL_API(d)  m_pAPI, &gjAPI::Null<d>, NULL
 
 #define SAFE_DELETE(p)          {if(p) {delete   (p); (p)=NULL;}}
@@ -110,12 +113,13 @@
     #include <string.h>
     #include <sys/stat.h>
 #endif
+#ifdef __APPLE__
+    #include <stdlib.h>
+#endif
 
 #include "MD5.h"
 #include "Base64.h"
 #include "curl/curl.h"
-
-#include <stdlib.h>
 
 #undef GetUserName
 
@@ -130,7 +134,7 @@ typedef std::map<std::string, std::string> gjData;
 typedef std::vector<gjData>                gjDataList;
 typedef void*                              gjVoidPtr;
 typedef gjUser*                            gjUserPtr;
-typedef std::map<int, gjTrophy*>           gjTrophyMap;
+typedef std::vector<gjTrophy*>             gjTrophyList;
 typedef gjTrophy*                          gjTrophyPtr;
 typedef std::map<int, gjScoreTable*>       gjScoreTableMap;
 typedef std::vector<gjScore*>              gjScoreList;
@@ -253,14 +257,16 @@ private:
     // ****************************************************************
     /*! Sub-Interface class for trophy operations.\n
      *  http://gamejolt.com/api/doc/game/trophies/
-     *  \brief Trophy Sub-Interface
-     *  \todo Implement sort function and alternative list return instead of a map\n
-     *        Implement secret and hidden trophy handling*/
+     *  \brief Trophy Sub-Interface */
     class gjInterTrophy
     {
     private:
         std::map<int, gjTrophy*> m_apTrophy;   //!< cached trophy objects
         int m_iCache;                          //!< cache status (0 = empty, 1 = offline, 2 = online)
+
+        std::vector<int> m_aiSort;             //!< layout of the returned trophy list
+        std::vector<int> m_aiSecret;           //!< secret trophies (only fully visible when achieved)
+        std::vector<int> m_aiHidden;           //!< hidden trophies (should never be visible, removed from memory)
 
         gjAPI* m_pAPI;                         //!< main interface access pointer
         gjNetwork* m_pNetwork;                 //!< network access pointer
@@ -282,7 +288,8 @@ private:
 
         /*! @name Fetch Trophies Request */
         //!@{
-        /*! Fetch and cache all trophies through an API request.
+        /*! Fetch and cache all trophies through an API request.\n
+         *  You can sort the returned list with #SetSort.
          *  \pre    Login required
          *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
          *  @param  iAchieved Status of the returned trophies (see #GJ_TROPHY_TYPE)
@@ -291,8 +298,8 @@ private:
          *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
          *          <b>GJ_NO_DATA_FOUND</b> if no trophies where found\n
          *          (see #GJ_ERROR) */
-                              inline int FetchTrophiesNow(const long &iAchieved, gjTrophyMap* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyMap));}
-        template <typename T> inline int FetchTrophiesCall(const long &iAchieved, GJ_NETWORK_OUTPUT(gjTrophyMap)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
+                              inline int FetchTrophiesNow(const long &iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
+        template <typename T> inline int FetchTrophiesCall(const long &iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
         //!@}
 
         /*! @name Clear Cache */
@@ -302,17 +309,27 @@ private:
         void ClearCache(const bool &bFull);
         //!@}
 
+        /*! @name Control Trophies */
+        //!@{
+        /*! Define the way trophies are handled and returned from the interface.
+         *  @param  piIDList Array with trophy IDs
+         *  @param  iIDNum   Number of elements in the array */
+        void SetSort(const int* piIDList, const size_t &iNum);
+        void SetSecret(const int* piIDList, const size_t &iNum);
+        void SetHidden(const int* piIDList, const size_t &iNum);
+        //!@}
+
 
     public:
         /*! @name Superior Request Functions */
         //!@{
-        template <typename T> int __FetchTrophies(const long &iAchieved, gjTrophyMap* papOutput, GJ_NETWORK_OUTPUT(gjTrophyMap));
+        template <typename T> int __FetchTrophies(const long &iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));
         //!@}
 
         /*! @name Management Functions */
         //!@{
-        int __CheckCache(const int &iAchieved, gjTrophyMap* papOutput);
-        int __Process(const std::string &sData, void* pAdd, gjTrophyMap* papOutput);
+        int __CheckCache(const int &iAchieved, gjTrophyList* papOutput);
+        int __Process(const std::string &sData, void* pAdd, gjTrophyList* papOutput);
         //!@}
 
         /*! @name Offline Cache Functions */
@@ -754,7 +771,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const std::string &sNa
 
 // ****************************************************************
 /* fetch and cache all trophies */
-template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long &iAchieved, gjTrophyMap* papOutput, GJ_NETWORK_OUTPUT(gjTrophyMap))
+template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long &iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList))
 {
     if(!m_pAPI->IsConnected() && m_iCache == 0) return GJ_NOT_CONNECTED;
 
@@ -774,7 +791,7 @@ template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long &iAch
     if(m_iCache != 0)
     {
         // check for cached trophies
-        gjTrophyMap apCache;
+        gjTrophyList apCache;
         if(this->__CheckCache(iAchieved, &apCache) == GJ_OK)
         {
             if(bNow) (*papOutput) = apCache;

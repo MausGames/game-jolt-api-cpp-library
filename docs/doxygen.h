@@ -132,7 +132,7 @@
  * (<a href="http://gamejolt.com/api/doc/game/trophies/" target="_blank">http://gamejolt.com/api/doc/game/trophies/</a>)\n
  * Trophies are achievements. You can create them on your game's dashboard, and include the appropriate triggers in your game.\n
  * Currently it's not possible by the API to retrieve trophy data without an user login.\n
- * Also the hidden (never display) and secret (only display after achieved) parameters are not fetched.
+ * Also you have to define the sorting, secret trophies (only display after achieved), and hidden trophies (never display) by yourself.\n
  *
  * \code{.cpp}
  * void Function(gjAPI &API, myClass &myObj)
@@ -156,6 +156,15 @@
  *
  *     // fetch all trophies with a callback (does not block)
  *     API.InterTrophy()->FetchTrophiesCall(GJ_TROPHY_ALL, &myObj, &myClass::ReceiveTrophies, NULL);
+ *
+ *
+ *     // sort trophies
+ *     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
+ *     API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(int));
+ *     
+ *     // define secret trophies
+ *     const int iSecret[] = {2546, 2547};
+ *     API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(int));
  * }
  * \endcode
  *
@@ -342,7 +351,7 @@
  * \endcode
  *
  * \subsection features_cross   2.6. Cross-Platform Support
- * <img src="../icon_windows.png" align="left" title="(c) Game Jolt" alt="Windows Logo"> <img src="../icon_linux.png" align="left" title="(c) Game Jolt" alt="Linux Logo"><img src="../icon_osx.png" align="left" title="(c) Game Jolt" alt="OSX Logo"><br clear="all"><br clear="all">
+ * <img src="../icon_windows.png" align="left" title="(c) Game Jolt" alt="Windows Logo"> <img src="../icon_osx.png" align="left" title="(c) Game Jolt" alt="OSX Logo"> <img src="../icon_linux.png" align="left" title="(c) Game Jolt" alt="Linux Logo"><br clear="all"><br clear="all">
  * This library is developed and tested with Windows, Linux and OSX. The cURL library for Windows and Linux 64-bit is enclosed to the project files.\n
  * Thanks to <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a> for adding OSX support.
  *
@@ -378,7 +387,7 @@
  *   3. This notice may not be removed or altered from any source\n
  *   distribution.\n
  *
- *   4. <b>This software may only be used within the <a href="http://gamejolt.com/terms/" target="_blank">terms of Game Jolt</a>.</b>
+ *   4. This software may only be used within the <a href="http://gamejolt.com/terms/" target="_blank">terms of Game Jolt</a>.
  */
 
 /*! \page update_notes Update Notes

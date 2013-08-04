@@ -1,6 +1,8 @@
 #include "Base64.h"
 
-#include <stdlib.h>
+#ifdef __APPLE__
+    #include <stdlib.h>
+#endif
 
 /**
  * characters used for Base64 encoding

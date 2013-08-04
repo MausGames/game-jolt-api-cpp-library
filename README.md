@@ -12,7 +12,7 @@ And if your game is written in C++, then **this library is able to connect your 
 
 # Download
 
-The current library is available from [here][3] (or from the repo) and contains all necessary files for **Windows** and **Linux 64-bit**. For OSX you may need to download the latest [cURL library][4].  
+The current library is available from [here][3] (or from the repo) and contains all necessary files for **Windows** and **Linux 64-bit**. For **OSX** you may need to download the latest [cURL library][4].  
 You also need to **create an account** and **upload your game to Game Jolt** to retrieve a game ID and a private key.
 
 Documentation for the library can be found in the download or [here][5].
