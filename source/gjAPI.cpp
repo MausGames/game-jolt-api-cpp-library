@@ -262,7 +262,7 @@ void gjAPI::gjInterTrophy::SetSecret(const int* piIDList, const size_t &iNum)
     for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
         it->second->__SetSecret(false);
     for(auto it = m_aiSecret.begin(); it != m_aiSecret.end(); ++it)
-        m_apTrophy[(*it)]->__SetSecret(true);
+        if(m_apTrophy.count(*it)) m_apTrophy[(*it)]->__SetSecret(true);
 }
 
 
@@ -282,7 +282,7 @@ void gjAPI::gjInterTrophy::SetHidden(const int* piIDList, const size_t &iNum)
 
     // apply hidden attribute and remove all hidden trophy objects
     for(auto it = m_aiHidden.begin(); it != m_aiHidden.end(); ++it)
-        m_apTrophy.erase(m_apTrophy.find((*it)));
+        if(m_apTrophy.count(*it)) m_apTrophy.erase(m_apTrophy.find(*it));
 }
 
 
@@ -1013,7 +1013,7 @@ void gjAPI::UtilCreateFolder(const std::string &sFolder)
     do
     {
         // get next subfolder
-        iPos = sFolder.find('/', iPos+2);
+        iPos = sFolder.find_first_of("/\\", iPos+2);
         const std::string sSubFolder = sFolder.substr(0, iPos);
         
         // create subfolder

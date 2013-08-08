@@ -313,7 +313,7 @@ private:
         //!@{
         /*! Define the way trophies are handled and returned from the interface.
          *  @param  piIDList Array with trophy IDs
-         *  @param  iIDNum   Number of elements in the array */
+         *  @param  iNum     Number of elements in the array */
         void SetSort(const int* piIDList, const size_t &iNum);
         void SetSecret(const int* piIDList, const size_t &iNum);
         void SetHidden(const int* piIDList, const size_t &iNum);
@@ -899,7 +899,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string &
     const bool bNow = psOutput ? true : false;
 
     // create output path
-    const std::string sFileName = (sFileNameOverwrite == "") ? sURL.substr(sURL.rfind('/')+1) : sFileNameOverwrite;
+    const std::string sFileName = (sFileNameOverwrite == "") ? sURL.substr(sURL.find_last_of("/\\")+1) : sFileNameOverwrite;
     const std::string sToFile = sToFolder + "/" + sFileName;
 
     // check for cached file

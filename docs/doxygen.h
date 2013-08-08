@@ -162,6 +162,7 @@
  *     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
  *     API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(int));
  *     
+ *
  *     // define secret trophies
  *     const int iSecret[] = {2546, 2547};
  *     API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(int));

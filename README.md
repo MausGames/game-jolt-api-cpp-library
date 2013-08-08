@@ -1,4 +1,4 @@
-![Game Jolt][6]
+![Game Jolt](http://www.maus-games.at/site/images/additional/gamejolt/gamejolt_cpp_3.png)
 
 # Description
 
@@ -22,4 +22,3 @@ Documentation for the library can be found in the download or [here][5].
 [3]: http://gamejolt.com/games/other/game-jolt-api-c-library/15490/
 [4]: http://curl.haxx.se/
 [5]: http://www.maus-games.at/files/gamejolt/html/
-[6]: http://www.maus-games.at/site/images/additional/gamejolt/gamejolt_cpp_3.png
