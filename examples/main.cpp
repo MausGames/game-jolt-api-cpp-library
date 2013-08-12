@@ -15,15 +15,17 @@ public:
             gjTrophy* pTrophy = (*it);
 
             // download trophy thumbnails (parallel non-blocking download of all images)
-            std::cout << "[Trophy]  Trophy <" << pTrophy->GetID() << "> \"" << pTrophy->GetTitle() << ":" << pTrophy->GetDescription() << "\"" << std::endl;
+            std::cout << "[Trophy]  Trophy <" << pTrophy->GetID() << ":" << pTrophy->GetSort() << "> \"" << pTrophy->GetTitle() << ":" << pTrophy->GetDescription() << "\"" << std::endl;
             pTrophy->DownloadThumbnailCall("pictures/trophies", this, &TestTrophy::InitTrophyImage, pTrophy);
         }
     }
 
     void InitTrophyImage(const std::string &sPath, void* pData)
     {
+        gjTrophy* pTrophy = ((gjTrophy*)pData);
+
         // show finished thumbnail download
-        std::cout << "[Trophy]   Trophy <" << ((gjTrophy*)pData)->GetID() << "> Thumbnail <" << sPath << ">" << std::endl;
+        std::cout << "[Trophy]   Trophy <" << pTrophy->GetID() << ":" << pTrophy->GetSort() << "> Thumbnail <" << sPath << ">" << std::endl;
     }
 };
 
@@ -78,15 +80,15 @@ public:
 
 
 // ****************************************************************
-#define TEST_DATA_ITEM_SIZE 1000  // *4 (long)
+#define TEST_DATA_ITEM_SIZE 1000  // *4 (int)
 class TestDataItem
 {
 private:
-    long* m_aiTestData;
+    int* m_aiTestData;
 
 
 public:
-    TestDataItem()  {m_aiTestData = new long[TEST_DATA_ITEM_SIZE];}
+    TestDataItem()  {m_aiTestData = new int[TEST_DATA_ITEM_SIZE];}
     ~TestDataItem() {SAFE_DELETE_ARRAY(m_aiTestData)}
 
     void SetData(const gjDataItemPtr &pDataItem, void* pData)
@@ -95,7 +97,7 @@ public:
         std::cout << "[Data] Data Set" << std::endl;
 
         // retrieve data again
-        pDataItem->GetDataBase64Call(m_aiTestData, sizeof(long)*TEST_DATA_ITEM_SIZE, this, &TestDataItem::GetData, pDataItem);
+        pDataItem->GetDataBase64Call(m_aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, this, &TestDataItem::GetData, pDataItem);
     }
 
     void GetData(const gjVoidPtr &pTestData, void* pData)
@@ -103,7 +105,7 @@ public:
         // show finished Base64 data retrieve
         std::cout << "[Data]  Data Get" << std::endl;
 
-        for(long i = 0; i < TEST_DATA_ITEM_SIZE; ++i) 
+        for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i) 
         {
             if(m_aiTestData[i] != i)
                 std::cout << "[Data]   Error getting data" << std::endl;
@@ -144,12 +146,12 @@ int main()
     API.InterScore()->FetchScoreTablesCall(&testScoreAndUserObject, &TestScoreAndUser::InitScoreTable, NULL);
 
     // test data store
-    long* aiTestData = new long[TEST_DATA_ITEM_SIZE];
-    for(long i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
+    int* aiTestData = new int[TEST_DATA_ITEM_SIZE];
+    for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
         aiTestData[i] = i;
 
     TestDataItem testDataItemObject;
-    API.InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, sizeof(long)*TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
+    API.InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
 
     // main loop
     const time_t iMaxTime = time(NULL) + 3;

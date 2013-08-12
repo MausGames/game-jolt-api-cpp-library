@@ -9,6 +9,7 @@ gjTrophy::gjTrophy(const gjData &aTrophyData, gjAPI* pAPI)
 , m_sDescription  (SAFE_MAP_GET(aTrophyData, "description"))
 , m_sDifficulty   (SAFE_MAP_GET(aTrophyData, "difficulty"))
 , m_sImageURL     (SAFE_MAP_GET(aTrophyData, "image_url"))
+, m_iSort         (0)
 , m_bSecret       (false)
 , m_pAPI          (pAPI)
 {
@@ -35,6 +36,8 @@ gjTrophy::gjTrophy(const gjTrophy& that)
 , m_iDifficultyValue (that.m_iDifficultyValue)
 , m_sImageURL        (that.m_sImageURL)
 , m_sAchievedDate    (that.m_sAchievedDate)
+, m_iSort            (that.m_iSort)
+, m_bSecret          (that.m_bSecret)
 , m_pAPI             (that.m_pAPI)
 {
 }
@@ -48,6 +51,8 @@ gjTrophy& gjTrophy::operator = (const gjTrophy& that)
     m_iDifficultyValue = that.m_iDifficultyValue; 
     m_sImageURL        = that.m_sImageURL; 
     m_sAchievedDate    = that.m_sAchievedDate; 
+    m_iSort            = that.m_iSort;
+    m_bSecret          = that.m_bSecret;
     m_pAPI             = that.m_pAPI;
 
     return *this;
@@ -66,12 +71,14 @@ int gjTrophy::__UpdateDataCallback(const std::string &sData, void* pAdd, gjTroph
         return GJ_REQUEST_FAILED;
     }
 
+    const int iSort    = m_iSort;
     const bool bSecret = m_bSecret;
 
     // copy new trophy over old trophy
     gjTrophy NewTrophy(aaReturn[0], m_pAPI);
     *this = NewTrophy;
 
+    m_iSort   = iSort;
     m_bSecret = bSecret;
 
     if(pOutput) (*pOutput) = this;

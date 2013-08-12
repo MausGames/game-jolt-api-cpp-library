@@ -20,6 +20,7 @@ private:
     std::string m_sImageURL;       //!< URL of the thumbnail
     std::string m_sAchievedDate;   //!< time string when the trophy was achieved (e.g. 4 weeks ago)
 
+    int m_iSort;                   //!< logical sort value within the full trophy list (0 = not sorted)
     bool m_bSecret;                //!< secret trophy (may return different thumbnail and description)
 
     gjAPI* m_pAPI;                 //!< main interface access pointer
@@ -81,6 +82,7 @@ public:
     inline const int&         GetDifficultyValue()const {return m_iDifficultyValue;}   //!< \copybrief m_iDifficultyValue
     inline const std::string& GetImageURLTrue()const    {return m_sImageURL;}          //!< \copybrief m_sImageURL
     inline const std::string& GetAchievedDate()const    {return m_sAchievedDate;}      //!< \copybrief m_sAchievedDate
+    inline const int&         GetSort()const            {return m_iSort;}              //!< \copybrief m_iSort
     inline const bool&        GetSecret()const          {return m_bSecret;}            //!< \copybrief m_bSecret
     /*! */ //!@}
 
@@ -118,6 +120,7 @@ private:
 
     /*! @name Set Attributes */
     //!@{
+    inline void __SetSort(const int &iSort)      {m_iSort = iSort;}
     inline void __SetSecret(const bool &bSecret) {m_bSecret = bSecret;}
     /*! */ //!@}
 };

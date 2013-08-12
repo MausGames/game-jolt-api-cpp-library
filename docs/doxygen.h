@@ -42,7 +42,7 @@
  *
  * \subsection introduction_setup   1.1. Setup
  *
- * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> (or <a href="http://www.maus-games.at/files/gamejolt/GameJoltAPI_cpp_v07a.zip" target="_blank">here</a>) and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
+ * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> (or <a href="http://www.maus-games.at/site/other/game-jolt-api-cpp-library/info" target="_blank">here</a>) and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.\n
  *
  * \subsection introduction_update   1.2. Update Notes

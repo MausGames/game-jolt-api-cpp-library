@@ -235,12 +235,21 @@ void gjAPI::gjInterTrophy::ClearCache(const bool &bFull)
 /* define layout of the returned trophy list */
 void gjAPI::gjInterTrophy::SetSort(const int* piIDList, const size_t &iNum)
 {
-    // clear sort list
-    m_aiSort.clear();
+    if(iNum)
+    {
+        // clear sort list
+        m_aiSort.clear();
 
-    // add IDs to sort list
-    for(size_t i = 0; i < iNum; ++i)
-        m_aiSort.push_back(piIDList[i]);
+        // add IDs to sort list
+        for(size_t i = 0; i < iNum; ++i)
+            m_aiSort.push_back(piIDList[i]);
+    }
+
+    // apply sort attribute
+    for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+        it->second->__SetSort(0);
+    for(size_t i = 0; i < m_aiSort.size(); ++i)
+        if(m_apTrophy.count(m_aiSort[i])) m_apTrophy[m_aiSort[i]]->__SetSort(int(i+1));
 }
 
 
@@ -356,7 +365,8 @@ int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrop
         else m_apTrophy[iID] = pNewTrophy;
     }
 
-    // apply secret and hidden attribute
+    // apply attributes
+    this->SetSort(NULL, 0);
     this->SetSecret(NULL, 0);
     this->SetHidden(NULL, 0);
 

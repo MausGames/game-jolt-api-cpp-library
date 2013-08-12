@@ -3,6 +3,11 @@
 #ifdef __APPLE__
     #include <stdlib.h>
 #endif
+#ifdef __MINGW32__
+    #include <cstdlib>
+    #include <cstring>
+    #include <math.h>
+#endif
 
 /**
  * characters used for Base64 encoding

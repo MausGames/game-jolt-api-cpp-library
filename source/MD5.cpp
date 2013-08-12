@@ -36,6 +36,11 @@ documentation and/or software.
 #ifdef __APPLE__
     #include <sstream>
 #endif
+#ifdef __MINGW32__
+    #include <cstdlib>
+    #include <cstring>
+    #include <math.h>
+#endif
 
 // Constants for MD5Transform routine.
 #define S11 7
