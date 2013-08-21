@@ -1,9 +1,9 @@
 #include "Base64.h"
 
-#ifdef __APPLE__
+#if defined(__APPLE__)
     #include <stdlib.h>
 #endif
-#ifdef __MINGW32__
+#if defined(__MINGW32__) || defined(__CYGWIN__)
     #include <cstdlib>
     #include <cstring>
     #include <math.h>

@@ -33,11 +33,12 @@ documentation and/or software.
 /* interface header */
 #include "MD5.h"
 
-#ifdef __APPLE__
+#if defined(__APPLE__)
     #include <sstream>
 #endif
-#ifdef __MINGW32__
+#if defined(__MINGW32__) || defined(__CYGWIN__)
     #include <cstdlib>
+    #include <cstdio>
     #include <cstring>
     #include <math.h>
 #endif
