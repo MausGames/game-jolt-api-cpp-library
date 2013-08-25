@@ -45,6 +45,8 @@
  * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> (or <a href="http://www.maus-games.at/site/other/game-jolt-api-cpp-library/info" target="_blank">here</a>) and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.\n
  *
+ * All source files are distributed raw. You simply need to add them to your project build, compile them, and link with the cURL library.
+ *
  * \subsection introduction_update   1.2. Update Notes
  *
  * Current <b>Update Notes</b> are available <a href="update_notes.html" >here</a>.
@@ -392,6 +394,12 @@
  */
 
 /*! \page update_notes Update Notes
+ *
+ * <ul>
+ *      <li>implemented trophy sorting
+ *      <li>implemented handling of trophy attributes (secret, hidden)
+ *      <li>added MinGW support and Code::Blocks example project
+ * </ul>
  *
  * v0.8.1a (2013-08-02)
  * ------------------

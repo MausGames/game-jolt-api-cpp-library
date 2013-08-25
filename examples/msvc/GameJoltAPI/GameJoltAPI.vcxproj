@@ -42,13 +42,15 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(MSBuildProjectDirectory)\..\..\..\libraries\windows\include;$(MSBuildProjectDirectory)\..\..\..\source;$(IncludePath)</IncludePath>
     <LibraryPath>$(MSBuildProjectDirectory)\..\..\..\libraries\windows;$(LibraryPath)</LibraryPath>
-    <TargetName>GJ_API_example</TargetName>
+    <TargetName>GJ_API_example_debug</TargetName>
+    <OutDir>..\..\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(MSBuildProjectDirectory)\..\..\..\libraries\windows\include;$(MSBuildProjectDirectory)\..\..\..\source;$(IncludePath)</IncludePath>
     <LibraryPath>$(MSBuildProjectDirectory)\..\..\..\libraries\windows;$(LibraryPath)</LibraryPath>
     <TargetName>GJ_API_example</TargetName>
+    <OutDir>..\..\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

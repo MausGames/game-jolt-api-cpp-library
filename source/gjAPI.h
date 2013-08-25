@@ -107,11 +107,11 @@
 #include <string>
 #include <map>
 #include <vector>
-#ifndef _WIN32
+#if defined(_WIN32)
     #include <string.h>
     #include <sys/stat.h>
 #endif
-#ifdef __APPLE__
+#if defined(__APPLE__)
     #include <stdlib.h>
 #endif
 

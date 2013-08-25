@@ -1079,7 +1079,7 @@ void gjAPI::ErrorLogAdd(const std::string &sMsg)
         }
     }
 
-#ifdef _DEBUG
+#if defined(_DEBUG)
     // print message to terminal
     std::cerr << "[!GJ] " << sMsg << std::endl;
 #endif
