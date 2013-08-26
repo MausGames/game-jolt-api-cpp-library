@@ -107,7 +107,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#if defined(_WIN32)
+#if !defined(_WIN32)
     #include <string.h>
     #include <sys/stat.h>
 #endif
@@ -174,7 +174,7 @@ enum GJ_TROPHY_TYPE
 /*! Main interface class of the library to connect with the Game Jolt API.\n
  *  Manages sessions, users, trophies, scores, data items and downloaded files.\n
  *  http://gamejolt.com/api/doc/game/
- *  \brief Main Interface 
+ *  \brief Main Interface
  *  \todo Maybe switch all function parameters from std::string to char*\n
  *        Implement event loop system as third way to do requests\n
  *        Improve offline caching */
@@ -531,10 +531,10 @@ private:
 private:
     int m_iGameID;                               //!< ID to identify the game
     std::string m_sGamePrivateKey;               //!< private key to generate MD5 signature
-                                                 
+
     std::string m_sUserName;                     //!< name of the main user
     std::string m_sUserToken;                    //!< token of the main user
-                                                 
+
     time_t m_iNextPing;                          //!< next ping for the user session
     bool m_bActive;                              //!< current status for the user session
     bool m_bConnected;                           //!< current connection status
@@ -545,13 +545,13 @@ private:
     gjInterDataStore* m_pInterDataStoreGlobal;   //!< global data store Sub-Interface object
     gjInterDataStore* m_pInterDataStoreUser;     //!< user data store Sub-Interface object
     gjInterFile* m_pInterFile;                   //!< file download Sub-Interface object
-    
+
     gjNetwork* m_pNetwork;                       //!< network object
 
     std::string m_sProcGameID;                   //!< already processed/converted game ID
     std::string m_sProcUserName;                 //!< already processed/escaped user name
     std::string m_sProcUserToken;                //!< already processed/escaped user token
-                                                 
+
     std::vector<std::string> m_asLog;            //!< error log
 
 
@@ -618,8 +618,8 @@ public:
      *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
      *          <b>GJ_NETWORK_ERROR</b> if session cannot be established\n
      *          (see #GJ_ERROR) */
-                                                  inline int SendRequestNow(const std::string &sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string));} 
-    template <typename T, typename P, typename D> inline int SendRequestCall(const std::string &sURL, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))                    {return m_pNetwork->SendRequest(sURL, NULL, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);} 
+                                                  inline int SendRequestNow(const std::string &sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string));}
+    template <typename T, typename P, typename D> inline int SendRequestCall(const std::string &sURL, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))                    {return m_pNetwork->SendRequest(sURL, NULL, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     template <typename T, typename P, typename D> inline int SendRequest(const std::string &sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D)) {return m_pNetwork->SendRequest(sURL, psOutput, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     //!@}
 
@@ -729,7 +729,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const int &iID, gjUser
     // send get user request
     std::string sResponse;
     if(m_pNetwork->SendRequest("/users/"
-                               "?game_id=" + m_pAPI->GetProcGameID() + 
+                               "?game_id=" + m_pAPI->GetProcGameID() +
                                "&user_id=" + m_pAPI->UtilIntToString(iID),
                                bNow ? &sResponse : NULL, this, &gjAPI::gjInterUser::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
@@ -758,7 +758,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const std::string &sNa
     // send get user request
     std::string sResponse;
     if(m_pNetwork->SendRequest("/users/"
-                               "?game_id="  + m_pAPI->GetProcGameID() + 
+                               "?game_id="  + m_pAPI->GetProcGameID() +
                                "&username=" + m_pAPI->UtilEscapeString(sName),
                                bNow ? &sResponse : NULL, this, &gjAPI::gjInterUser::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
@@ -801,8 +801,8 @@ template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long &iAch
     // send get trophies request
     std::string sResponse;
     if(m_pNetwork->SendRequest("/trophies/"
-                               "?game_id="    + m_pAPI->GetProcGameID()   + 
-                               "&username="   + m_pAPI->GetProcUserName() + 
+                               "?game_id="    + m_pAPI->GetProcGameID()   +
+                               "&username="   + m_pAPI->GetProcUserName() +
                                "&user_token=" + m_pAPI->GetProcUserToken(),
                                bNow ? &sResponse : NULL, this, &gjAPI::gjInterTrophy::__Process, (void*)iAchieved, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
@@ -888,7 +888,7 @@ template <typename T> int gjAPI::gjInterDataStore::__FetchDataItems(gjDataItemMa
 }
 
 
-// ****************************************************************   
+// ****************************************************************
 /* download a file from any URL */
 template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string &sURL, const std::string &sToFolder, const std::string &sFileNameOverwrite, std::string* psOutput, GJ_NETWORK_OUTPUT(std::string))
 {
@@ -919,7 +919,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string &
 }
 
 
-// ****************************************************************   
+// ****************************************************************
 /* post-include because of generic dependencies */
 #include "gjNetwork.hpp"
 #include "gjUser.h"

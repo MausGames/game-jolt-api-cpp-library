@@ -38,7 +38,7 @@ documentation and/or software.
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <string>
-#if defined(_WIN32)
+#if !defined(_WIN32)
     #include <string.h>
 #endif
 

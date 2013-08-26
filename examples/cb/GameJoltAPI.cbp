@@ -6,7 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Debug Windows">
 				<Option output="../GameJoltAPI_example_debug" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="obj/Debug/" />
@@ -14,9 +14,14 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../../source" />
+					<Add directory="../../libraries/windows/include" />
 				</Compiler>
+				<Linker>
+					<Add library="..\..\libraries\windows\libcurl.lib" />
+				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="Release Windows">
 				<Option output="../GameJoltAPI_example" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="obj/Release/" />
@@ -24,22 +29,50 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="../../source" />
+					<Add directory="../../libraries/windows/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="..\..\libraries\windows\libcurl.lib" />
+				</Linker>
+			</Target>
+			<Target title="Debug Linux">
+				<Option output="../GameJoltAPI_example_debug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../../source" />
+					<Add directory="../../libraries/linux/include" />
+				</Compiler>
+				<Linker>
+					<Add library="..\..\libraries\linux\libcurl.so" />
+				</Linker>
+			</Target>
+			<Target title="Release Linux">
+				<Option output="../GameJoltAPI_example" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="../../source" />
+					<Add directory="../../libraries/linux/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="..\..\libraries\linux\libcurl.so" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
-			<Add directory="../../source" />
-			<Add directory="../../libraries/windows/include" />
 		</Compiler>
-		<Linker>
-			<Add library="..\..\libraries\windows\libcurl.lib" />
-			<Add directory="../../libraries/windows" />
-		</Linker>
 		<Unit filename="../../source/Base64.cpp" />
 		<Unit filename="../../source/Base64.h" />
 		<Unit filename="../../source/MD5.cpp" />
