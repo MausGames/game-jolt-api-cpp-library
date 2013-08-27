@@ -888,11 +888,14 @@ int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
     // traverse input string
     while(std::getline(sStream, sToken))
     {
-        if(sToken.empty()) break;
-
-        // remove redundant newline characters
-        while(sToken.back() == 10 || sToken.back() == 13)
-            sToken.erase(sToken.end()-1); 
+        // remove redundant newline characters safely and without C++11
+        if(sToken.empty()) continue;
+        while(sToken[sToken.size()-1] == 10 || sToken[sToken.size()-1] == 13)
+        {
+           sToken.erase(sToken.end()-1);
+           if(sToken.empty()) break;
+        }
+        if(sToken.empty()) continue;
 
         // separate key and value
         const int iPos           = sToken.find(':');
