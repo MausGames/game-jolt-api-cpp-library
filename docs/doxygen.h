@@ -398,7 +398,8 @@
  * <ul>
  *      <li>implemented trophy sorting
  *      <li>implemented handling of trophy attributes (secret, hidden)
- *      <li>added MinGW support and Code::Blocks example project
+ *      <li>added MinGW support
+ *      <li>added Code::Blocks example project and updated all build files
  * </ul>
  *
  * v0.8.1a (2013-08-02)

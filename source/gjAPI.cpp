@@ -27,7 +27,7 @@ gjAPI::gjInterUser::gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork)
     pNullData["avatar_url"] = GJ_API_AVATAR_DEFAULT;
     m_apUser[0] = new gjUser(pNullData, m_pAPI);
 
-    // create guest user for secure object handling 
+    // create guest user for secure object handling
     gjData pGuestData;
     pGuestData["id"]         = "-1";
     pGuestData["username"]   = "Guest";
@@ -433,7 +433,7 @@ void gjAPI::gjInterTrophy::__LoadOffCache()
 
         // close cache file
         fclose(pFile);
-        
+
         if(!sData.empty())
         {
             // flag offline caching and load offline-cached trophies
@@ -465,13 +465,13 @@ gjAPI::gjInterScore::~gjInterScore()
     // delete all score tables and scores entries
     for(auto it = m_apScoreTable.begin(); it != m_apScoreTable.end(); ++it)
         SAFE_DELETE(it->second)
-    
+
     // clear container
     m_apScoreTable.clear();
 }
 
 
-// ****************************************************************   
+// ****************************************************************
 /* access score table objects directly (may block) */
 gjScoreTable* gjAPI::gjInterScore::GetScoreTable(const int &iID)
 {
@@ -500,7 +500,7 @@ void gjAPI::gjInterScore::ClearCache()
     // delete score tables and scores entries
     for(auto it = m_apScoreTable.begin(); it != m_apScoreTable.end(); ++it)
         SAFE_DELETE(it->second)
-    
+
     // clear container
     m_apScoreTable.clear();
     m_apScoreTable[0] = pNull;
@@ -592,7 +592,7 @@ void gjAPI::gjInterDataStore::ClearCache()
     // delete data store items
     for(auto it = m_apDataItem.begin(); it != m_apDataItem.end(); ++it)
         SAFE_DELETE(it->second)
-    
+
     // clear container
     m_apDataItem.clear();
 }
@@ -720,7 +720,7 @@ gjAPI::gjAPI(const int &iGameID, const std::string &sGamePrivateKey)
     // create sub-interface objects
     m_pInterUser            = new gjInterUser(this, m_pNetwork);
     m_pInterTrophy          = new gjInterTrophy(this, m_pNetwork);
-    m_pInterScore           = new gjInterScore(this, m_pNetwork); 
+    m_pInterScore           = new gjInterScore(this, m_pNetwork);
     m_pInterDataStoreGlobal = new gjInterDataStore(0, this, m_pNetwork);
     m_pInterDataStoreUser   = new gjInterDataStore(1, this, m_pNetwork);
     m_pInterFile            = new gjInterFile(this, m_pNetwork);
@@ -800,13 +800,13 @@ int gjAPI::Login(const bool bSession, const std::string &sUserName, const std::s
         this->ErrorLogAdd("API Error: could not authenticate user <" + sUserName + ">");
         return GJ_REQUEST_FAILED;
     }
-    
+
     // set main user data
     m_sUserName      = sUserName;
     m_sUserToken     = sUserToken;
     m_sProcUserName  = this->UtilEscapeString(m_sUserName);
     m_sProcUserToken = this->UtilEscapeString(m_sUserToken);
-    
+
     // set connection
     m_bConnected = true;
 
@@ -832,7 +832,7 @@ int gjAPI::Login(const bool bSession, std::string sCredPath)
 
     char acName[128], acToken[128];
     char* pcEnd;
-    
+
     // get user name
     fscanf(pFile, "%127[^\n]%*c", acName);
     pcEnd = strchr(acName, 13);
@@ -875,7 +875,7 @@ int gjAPI::Logout()
 }
 
 
-// ****************************************************************   
+// ****************************************************************
 /* parse a valid response string in keypair format */
 int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
 {
@@ -888,7 +888,11 @@ int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
     // traverse input string
     while(std::getline(sStream, sToken))
     {
-        if(sToken.back() == 13) sToken.pop_back(); // fixes problems between windows and linux
+        if(sToken.empty()) break;
+
+        // remove redundant newline characters
+        while(sToken.back() == 10 || sToken.back() == 13)
+            sToken.erase(sToken.end()-1); 
 
         // separate key and value
         const int iPos           = sToken.find(':');
@@ -926,7 +930,7 @@ int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
 }
 
 
-// ****************************************************************   
+// ****************************************************************
 /* parse a valid response string in Dump format */
 int gjAPI::ParseRequestDump(const std::string &sInput, std::string* psOutput)
 {
@@ -960,7 +964,7 @@ void gjAPI::ClearCache()
     m_pInterScore->ClearCache();
     m_pInterDataStoreGlobal->ClearCache();
     m_pInterDataStoreUser->ClearCache();
-    m_pInterFile->ClearCache(); 
+    m_pInterFile->ClearCache();
 }
 
 
@@ -991,7 +995,7 @@ std::string gjAPI::UtilEscapeString(const std::string &sString)
         else
         {
             // convert character to hexadecimal value
-            sOutput += "%" + UtilCharToHex(sString[i]); 
+            sOutput += "%" + UtilCharToHex(sString[i]);
         }
     }
 
@@ -1033,7 +1037,7 @@ void gjAPI::UtilCreateFolder(const std::string &sFolder)
         // get next subfolder
         iPos = sFolder.find_first_of("/\\", iPos+2);
         const std::string sSubFolder = sFolder.substr(0, iPos);
-        
+
         // create subfolder
 #ifdef _WIN32
         CreateDirectoryA(sSubFolder.c_str(), NULL);
@@ -1045,7 +1049,7 @@ void gjAPI::UtilCreateFolder(const std::string &sFolder)
 }
 
 
-// ****************************************************************  
+// ****************************************************************
 /* reset error log */
 void gjAPI::ErrorLogReset()
 {
@@ -1061,7 +1065,7 @@ void gjAPI::ErrorLogReset()
 }
 
 
-// ****************************************************************  
+// ****************************************************************
 /* add error log entry */
 void gjAPI::ErrorLogAdd(const std::string &sMsg)
 {
@@ -1118,9 +1122,9 @@ int gjAPI::__PingSession(const bool &bActive)
 
     // send non-blocking ping request
     if(m_pNetwork->SendRequest("/sessions/ping/"
-                               "?game_id="    + m_sProcGameID    + 
-                               "&username="   + m_sProcUserName  + 
-                               "&user_token=" + m_sProcUserToken + 
+                               "?game_id="    + m_sProcGameID    +
+                               "&username="   + m_sProcUserName  +
+                               "&user_token=" + m_sProcUserToken +
                                "&status="     + sActive,
                                NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
 
