@@ -29,11 +29,11 @@
  * 3. \link credits Credits \endlink\n
  * 3.1. \link credits_libraries Additional Libraries \endlink\n
  * 3.2. \link credits_license Software License \endlink\n
- *   
+ *
  * \section introduction   1. Introduction
  *
  * <a href="http://gamejolt.com" target="_blank">Game Jolt</a> is a host for free independently developed computer games.\n
- * 
+ *
  * As a gamer you are able to play every game on this site for free, rate them with shiny stars, write awesome comments, get trophies and highscores and talk about stuff on the forum or the chat.\n
  * As a developer you can upload your game, add screenshots, embed videos, write news, receive feedback, eat pizza and do other great things.\n
  *
@@ -45,7 +45,8 @@
  * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> (or <a href="http://www.maus-games.at/site/other/game-jolt-api-cpp-library/info" target="_blank">here</a>) and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.\n
  *
- * All source files are distributed raw. You simply need to add them to your project build, compile them, and link with the cURL library.
+ * All source files are distributed raw. You simply need to add them to your project build, compile them, and link with the cURL library.\n
+ * <b>Supported compilers:</b> GCC/MinGW 4.7.2+ (-std=c++11), MSVC 10.0+
  *
  * \subsection introduction_update   1.2. Update Notes
  *
@@ -61,7 +62,7 @@
  *
  * \code{.cpp}
  * #include "gjAPI.h"
- * 
+ *
  * int main()
  * {
  *     // create API-object and get basic access to Game Jolt
@@ -88,7 +89,7 @@
  * {
  *     // login with specific user and start session
  *     API.Login(true, "UserName", "UserToken");
- * 
+ *
  *
  *     // or login with credentials file (quick play function) and don't start session
  *     API.Login(false);
@@ -162,12 +163,12 @@
  *
  *     // sort trophies
  *     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
- *     API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(int));
- *     
+ *     API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(iSort[0]));
+ *
  *
  *     // define secret trophies
  *     const int iSecret[] = {2546, 2547};
- *     API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(int));
+ *     API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(iSecret[0]));
  * }
  * \endcode
  *
@@ -313,8 +314,8 @@
  *     std::string sFilePath;
  *     API.InterFile()->DownloadFileNow("URL", "ToFolder/ToSubFolder", "FileNameOverwrite", sFilePath);
  *     myObj.LoadTexture(sFilePath, NULL);
- *     
- *     
+ *
+ *
  *     // download a texture with a callback and use it with my object (does not block)
  *     API.InterFile()->DownloadFileCall("URL", "ToFolder", "FileNameOverwrite", &myObj, &myClass::LoadTexture, NULL);
  * }
@@ -383,10 +384,10 @@
  *   claim that you wrote the original software. If you use this software\n
  *   in a product, an acknowledgment in the product documentation would be\n
  *   appreciated but is not required.\n
- *   
+ *
  *   2. Altered source versions must be plainly marked as such, and must not be\n
  *   misrepresented as being the original software.\n
- *   
+ *
  *   3. This notice may not be removed or altered from any source\n
  *   distribution.\n
  *
@@ -414,7 +415,7 @@
  *      <li>implemented POST request for larger data uploads
  *      <li>implemented handling of identical requests
  *      <li>implemented connection and request timeouts
- *      <li>implemented empty error objects to prevent crashes  
+ *      <li>implemented empty error objects to prevent crashes
  *      <li>improved linux compatibility
  *      <li>improved error handling and logging
  *      <li>improved data caching and prefetching

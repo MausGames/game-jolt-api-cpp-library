@@ -73,6 +73,7 @@
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../../docs/doxygen.h" />
 		<Unit filename="../../source/Base64.cpp" />
 		<Unit filename="../../source/Base64.h" />
 		<Unit filename="../../source/MD5.cpp" />

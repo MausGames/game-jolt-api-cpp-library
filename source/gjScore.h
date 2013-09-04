@@ -119,8 +119,8 @@ public:
 private:
     /*! @name Disable Copy */
     //!@{
-    gjScoreTable(const gjScoreTable& that) {}
-    gjScoreTable& operator = (const gjScoreTable& that) {return *this;}
+    gjScoreTable(const gjScoreTable& that);
+    gjScoreTable& operator = (const gjScoreTable& that);
     //!@}
 
     /*! @name Superior Request Functions */
@@ -190,7 +190,7 @@ public:
     inline const gjScoreTable* GetScoreTable()const {return m_pScoreTable;}   //!< \copybrief m_pScoreTable
     /*! */ //!@}
 
-    /*! @name Ge tBase64 Attributes */
+    /*! @name Get Base64 Attributes */
     //!@{
     inline int GetExtraDataBase64(void* pTarget, const size_t &iSize)const {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; base64_decode(m_sExtraData.c_str(), (unsigned char*)pTarget, iSize); return GJ_OK;}   //!< \copybrief m_sExtraData
     /*! */ //!@}
@@ -204,8 +204,8 @@ public:
 private:
     /*! @name Disable Copy */
     //!@{
-    gjScore(const gjScore& that) {}
-    gjScore& operator = (const gjScore& that) {return *this;}
+    gjScore(const gjScore& that);
+    gjScore& operator = (const gjScore& that);
     //!@}
 };
 

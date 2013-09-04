@@ -124,8 +124,8 @@ public:
 private:
     /*! @name Disable Copy */
     //!@{
-    gjDataItem(const gjDataItem& that) {}
-    gjDataItem& operator = (const gjDataItem& that) {return *this;}
+    gjDataItem(const gjDataItem& that);
+    gjDataItem& operator = (const gjDataItem& that);
     //!@}
 
     /*! @name Superior Request Functions */

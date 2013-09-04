@@ -192,8 +192,8 @@ public:
 private:
     /*! @name Disable Copy */
     //!@{
-    gjNetwork(const gjNetwork& that) {}
-    gjNetwork& operator = (const gjNetwork& that) {return *this;}
+    gjNetwork(const gjNetwork& that);
+    gjNetwork& operator = (const gjNetwork& that);
     //!@}
 
     /*! @name Management Functions */

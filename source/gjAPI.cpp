@@ -356,7 +356,7 @@ int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrop
     }
 
     // offline-cache trophy data
-    this->__SaveOffCache(sData);
+    if(!aaReturn.empty()) this->__SaveOffCache(sData);
     if(m_iCache == 0) m_iCache = 2;
 
     // create and cache trophy objects
@@ -890,9 +890,9 @@ int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
     {
         // remove redundant newline characters safely and without C++11
         if(sToken.empty()) continue;
-        while(sToken[sToken.size()-1] == 10 || sToken[sToken.size()-1] == 13)
+        while(*(sToken.end()-1) == 10 || *(sToken.end()-1) == 13) // .back()
         {
-           sToken.erase(sToken.end()-1);
+           sToken.erase(sToken.end()-1); // .pop_back()
            if(sToken.empty()) break;
         }
         if(sToken.empty()) continue;
@@ -1020,12 +1020,13 @@ std::string gjAPI::UtilCharToHex(const char &cChar)
 
 
 // ****************************************************************
-/* simply convert an integer into a string (C++98) */
+/* simply convert an integer into a string */
 std::string gjAPI::UtilIntToString(const int &iInt)
 {
-    std::ostringstream sOut;
-    sOut << iInt;
-    return sOut.str();
+    char acBuffer[32];
+    sprintf(acBuffer, "%d", iInt);
+
+    return acBuffer;
 }
 
 
@@ -1053,6 +1054,21 @@ void gjAPI::UtilCreateFolder(const std::string &sFolder)
 
 
 // ****************************************************************
+/* get timestamp as string */
+std::string gjAPI::UtilTimestamp(const time_t iTime)
+{
+    // format the time value
+    tm* pFormat = localtime(&iTime);
+
+    // create output
+    char acBuffer[32];
+    sprintf(acBuffer, "%02d:%02d:%02d", pFormat->tm_hour, pFormat->tm_min, pFormat->tm_sec);
+
+    return acBuffer;
+}
+
+
+// ****************************************************************
 /* reset error log */
 void gjAPI::ErrorLogReset()
 {
@@ -1072,8 +1088,10 @@ void gjAPI::ErrorLogReset()
 /* add error log entry */
 void gjAPI::ErrorLogAdd(const std::string &sMsg)
 {
+    const std::string sTimeMsg = "[" + this->UtilTimestamp() + "] " + sMsg;
+
     // add message
-    m_asLog.push_back(sMsg);
+    m_asLog.push_back(sTimeMsg);
 
     if(GJ_API_LOGFILE)
     {
@@ -1081,14 +1099,14 @@ void gjAPI::ErrorLogAdd(const std::string &sMsg)
         FILE* pFile = fopen(GJ_API_LOGFILE_NAME, "a");
         if(pFile)
         {
-            fprintf(pFile, "%s\n", sMsg.c_str());
+            fprintf(pFile, "%s\n", sTimeMsg.c_str());
             fclose(pFile);
         }
     }
 
 #if defined(_DEBUG)
     // print message to terminal
-    std::cerr << "[!GJ] " << sMsg << std::endl;
+    std::cerr << "(!GJ) " << sTimeMsg << std::endl;
 #endif
 }
 

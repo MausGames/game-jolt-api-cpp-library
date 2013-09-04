@@ -68,11 +68,8 @@
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
-#define GJ_API_OFFCACHE_USER       true // currently unused
 #define GJ_API_OFFCACHE_TROPHY     true
-#define GJ_API_OFFCACHE_SCORE      true // currently unused
-#define GJ_API_OFFCACHE_DATASTORE  true // currently unused
-#define GJ_API_OFFCACHE_FILE       true // currently unused
+#define GJ_API_OFFCACHE_FILE       true
 #define GJ_API_OFFCACHE_NAME       "gjapi_cache.dat"
 /* --- configuration --- */
 
@@ -650,6 +647,7 @@ public:
     std::string UtilCharToHex(const char &cChar);
     std::string UtilIntToString(const int &iInt);
     void        UtilCreateFolder(const std::string &sFolder);
+    std::string UtilTimestamp(const time_t iTime = time(NULL));
     //!@}
 
     /*! @name Error Log */
@@ -695,8 +693,8 @@ public:
 private:
     /*! @name Disable Copy */
     //!@{
-    gjAPI(const gjAPI& that) {}
-    gjAPI& operator = (const gjAPI& that) {return *this;}
+    gjAPI(const gjAPI& that);
+    gjAPI& operator = (const gjAPI& that);
     //!@}
 
     /*! @name Session Functions */

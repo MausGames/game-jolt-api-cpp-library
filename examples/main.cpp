@@ -105,7 +105,7 @@ public:
         // show finished Base64 data retrieve
         std::cout << "[Data]  Data Get" << std::endl;
 
-        for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i) 
+        for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
         {
             if(m_aiTestData[i] != i)
                 std::cout << "[Data]   Error getting data" << std::endl;
@@ -125,13 +125,13 @@ int main()
 
     // set trophy attributes
     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
-    API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(int));
+    API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(iSort[0]));
 
     const int iSecret[] = {2546, 2547};
-    API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(int));
+    API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(iSecret[0]));
 
     const int iHidden[] = {3105};
-    API.InterTrophy()->SetHidden(iHidden, sizeof(iHidden)/sizeof(int));
+    API.InterTrophy()->SetHidden(iHidden, sizeof(iHidden)/sizeof(iHidden[0]));
 
     // login with user
     if(API.Login(true) != GJ_OK)
