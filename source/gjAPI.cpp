@@ -1007,15 +1007,16 @@ std::string gjAPI::UtilEscapeString(const std::string &sString)
 
 
 // ****************************************************************
-/* convert a character into his hexadecimal value (C++98) */
+/* convert a character into his hexadecimal value */
 std::string gjAPI::UtilCharToHex(const char &cChar)
 {
     int iValue = (int)cChar;
     if(iValue < 0) iValue += 256;
 
-    std::ostringstream sOut;
-    sOut << std::hex << iValue;
-    return sOut.str();
+    char acBuffer[8];
+    sprintf(acBuffer, "%02X", iValue);
+
+    return acBuffer;
 }
 
 
@@ -1061,7 +1062,7 @@ std::string gjAPI::UtilTimestamp(const time_t iTime)
     tm* pFormat = localtime(&iTime);
 
     // create output
-    char acBuffer[32];
+    char acBuffer[16];
     sprintf(acBuffer, "%02d:%02d:%02d", pFormat->tm_hour, pFormat->tm_min, pFormat->tm_sec);
 
     return acBuffer;

@@ -399,8 +399,11 @@
  * <ul>
  *      <li>implemented trophy sorting
  *      <li>implemented handling of trophy attributes (secret, hidden)
+ *      <li>implemented timestamp for logging purposes
+ *      <li>improved some support-functions
+ *      <li>fixed cache-file creation without data
  *      <li>added MinGW support
- *      <li>added Code::Blocks example project and updated all build files
+ *      <li>added Code::Blocks and NetBeans example project
  * </ul>
  *
  * v0.8.1a (2013-08-02)
