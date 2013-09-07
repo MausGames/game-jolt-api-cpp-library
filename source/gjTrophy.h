@@ -7,13 +7,13 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef TROPHY_H
-#define TROPHY_H
+#ifndef GUARD_GJ_TROPHY_H
+#define GUARD_GJ_TROPHY_H
 
 
 // ****************************************************************
 /*! Trophy object class.\n
- *  http://gamejolt.com/api/doc/game/trophies/  
+ *  http://gamejolt.com/api/doc/game/trophies/
  *  \brief Trophy Object */
 class gjTrophy
 {
@@ -35,10 +35,10 @@ private:
 
 
 public:
-    gjTrophy(const gjData &aTrophyData, gjAPI* pAPI);
+    gjTrophy(const gjData& aTrophyData, gjAPI* pAPI);
 
     /*! @name Update Data Request */
-    //!@{
+    //! @{
     /*! Update data of this trophy through an API request.
      *  \pre    Login required
      *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
@@ -49,10 +49,10 @@ public:
                           inline int UpdateDataNow()                                {return this->__UpdateData(true, GJ_NETWORK_NULL_API(gjTrophyPtr));}
                           inline int UpdateDataCall()                               {return this->__UpdateData(false, GJ_NETWORK_NULL_API(gjTrophyPtr));}
     template <typename T> inline int UpdateDataCall(GJ_NETWORK_OUTPUT(gjTrophyPtr)) {return this->__UpdateData(false, GJ_NETWORK_OUTPUT_FW);}
-    //!@}
+    //! @}
 
     /*! @name Achieve Request */
-    //!@{
+    //! @{
     /*! Achieve this trophy through an API request.\n
      *  Does nothing, if trophy was already achieved.
      *  \pre    Login required
@@ -65,10 +65,10 @@ public:
                           inline int AchieveNow()                                {return this->__Achieve(true, GJ_NETWORK_NULL_API(gjTrophyPtr));}
                           inline int AchieveCall()                               {return this->__Achieve(false, GJ_NETWORK_NULL_API(gjTrophyPtr));}
     template <typename T> inline int AchieveCall(GJ_NETWORK_OUTPUT(gjTrophyPtr)) {return this->__Achieve(false, GJ_NETWORK_OUTPUT_FW);}
-    //!@}
+    //! @}
 
     /*! @name Download Thumbnail */
-    //!@{
+    //! @{
     /*! Download the thumbnail of this trophy.\n
      *  Receive the cached local path of the file.
      *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
@@ -77,12 +77,12 @@ public:
      *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
      *          <b>GJ_INVALID_INPUT</b> if target folder string is empty\n
      *          (see #GJ_ERROR) */
-                          inline int DownloadThumbnailNow(const std::string &sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(this->GetImageURL(), sToFolder, "", psOutput);}
-    template <typename T> inline int DownloadThumbnailCall(const std::string &sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(this->GetImageURL(), sToFolder, "", GJ_NETWORK_OUTPUT_FW);}
-    //!@}
+                          inline int DownloadThumbnailNow(const std::string& sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(this->GetImageURL(), sToFolder, "", psOutput);}
+    template <typename T> inline int DownloadThumbnailCall(const std::string& sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(this->GetImageURL(), sToFolder, "", GJ_NETWORK_OUTPUT_FW);}
+    //! @}
 
     /*! @name Get Attributes */
-    //!@{
+    //! @{
     inline const int&         GetID()const              {return m_iID;}                //!< \copybrief m_iID
     inline const std::string& GetTitle()const           {return m_sTitle;}             //!< \copybrief m_sTitle
     inline const std::string& GetDescriptionTrue()const {return m_sDescription;}       //!< \copybrief m_sDescription
@@ -92,59 +92,59 @@ public:
     inline const std::string& GetAchievedDate()const    {return m_sAchievedDate;}      //!< \copybrief m_sAchievedDate
     inline const int&         GetSort()const            {return m_iSort;}              //!< \copybrief m_iSort
     inline const bool&        GetSecret()const          {return m_bSecret;}            //!< \copybrief m_bSecret
-    /*! */ //!@}
+    /*! */ //! @}
 
     /*! @name Get Secret Modified Attributes */
-    //!@{
+    //! @{
     inline const std::string GetDescription()const {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TEXT_SECRET : m_sDescription;}   //!< \copybrief m_sDescription
     inline const std::string GetImageURL()const    {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TROPHY_SECRET : m_sImageURL;}    //!< \copybrief m_sImageURL
-    /*! */ //!@}
+    /*! */ //! @}
 
     /*! @name Check Status */
-    //!@{
+    //! @{
     inline bool IsAchieved()const {return m_sAchievedDate.empty() ? false : true;}
-    //!@}
+    //! @}
 
 
 private:
     /*! @name Disable Copy */
-    //!@{
+    //! @{
     gjTrophy(const gjTrophy& that);
     gjTrophy& operator = (const gjTrophy& that);
     friend class gjAPI;
-    //!@}
+    //! @}
 
     /*! @name Superior Request Functions */
-    //!@{
-    template <typename T> int __UpdateData(const bool &bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
-    template <typename T> int __Achieve(const bool &bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
-    //!@}
+    //! @{
+    template <typename T> int __UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
+    template <typename T> int __Achieve(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
+    //! @}
 
     /*! @name Callback Functions */
-    //!@{
-    int __UpdateDataCallback(const std::string &sData, void* pAdd, gjTrophyPtr* pOutput);
-    int __AchieveCallback(const std::string &sData, void* pAdd, gjTrophyPtr* ppOutput);
-    //!@}
+    //! @{
+    int __UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput);
+    int __AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput);
+    //! @}
 
     /*! @name Set Attributes */
-    //!@{
-    inline void __SetSort(const int &iSort)      {m_iSort = iSort;}
-    inline void __SetSecret(const bool &bSecret) {m_bSecret = bSecret;}
-    /*! */ //!@}
+    //! @{
+    inline void __SetSort(const int& iSort)      {m_iSort = iSort;}
+    inline void __SetSecret(const bool& bSecret) {m_bSecret = bSecret;}
+    /*! */ //! @}
 };
 
 
 // ****************************************************************
 /* update data of this trophy */
-template <typename T> int gjTrophy::__UpdateData(const bool &bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
+template <typename T> int gjTrophy::__UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
 {
     if(!m_pAPI->IsConnected()) return GJ_NOT_CONNECTED;
 
     // send get trophies request
     std::string sResponse;
     if(m_pAPI->SendRequest("/trophies/"
-                           "?game_id="    + m_pAPI->GetProcGameID()    + 
-                           "&username="   + m_pAPI->GetProcUserName()  + 
+                           "?game_id="    + m_pAPI->GetProcGameID()    +
+                           "&username="   + m_pAPI->GetProcUserName()  +
                            "&user_token=" + m_pAPI->GetProcUserToken() +
                            "&trophy_id="  + m_pAPI->UtilIntToString(m_iID),
                            bNow ? &sResponse : NULL, this, &gjTrophy::__UpdateDataCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
@@ -156,7 +156,7 @@ template <typename T> int gjTrophy::__UpdateData(const bool &bNow, GJ_NETWORK_OU
 
 // ****************************************************************
 /* achieve this trophy */
-template <typename T> int gjTrophy::__Achieve(const bool &bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
+template <typename T> int gjTrophy::__Achieve(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
 {
     // cancel request if already achieved
     if(this->IsAchieved()) return GJ_REQUEST_CANCELED;
@@ -171,9 +171,9 @@ template <typename T> int gjTrophy::__Achieve(const bool &bNow, GJ_NETWORK_OUTPU
     // send achieve trophy request
     std::string sResponse;
     if(m_pAPI->SendRequest("/trophies/add-achieved/"
-                           "?game_id="    + m_pAPI->GetProcGameID()    + 
-                           "&username="   + m_pAPI->GetProcUserName()  + 
-                           "&user_token=" + m_pAPI->GetProcUserToken() + 
+                           "?game_id="    + m_pAPI->GetProcGameID()    +
+                           "&username="   + m_pAPI->GetProcUserName()  +
+                           "&user_token=" + m_pAPI->GetProcUserToken() +
                            "&trophy_id="  + m_pAPI->UtilIntToString(m_iID),
                            bNow ? &sResponse : NULL, this, &gjTrophy::__AchieveCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
@@ -182,4 +182,4 @@ template <typename T> int gjTrophy::__Achieve(const bool &bNow, GJ_NETWORK_OUTPU
 }
 
 
-#endif
+#endif /* GUARD_GJ_TROPHY_H */

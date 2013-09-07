@@ -359,7 +359,7 @@ LOOKUP_CACHE_SIZE      = 0
 # Private class members and static file members will be hidden unless 
 # the EXTRACT_PRIVATE respectively EXTRACT_STATIC tags are set to YES
 
-EXTRACT_ALL            = YES
+EXTRACT_ALL            = NO
 
 # If the EXTRACT_PRIVATE tag is set to YES all private members of a class 
 # will be included in the documentation.
@@ -834,7 +834,7 @@ SOURCE_BROWSER         = NO
 # Setting the INLINE_SOURCES tag to YES will include the body 
 # of functions and classes directly in the documentation.
 
-INLINE_SOURCES         = YES
+INLINE_SOURCES         = NO
 
 # Setting the STRIP_CODE_COMMENTS tag to YES (the default) will instruct 
 # doxygen to hide any special comment blocks from generated source code 
@@ -1204,7 +1204,7 @@ GENERATE_TREEVIEW      = NO
 # documentation. Note that a value of 0 will completely suppress the enum 
 # values from appearing in the overview section.
 
-ENUM_VALUES_PER_LINE   = 4
+ENUM_VALUES_PER_LINE   = 1
 
 # If the treeview is enabled (see GENERATE_TREEVIEW) then this tag can be 
 # used to set the initial width (in pixels) of the frame in which the tree 

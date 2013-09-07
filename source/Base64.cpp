@@ -11,7 +11,7 @@
 
 /**
  * characters used for Base64 encoding
- */  
+ */
 const char *BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
 /**
@@ -19,7 +19,7 @@ const char *BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
  *
  * @param triple three bytes that should be encoded
  * @param result buffer of four characters where the result is stored
- */  
+ */
 void _base64_encode_triple(unsigned char triple[3], char result[4])
 {
     int tripleValue, i;
@@ -35,7 +35,7 @@ void _base64_encode_triple(unsigned char triple[3], char result[4])
         result[3-i] = BASE64_CHARS[tripleValue%64];
         tripleValue /= 64;
     }
-} 
+}
 
 /**
  * encode an array of bytes using Base64 (RFC 3548)
@@ -45,7 +45,7 @@ void _base64_encode_triple(unsigned char triple[3], char result[4])
  * @param target the target buffer
  * @param targetlen the length of the target buffer
  * @return 1 on success, 0 otherwise
- */  
+ */
 int base64_encode(unsigned char *source, size_t sourcelen, char *target, size_t targetlen)
 {
     /* check if the result will fit in the target buffer */
@@ -79,14 +79,14 @@ int base64_encode(unsigned char *source, size_t sourcelen, char *target, size_t 
     target[0] = 0;
 
     return 1;
-} 
+}
 
 /**
  * determine the value of a base64 encoding character
  *
  * @param base64char the character of which the value is searched
  * @return the value in case of success (0-63), -1 on failure
- */  
+ */
 int _base64_char_value(char base64char)
 {
     if (base64char >= 'A' && base64char <= 'Z')
@@ -100,7 +100,7 @@ int _base64_char_value(char base64char)
     if (base64char == '_')
         return 2*26+11;
     return -1;
-} 
+}
 
 /**
  * decode a 4 char base64 encoded byte triple
@@ -108,7 +108,7 @@ int _base64_char_value(char base64char)
  * @param quadruple the 4 characters that should be decoded
  * @param result the decoded data
  * @return lenth of the result (1, 2 or 3), 0 on failure
- */  
+ */
 int _base64_decode_triple(char quadruple[4], unsigned char *result)
 {
     int i, triple_value, bytes_to_decode = 3, only_equals_yet = 1;
@@ -159,7 +159,7 @@ int _base64_decode_triple(char quadruple[4], unsigned char *result)
     }
 
     return bytes_to_decode;
-} 
+}
 
 /**
  * decode base64 encoded data
@@ -168,7 +168,7 @@ int _base64_decode_triple(char quadruple[4], unsigned char *result)
  * @param target pointer to the target buffer
  * @param targetlen length of the target buffer
  * @return length of converted data on success, -1 otherwise
- */  
+ */
 size_t base64_decode(const char *source, unsigned char *target, size_t targetlen)
 {
     char *src, *tmpptr;
@@ -218,7 +218,7 @@ size_t base64_decode(const char *source, unsigned char *target, size_t targetlen
 
     free(src);
     return converted;
-} 
+}
 
 /** get memory consumption */
 size_t base64_needed(const size_t &iSize) {return 4*size_t(floorf((float(iSize)+2.0f)/3.0f))+1;}

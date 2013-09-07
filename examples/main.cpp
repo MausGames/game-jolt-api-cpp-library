@@ -6,7 +6,7 @@
 class TestTrophy
 {
 public:
-    void InitTrophies(const gjTrophyList &apTrophies, void* pData)
+    void InitTrophies(const gjTrophyList& apTrophies, void* pData)
     {
         // show finished trophy fetch
         std::cout << "[Trophy] Init Trophies" << std::endl;
@@ -20,7 +20,7 @@ public:
         }
     }
 
-    void InitTrophyImage(const std::string &sPath, void* pData)
+    void InitTrophyImage(const std::string& sPath, void* pData)
     {
         gjTrophy* pTrophy = ((gjTrophy*)pData);
 
@@ -34,7 +34,7 @@ public:
 class TestScoreAndUser
 {
 public:
-    void InitScoreTable(const gjScoreTableMap &apScoreTables, void* pData)
+    void InitScoreTable(const gjScoreTableMap& apScoreTables, void* pData)
     {
         // show finished score table fetch
         std::cout << "[Score] Init Score Tables"  << std::endl;
@@ -48,7 +48,7 @@ public:
         }
     }
 
-    void InitScore(const gjScoreList &apScores, void* pData)
+    void InitScore(const gjScoreList& apScores, void* pData)
     {
         // show finished score entry fetch
         std::cout << "[Score]   Init Scores <" << ((gjScoreTable*)pData)->GetID() << ">" << std::endl;
@@ -62,7 +62,7 @@ public:
         }
     }
 
-    void InitUser(const gjUserPtr &pUser, void* pData)
+    void InitUser(const gjUserPtr& pUser, void* pData)
     {
         // show finished user fetch (guests have an own object with name "guest" and id -1 (currently all guests have the same))
         std::cout << "[User]     Init User <" << pUser->GetName() << ">" << std::endl;
@@ -71,7 +71,7 @@ public:
         pUser->DownloadAvatarCall("pictures/avatars", this, &TestScoreAndUser::InitUserAvatar, pUser);
     }
 
-    void InitUserAvatar(const std::string &sPath, void* pData)
+    void InitUserAvatar(const std::string& sPath, void* pData)
     {
         // show finished avatar download
         std::cout << "[User]      User <" << ((gjUserPtr)pData)->GetName() << "> Avatar <" << sPath << ">" << std::endl;
@@ -91,7 +91,7 @@ public:
     TestDataItem()  {m_aiTestData = new int[TEST_DATA_ITEM_SIZE];}
     ~TestDataItem() {SAFE_DELETE_ARRAY(m_aiTestData)}
 
-    void SetData(const gjDataItemPtr &pDataItem, void* pData)
+    void SetData(const gjDataItemPtr& pDataItem, void* pData)
     {
         // show finished Base64 data send
         std::cout << "[Data] Data Set" << std::endl;
@@ -100,7 +100,7 @@ public:
         pDataItem->GetDataBase64Call(m_aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, this, &TestDataItem::GetData, pDataItem);
     }
 
-    void GetData(const gjVoidPtr &pTestData, void* pData)
+    void GetData(const gjVoidPtr& pTestData, void* pData)
     {
         // show finished Base64 data retrieve
         std::cout << "[Data]  Data Get" << std::endl;

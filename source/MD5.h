@@ -31,8 +31,8 @@ documentation and/or software.
 */
 
 #pragma once
-#ifndef MD5_H
-#define MD5_H
+#ifndef _MD5_H_
+#define _MD5_H_
 
 
 #define _CRT_SECURE_NO_WARNINGS

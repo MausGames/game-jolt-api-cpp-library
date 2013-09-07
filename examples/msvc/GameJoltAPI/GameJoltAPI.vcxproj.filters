@@ -5,9 +5,8 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="header">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="examples">
+      <UniqueIdentifier>{892352ed-3c9a-46b8-9071-dc7b926c19ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,35 +34,37 @@
     <ClCompile Include="..\..\..\source\Base64.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\main.cpp" />
+    <ClCompile Include="..\..\main.cpp">
+      <Filter>examples</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\gjAPI.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\gjScore.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\gjTrophy.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\gjUser.h">
-      <Filter>header</Filter>
+    <ClInclude Include="..\..\..\source\Base64.h">
+      <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\MD5.h">
-      <Filter>header</Filter>
+      <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\gjNetwork.h">
-      <Filter>header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\Base64.h">
-      <Filter>header</Filter>
+    <ClInclude Include="..\..\..\source\gjAPI.h">
+      <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\gjDataItem.h">
-      <Filter>header</Filter>
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gjNetwork.h">
+      <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\gjNetwork.hpp">
-      <Filter>header</Filter>
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gjScore.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gjTrophy.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gjUser.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

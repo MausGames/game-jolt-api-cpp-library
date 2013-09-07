@@ -52,7 +52,7 @@ gjAPI::gjInterUser::~gjInterUser()
 
 // ****************************************************************
 /* access user objects directly (may block) */
-gjUser* gjAPI::gjInterUser::GetUser(const int &iID)
+gjUser* gjAPI::gjInterUser::GetUser(const int& iID)
 {
     gjUserPtr pOutput;
 
@@ -62,7 +62,7 @@ gjUser* gjAPI::gjInterUser::GetUser(const int &iID)
     return m_apUser[0];
 }
 
-gjUser* gjAPI::gjInterUser::GetUser(const std::string &sName)
+gjUser* gjAPI::gjInterUser::GetUser(const std::string& sName)
 {
     gjUserPtr pOutput;
 
@@ -103,7 +103,7 @@ void gjAPI::gjInterUser::ClearCache()
 
 // ****************************************************************
 /* check for cached user objects */
-int gjAPI::gjInterUser::__CheckCache(const int &iID, gjUserPtr* ppOutput)
+int gjAPI::gjInterUser::__CheckCache(const int& iID, gjUserPtr* ppOutput)
 {
     // retrieve cached user
     if(m_apUser.count(iID))
@@ -114,7 +114,7 @@ int gjAPI::gjInterUser::__CheckCache(const int &iID, gjUserPtr* ppOutput)
     return GJ_NO_DATA_FOUND;
 }
 
-int gjAPI::gjInterUser::__CheckCache(const std::string &sName, gjUserPtr* ppOutput)
+int gjAPI::gjInterUser::__CheckCache(const std::string& sName, gjUserPtr* ppOutput)
 {
     // retrieve cached user
     for(auto it = m_apUser.begin(); it != m_apUser.end(); ++it)
@@ -131,7 +131,7 @@ int gjAPI::gjInterUser::__CheckCache(const std::string &sName, gjUserPtr* ppOutp
 
 // ****************************************************************
 /* process user data and cache user objects */
-int gjAPI::gjInterUser::__Process(const std::string &sData, void* pAdd, gjUserPtr* ppOutput)
+int gjAPI::gjInterUser::__Process(const std::string& sData, void* pAdd, gjUserPtr* ppOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -197,7 +197,7 @@ gjAPI::gjInterTrophy::~gjInterTrophy()
 
 // ****************************************************************
 /* access trophy objects directly (may block) */
-gjTrophy* gjAPI::gjInterTrophy::GetTrophy(const int &iID)
+gjTrophy* gjAPI::gjInterTrophy::GetTrophy(const int& iID)
 {
     if(!m_pAPI->IsConnected() && m_iCache == 0) return m_apTrophy[0];
     if(m_apTrophy.size() <= 1)
@@ -216,7 +216,7 @@ gjTrophy* gjAPI::gjInterTrophy::GetTrophy(const int &iID)
 
 // ****************************************************************
 /* delete all cached trophy objects */
-void gjAPI::gjInterTrophy::ClearCache(const bool &bFull)
+void gjAPI::gjInterTrophy::ClearCache(const bool& bFull)
 {
     const bool bRemoveAll = bFull || !GJ_API_OFFCACHE_TROPHY;
 
@@ -241,7 +241,7 @@ void gjAPI::gjInterTrophy::ClearCache(const bool &bFull)
 
 // ****************************************************************
 /* define layout of the returned trophy list */
-void gjAPI::gjInterTrophy::SetSort(const int* piIDList, const size_t &iNum)
+void gjAPI::gjInterTrophy::SetSort(const int* piIDList, const size_t& iNum)
 {
     if(iNum)
     {
@@ -263,7 +263,7 @@ void gjAPI::gjInterTrophy::SetSort(const int* piIDList, const size_t &iNum)
 
 // ****************************************************************
 /* define secret trophy objects */
-void gjAPI::gjInterTrophy::SetSecret(const int* piIDList, const size_t &iNum)
+void gjAPI::gjInterTrophy::SetSecret(const int* piIDList, const size_t& iNum)
 {
     if(iNum)
     {
@@ -285,7 +285,7 @@ void gjAPI::gjInterTrophy::SetSecret(const int* piIDList, const size_t &iNum)
 
 // ****************************************************************
 /* define hidden trophy objects */
-void gjAPI::gjInterTrophy::SetHidden(const int* piIDList, const size_t &iNum)
+void gjAPI::gjInterTrophy::SetHidden(const int* piIDList, const size_t& iNum)
 {
     if(iNum)
     {
@@ -305,7 +305,7 @@ void gjAPI::gjInterTrophy::SetHidden(const int* piIDList, const size_t &iNum)
 
 // ****************************************************************
 /* check for cached trophy objects */
-int gjAPI::gjInterTrophy::__CheckCache(const int &iAchieved, gjTrophyList* papOutput)
+int gjAPI::gjInterTrophy::__CheckCache(const int& iAchieved, gjTrophyList* papOutput)
 {
     // retrieve cached trophies
     if(m_apTrophy.size() > 1)
@@ -345,7 +345,7 @@ int gjAPI::gjInterTrophy::__CheckCache(const int &iAchieved, gjTrophyList* papOu
 
 // ****************************************************************
 /* process trophy data and cache trophy objects */
-int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrophyList* papOutput)
+int gjAPI::gjInterTrophy::__Process(const std::string& sData, void* pAdd, gjTrophyList* papOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -384,7 +384,7 @@ int gjAPI::gjInterTrophy::__Process(const std::string &sData, void* pAdd, gjTrop
 
 // ****************************************************************
 /* save tropy data to a cache file */
-void gjAPI::gjInterTrophy::__SaveOffCache(const std::string &sData)
+void gjAPI::gjInterTrophy::__SaveOffCache(const std::string& sData)
 {
     if(!GJ_API_OFFCACHE_TROPHY) return;
     if(m_iCache != 0) return;
@@ -527,7 +527,7 @@ int gjAPI::gjInterScore::__CheckCache(gjScoreTableMap* papOutput)
 
 // ****************************************************************
 /* process score table data and cache score table objects */
-int gjAPI::gjInterScore::__Process(const std::string &sData, void* pAdd, gjScoreTableMap* papOutput)
+int gjAPI::gjInterScore::__Process(const std::string& sData, void* pAdd, gjScoreTableMap* papOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -553,7 +553,7 @@ int gjAPI::gjInterScore::__Process(const std::string &sData, void* pAdd, gjScore
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjInterDataStore::gjInterDataStore(const int &iType, gjAPI* pAPI, gjNetwork* pNetwork)
+gjAPI::gjInterDataStore::gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork)
 : m_iType    (iType)
 , m_pAPI     (pAPI)
 , m_pNetwork (pNetwork)
@@ -571,7 +571,7 @@ gjAPI::gjInterDataStore::~gjInterDataStore()
 
 // ****************************************************************
 /* create and access data store items directly */
-gjDataItem* gjAPI::gjInterDataStore::GetDataItem(const std::string &sKey)
+gjDataItem* gjAPI::gjInterDataStore::GetDataItem(const std::string& sKey)
 {
     // create new data store item
     if(!m_apDataItem.count(sKey))
@@ -618,7 +618,7 @@ int gjAPI::gjInterDataStore::__CheckCache(gjDataItemMap* papOutput)
 
 // ****************************************************************
 /* process data store data and cache data store items */
-int gjAPI::gjInterDataStore::__Process(const std::string &sData, void* pAdd, gjDataItemMap* papOutput)
+int gjAPI::gjInterDataStore::__Process(const std::string& sData, void* pAdd, gjDataItemMap* papOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -674,7 +674,7 @@ void gjAPI::gjInterFile::ClearCache()
 
 // ****************************************************************
 /* check for cached files */
-int gjAPI::gjInterFile::__CheckCache(const std::string &sPath)
+int gjAPI::gjInterFile::__CheckCache(const std::string& sPath)
 {
     // compare cached file paths
     for(size_t i = 0; i < m_asFile.size(); ++i)
@@ -688,7 +688,7 @@ int gjAPI::gjInterFile::__CheckCache(const std::string &sPath)
 
 // ****************************************************************
 /* process downloaded file */
-int gjAPI::gjInterFile::__Process(const std::string &sData, void* pAdd, std::string* psOutput)
+int gjAPI::gjInterFile::__Process(const std::string& sData, void* pAdd, std::string* psOutput)
 {
     // save path of the file
     if(this->__CheckCache(sData) != GJ_OK) m_asFile.push_back(sData);
@@ -700,7 +700,7 @@ int gjAPI::gjInterFile::__Process(const std::string &sData, void* pAdd, std::str
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjAPI(const int &iGameID, const std::string &sGamePrivateKey)
+gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)
 : m_iGameID          (iGameID)
 , m_sGamePrivateKey  (sGamePrivateKey)
 , m_sUserName        ("")
@@ -780,7 +780,7 @@ void gjAPI::Update()
 
 // ****************************************************************
 /* login with specific user */
-int gjAPI::Login(const bool bSession, const std::string &sUserName, const std::string &sUserToken)
+int gjAPI::Login(const bool bSession, const std::string& sUserName, const std::string& sUserToken)
 {
     if(this->IsConnected()) return GJ_INVALID_CALL;
     if(sUserName == "" || sUserToken == "")  return GJ_INVALID_INPUT;
@@ -877,7 +877,7 @@ int gjAPI::Logout()
 
 // ****************************************************************
 /* parse a valid response string in keypair format */
-int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
+int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
 {
     if(!paaOutput) return GJ_INVALID_INPUT;
 
@@ -935,7 +935,7 @@ int gjAPI::ParseRequestKeypair(const std::string &sInput, gjDataList* paaOutput)
 
 // ****************************************************************
 /* parse a valid response string in Dump format */
-int gjAPI::ParseRequestDump(const std::string &sInput, std::string* psOutput)
+int gjAPI::ParseRequestDump(const std::string& sInput, std::string* psOutput)
 {
     if(!psOutput) return GJ_INVALID_INPUT;
 
@@ -973,7 +973,7 @@ void gjAPI::ClearCache()
 
 // ****************************************************************
 /* escape a string for proper url calling */
-std::string gjAPI::UtilEscapeString(const std::string &sString)
+std::string gjAPI::UtilEscapeString(const std::string& sString)
 {
     std::string sOutput = "";
 
@@ -1008,7 +1008,7 @@ std::string gjAPI::UtilEscapeString(const std::string &sString)
 
 // ****************************************************************
 /* convert a character into his hexadecimal value */
-std::string gjAPI::UtilCharToHex(const char &cChar)
+std::string gjAPI::UtilCharToHex(const char& cChar)
 {
     int iValue = (int)cChar;
     if(iValue < 0) iValue += 256;
@@ -1022,7 +1022,7 @@ std::string gjAPI::UtilCharToHex(const char &cChar)
 
 // ****************************************************************
 /* simply convert an integer into a string */
-std::string gjAPI::UtilIntToString(const int &iInt)
+std::string gjAPI::UtilIntToString(const int& iInt)
 {
     char acBuffer[32];
     sprintf(acBuffer, "%d", iInt);
@@ -1033,7 +1033,7 @@ std::string gjAPI::UtilIntToString(const int &iInt)
 
 // ****************************************************************
 /* create a folder hierarchy */
-void gjAPI::UtilCreateFolder(const std::string &sFolder)
+void gjAPI::UtilCreateFolder(const std::string& sFolder)
 {
     int iPos = 0;
 
@@ -1087,7 +1087,7 @@ void gjAPI::ErrorLogReset()
 
 // ****************************************************************
 /* add error log entry */
-void gjAPI::ErrorLogAdd(const std::string &sMsg)
+void gjAPI::ErrorLogAdd(const std::string& sMsg)
 {
     const std::string sTimeMsg = "[" + this->UtilTimestamp() + "] " + sMsg;
 
@@ -1135,7 +1135,7 @@ int gjAPI::__OpenSession()
 
 // ****************************************************************
 /* ping the user session */
-int gjAPI::__PingSession(const bool &bActive)
+int gjAPI::__PingSession(const bool& bActive)
 {
     if(!this->IsConnected()) return GJ_NOT_CONNECTED;
 

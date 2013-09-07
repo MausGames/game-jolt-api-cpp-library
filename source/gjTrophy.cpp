@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjTrophy::gjTrophy(const gjData &aTrophyData, gjAPI* pAPI)
+gjTrophy::gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)
 : m_iID           (atoi(SAFE_MAP_GET(aTrophyData, "id").c_str()))
 , m_sTitle        (SAFE_MAP_GET(aTrophyData, "title"))
 , m_sDescription  (SAFE_MAP_GET(aTrophyData, "description"))
@@ -69,7 +69,7 @@ gjTrophy& gjTrophy::operator = (const gjTrophy& that)
 
 // ****************************************************************  
 // callback for updating the data */
-int gjTrophy::__UpdateDataCallback(const std::string &sData, void* pAdd, gjTrophyPtr* pOutput)
+int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -96,7 +96,7 @@ int gjTrophy::__UpdateDataCallback(const std::string &sData, void* pAdd, gjTroph
 
 // ****************************************************************  
 // callback for achieving the trophy */
-int gjTrophy::__AchieveCallback(const std::string &sData, void* pAdd, gjTrophyPtr* ppOutput)
+int gjTrophy::__AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput)
 {
     // parse output (only check status)
     gjDataList aaReturn;

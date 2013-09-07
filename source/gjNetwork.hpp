@@ -7,13 +7,13 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GJNETWORK_HPP
-#define GJNETWORK_HPP
+#ifndef GUARD_GJ_NETWORK_HPP
+#define GUARD_GJ_NETWORK_HPP
 
 
 // ****************************************************************
 /* constructor */
-template <typename T, typename P, typename D> gjNetwork::gjCallTemplate<T,P,D>::gjCallTemplate(CURL* pSession, const std::string &sInfo, GJ_NETWORK_PROCESS)
+template <typename T, typename P, typename D> gjNetwork::gjCallTemplate<T,P,D>::gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)
 : gjCall            (pSession, sInfo)
 , m_pProcessObj     (pProcessObj)
 , m_ProcessCallback (ProcessCallback)
@@ -41,7 +41,7 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallTemplate<T,P
 
 // ****************************************************************
 /* finish a request session */
-template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,D>::Finish(const bool &bOK)
+template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,D>::Finish(const bool& bOK)
 {
     if(bOK)
     {
@@ -65,7 +65,7 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,
 
 // ****************************************************************
 /* finish a download session */
-template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P,D>::Finish(const bool &bOK)
+template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P,D>::Finish(const bool& bOK)
 {
     // close file handle
     fclose(m_pFile);
@@ -86,7 +86,7 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P
 
 // ****************************************************************
 /* send direct or non-blocking request */
-template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const std::string &sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))
+template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))
 {
     if(sURL == "") return GJ_INVALID_INPUT;
 
@@ -141,7 +141,7 @@ template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const 
             // create a POST request
             sRequest = GJ_API_URL + sURL.substr(0, iPostPos);
             curl_easy_setopt(pSession, CURLOPT_POST,     1);
-            curl_easy_setopt(pSession, CURLOPT_HTTPPOST, pPostList); 
+            curl_easy_setopt(pSession, CURLOPT_HTTPPOST, pPostList);
         }
         else
         {
@@ -177,7 +177,7 @@ template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const 
             }
         }
         else
-        {   
+        {
             // append session to multi handle
             curl_multi_add_handle(m_pMultiHandle, pSession);
             curl_multi_perform(m_pMultiHandle, &m_iNumSessions);
@@ -193,14 +193,14 @@ template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const 
         m_pAPI->ErrorLogAdd("Network Error: cannot establish curl session");
         return GJ_NETWORK_ERROR;
     }
-    
+
     return GJ_OK;
 }
 
 
 // ****************************************************************
 /* download file direct or non-blocking */
-template <typename T, typename P, typename D>  int gjNetwork::DownloadFile(const std::string &sURL, const std::string &sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))
+template <typename T, typename P, typename D>  int gjNetwork::DownloadFile(const std::string& sURL, const std::string& sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))
 {
     if(sURL == "" || sToFile == "") return GJ_INVALID_INPUT;
 
@@ -223,7 +223,7 @@ template <typename T, typename P, typename D>  int gjNetwork::DownloadFile(const
     // open cURL session
     CURL* pSession = curl_easy_init();
     if(pSession)
-    {        
+    {
         // open file
         FILE* pFile = fopen(sToFile.c_str(), "wb");
         if(pFile)
@@ -282,4 +282,4 @@ template <typename T, typename P, typename D>  int gjNetwork::DownloadFile(const
 }
 
 
-#endif /* GJNETWORK_HPP */
+#endif /* GUARD_GJ_NETWORK_HPP */

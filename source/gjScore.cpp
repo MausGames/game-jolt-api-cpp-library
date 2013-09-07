@@ -14,7 +14,7 @@ gjScoreTable* gjScoreTable::s_pPrimary = NULL;
 
 // ****************************************************************
 /* constructor */
-gjScoreTable::gjScoreTable(const gjData &aScoreTableData, gjAPI* pAPI)
+gjScoreTable::gjScoreTable(const gjData& aScoreTableData, gjAPI* pAPI)
 : m_iID          (atoi(SAFE_MAP_GET(aScoreTableData, "id").c_str()))
 , m_sTitle       (SAFE_MAP_GET(aScoreTableData, "name"))
 , m_sDescription (SAFE_MAP_GET(aScoreTableData, "description"))
@@ -54,7 +54,7 @@ gjScoreTable::~gjScoreTable()
 
 // ****************************************************************
 /* check for cached score entries */
-int gjScoreTable::__CheckCache(const bool bOnlyUser, const int &iLimit, gjScoreList* papOutput)
+int gjScoreTable::__CheckCache(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput)
 {
     if(!bOnlyUser) return GJ_INVALID_INPUT;
     if(m_iSortDir) return GJ_INVALID_CALL;
@@ -85,7 +85,7 @@ int gjScoreTable::__CheckCache(const bool bOnlyUser, const int &iLimit, gjScoreL
 
 // ****************************************************************
 /* process score data and cache score entries */
-int gjScoreTable::__Process(const std::string &sData, void* pAdd, gjScoreList* papOutput)
+int gjScoreTable::__Process(const std::string& sData, void* pAdd, gjScoreList* papOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -147,7 +147,7 @@ int gjScoreTable::__Process(const std::string &sData, void* pAdd, gjScoreList* p
 
 // ****************************************************************
 /* callback for successfully adding a score entry */
-int gjScoreTable::__AddScoreCallback(const std::string &sData, void* pAdd, gjScorePtr* pOutput)
+int gjScoreTable::__AddScoreCallback(const std::string& sData, void* pAdd, gjScorePtr* pOutput)
 {
     gjScore* pNewScore = static_cast<gjScore*>(pAdd);
 
@@ -174,7 +174,7 @@ int gjScoreTable::__AddScoreCallback(const std::string &sData, void* pAdd, gjSco
 
 // ****************************************************************
 /* constructor */
-gjScore::gjScore(const gjData &sScoreData, gjScoreTable* pScoreTable, gjAPI* pAPI)
+gjScore::gjScore(const gjData& sScoreData, gjScoreTable* pScoreTable, gjAPI* pAPI)
 : m_sScore      (SAFE_MAP_GET(sScoreData, "score"))
 , m_iSort       (atoi(SAFE_MAP_GET(sScoreData, "sort").c_str()))
 , m_sExtraData  (SAFE_MAP_GET(sScoreData, "extra_data"))

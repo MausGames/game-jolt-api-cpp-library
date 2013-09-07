@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjDataItem::gjDataItem(const gjData &aDataItemData, const int &iType, gjAPI* pAPI)
+gjDataItem::gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI)
 : m_sKey     (SAFE_MAP_GET(aDataItemData, "key"))
 , m_sData    ("")
 , m_iType    (iType)
@@ -24,7 +24,7 @@ gjDataItem::gjDataItem(const gjData &aDataItemData, const int &iType, gjAPI* pAP
 
 // ****************************************************************
 /* callback for successfully setting data store item (Base64) data */
-int gjDataItem::__SetDataCallback(const std::string &sData, void* pAdd, gjDataItemPtr* ppOutput) 
+int gjDataItem::__SetDataCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput) 
 {
     // parse output (only check status)
     gjDataList aaReturn;
@@ -49,7 +49,7 @@ int gjDataItem::__SetDataCallback(const std::string &sData, void* pAdd, gjDataIt
 
 // ****************************************************************
 /* callback for successfully getting data store item data */
-int gjDataItem::__GetDataCallback(const std::string &sData, void* pAdd, std::string* psOutput)
+int gjDataItem::__GetDataCallback(const std::string& sData, void* pAdd, std::string* psOutput)
 {
     // parse output
     std::string sReturn;
@@ -69,7 +69,7 @@ int gjDataItem::__GetDataCallback(const std::string &sData, void* pAdd, std::str
 
 // ****************************************************************
 /* callback for successfully getting data store item Base64 data */
-int gjDataItem::__GetDataBase64Callback(const std::string &sData, void* pAdd, gjVoidPtr* ppOutput)
+int gjDataItem::__GetDataBase64Callback(const std::string& sData, void* pAdd, gjVoidPtr* ppOutput)
 {
     // parse output and save data
     std::string sReturn;
@@ -86,7 +86,7 @@ int gjDataItem::__GetDataBase64Callback(const std::string &sData, void* pAdd, gj
 
 // ****************************************************************
 /* callback for successfully clearing/removing the data store item  */
-int gjDataItem::__ClearCallback(const std::string &sData, void* pAdd, gjDataItemPtr* ppOutput)
+int gjDataItem::__ClearCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput)
 {
     // parse output (only check status)
     gjDataList aaReturn;

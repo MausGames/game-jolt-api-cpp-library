@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjUser::gjUser(const gjData &aUserData, gjAPI* pAPI)
+gjUser::gjUser(const gjData& aUserData, gjAPI* pAPI)
 : m_iID                   (atoi(SAFE_MAP_GET(aUserData, "id").c_str()))
 , m_sName                 (SAFE_MAP_GET(aUserData, "username"))
 , m_sType                 (SAFE_MAP_GET(aUserData, "type"))
@@ -64,7 +64,7 @@ gjUser& gjUser::operator = (const gjUser& that)
 
 // ****************************************************************  
 /* callback for updating the data */
-int gjUser::__UpdateDataCallback(const std::string &sData, void* pAdd, gjUserPtr* pOutput)
+int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* pOutput)
 {
     // parse output
     gjDataList aaReturn;

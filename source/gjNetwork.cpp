@@ -95,7 +95,7 @@ bool gjNetwork::Update()
 
 // ****************************************************************
 /* finish all active sessions and return */
-void gjNetwork::Wait(const unsigned int &iMaxWait)
+void gjNetwork::Wait(const unsigned int& iMaxWait)
 {
     // get max waiting time (low precision)
     const time_t iMaxTime = time(NULL) + iMaxWait;
@@ -107,7 +107,7 @@ void gjNetwork::Wait(const unsigned int &iMaxWait)
 
 // ****************************************************************
 /* check for existing callbacks on the list */
-gjNetwork::gjCall* gjNetwork::__CheckCall(const std::string &sInfo)
+gjNetwork::gjCall* gjNetwork::__CheckCall(const std::string& sInfo)
 {
     // search callback object and compare info string
     for(size_t i = 0; i < m_apCall.size(); ++i)
