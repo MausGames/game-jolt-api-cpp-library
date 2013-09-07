@@ -1,6 +1,6 @@
 /*! \mainpage Main Page
  *
- * <img src="../gamejolt_cpp_3.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;"><br clear="all"><br clear="all"><br clear="all"><br clear="all">
+ * <img src="../gamejolt_cpp.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;"><br clear="all"><br clear="all"><br clear="all"><br clear="all">
  *
  * 1. \link introduction Introduction \endlink\n
  * 1.1. \link introduction_setup Setup \endlink\n
@@ -85,7 +85,7 @@
  * \note Regardless of the session, a user login is required for full access to the API
  *
  * \code{.cpp}
- * void Function(gjAPI &API)
+ * void Function(gjAPI& API)
  * {
  *     // login with specific user and start session
  *     API.Login(true, "UserName", "UserToken");
@@ -110,7 +110,7 @@
  * There is also an integration in the score class to easily fetch the associated user.
  *
  * \code{.cpp}
- * void Function(gjAPI &API, myClass &myObj)
+ * void Function(gjAPI& API, myClass& myObj)
  * {
  *     // direct access an user object and get last login string (may block if user is not cached)
  *     API.InterUser()->GetUser("CROS")->GetLastLoggedIn();
@@ -138,7 +138,7 @@
  * Also you have to define the sorting, secret trophies (only display after achieved), and hidden trophies (never display) by yourself.\n
  *
  * \code{.cpp}
- * void Function(gjAPI &API, myClass &myObj)
+ * void Function(gjAPI& API, myClass& myObj)
  * {
  *     // direct access a trophy object and achieve it (may block if trophy is not cached)
  *     API.InterTrophy()->GetTrophy(1234)->AchieveCall();
@@ -179,7 +179,7 @@
  * Score entries are assigned to users or guests, and contain a score string, a sort value and optional extra data.
  *
  * \code{.cpp}
- * void Function(gjAPI &API, myClass &myObj)
+ * void Function(gjAPI& API, myClass& myObj)
  * {
  *     // direct access a score table object and add guest score (may block if score table is not cached)
  *     API.InterScore()->GetScoreTable(567)->AddScoreCall("123 Points", 123, "", "GuestName");
@@ -221,7 +221,7 @@
  * \note The current max size of a data store item is ~1mb for string and ~768kb for binary data.
  *
  * \code{.cpp}
- * void Function(gjAPI &API)
+ * void Function(gjAPI& API)
  * {
  *     // direct access a global data store item and write some string data (the item is created if it doesn't exist)
  *     API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataCall("some data");
@@ -255,7 +255,7 @@
  * but they have no drawback, when the data is already cached. The data is always forwarded to the target parameter.
  *
  * \code{.cpp}
- * void Function(gjAPI &API)
+ * void Function(gjAPI& API)
  * {
  *     // fetch an user now (may block if user is not cached)
  *     gjUserPtr pUser;
@@ -275,11 +275,11 @@
  * class myClass
  * {
  * public:
- *     void ReceiveUser(const gjUserPtr &pUser, void* pExtraData);
+ *     void ReceiveUser(const gjUserPtr& pUser, void* pExtraData);
  * };
  *
  *
- * void Function(gjAPI &API, myClass &myObj)
+ * void Function(gjAPI& API, myClass& myObj)
  * {
  *     // fetch an user with a callback (does not block)
  *     API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
@@ -308,7 +308,7 @@
  * \warning You need to overwrite the file name if it's not apparent from the URL
  *
  * \code{.cpp}
- * void Function(gjAPI &API, myClass &myObj)
+ * void Function(gjAPI& API, myClass& myObj)
  * {
  *     // download a texture now and use it with my object (may block if file is not cached)
  *     std::string sFilePath;
@@ -334,7 +334,7 @@
  * \endcode
  *
  * \code{.cpp}
- * void Function(gjAPI &API)
+ * void Function(gjAPI& API)
  * {
  *     // send binary data to a global data store item now (blocks)
  *     float afData_1[10] = {0,1,2,3,4,5,6,7,8,9};
@@ -419,7 +419,7 @@
  *      <li>implemented handling of identical requests
  *      <li>implemented connection and request timeouts
  *      <li>implemented empty error objects to prevent crashes
- *      <li>improved linux compatibility
+ *      <li>improved Linux compatibility
  *      <li>improved error handling and logging
  *      <li>improved data caching and prefetching
  *      <li>fixed possible memory leaks

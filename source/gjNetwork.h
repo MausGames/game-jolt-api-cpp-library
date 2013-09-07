@@ -33,12 +33,12 @@ private:
         gjCall(CURL* pSession, const std::string& sInfo) : m_pSession(pSession), m_sInfo(sInfo) {}
         virtual ~gjCall() {}
 
-        /*! @name Finish Session */
+        /*! \name Finish Session */
         //! @{
         virtual void Finish(const bool& bOK) = 0;
         //! @}
 
-        /*! @name Get Attributes */
+        /*! \name Get Attributes */
         //! @{
         inline       CURL*        GetSession()const {return m_pSession;}   //!< \copybrief m_pSession
         inline const std::string& GetInfo()const    {return m_sInfo;}      //!< \copybrief m_sInfo
@@ -74,7 +74,7 @@ private:
         gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS);
         virtual ~gjCallTemplate() {m_aOutput.clear();}
 
-        /*! @name Add Output */
+        /*! \name Add Output */
         //! @{
         void AddOutput(GJ_NETWORK_OUTPUT(D));
         //! @}
@@ -95,7 +95,7 @@ private:
         gjCallRequest(std::string* psResponse, curl_httppost* pPostList, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)
         : gjCallTemplate<T,P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_psResponse(psResponse), m_pPostList(pPostList) {}
 
-        /*! @name Finish Session */
+        /*! \name Finish Session */
         //! @{
         void Finish(const bool& bOK);
         //! @}
@@ -116,7 +116,7 @@ private:
         gjCallDownload(FILE* pFile, const std::string& sPath, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)
         : gjCallTemplate<T,P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_pFile(pFile), m_sPath(sPath) {}
 
-        /*! @name Finish Session */
+        /*! \name Finish Session */
         //! @{
         void Finish(const bool& bOK);
         //! @}
@@ -136,66 +136,66 @@ public:
     gjNetwork(gjAPI* pAPI);
     ~gjNetwork();
 
-    /*! @name Update */
+    /*! \name Update */
     //! @{
     /*! Update all active non-blocking cURL sessions.\n
      *  Execute associated callback functions when a session is finished.
-     *  @return TRUE when active, FALSE when idle */
+     *  \return TRUE when active, FALSE when idle */
     bool Update();
     //! @}
 
-    /*! @name Wait */
+    /*! \name Wait */
     //! @{
     /*! Finish all active sessions and return.
-     *  @param iMaxWait Max waiting time in seconds (0 = until everything is finished) */
+     *  \param iMaxWait Max waiting time in seconds (0 = until everything is finished) */
     void Wait(const unsigned int& iMaxWait);
     //! @}
 
-    /*! @name Send Request */
+    /*! \name Send Request */
     //! @{
     /*! Send a direct or non-blocking request to the API.\n
      *  Retrieve a response string when finished.
      *  \note   Creates a non-blocking session when output string is NULL\n
      *          Use "&POST<data>" at the end of the URL for a POST request
-     *  @param  sURL Relative API request string
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_INVALID_INPUT</b> if URL string is empty\n
-     *          <b>GJ_NETWORK_ERROR</b> if session cannot be established\n
+     *  \param  sURL Relative API request string
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_INVALID_INPUT** if URL string is empty\n
+     *          **GJ_NETWORK_ERROR** if session cannot be established\n
      *          (see #GJ_ERROR) */
     template <typename T, typename P, typename D> int SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D));
     //! @}
 
-    /*! @name Download File */
+    /*! \name Download File */
     //! @{
     /*! Download a file direct or non-blocking from any URL.\n
      *  Retrieve the local path of the file when finished.
      *  \note   Creates a non-blocking session when output string is NULL
-     *  @param  sURL    Full path of the remote file
-     *  @param  sToFile Relative path of the download target
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_INVALID_INPUT</b> if URL string or target file string is empty\n
-     *          <b>GJ_NETWORK_ERROR</b> if session cannot be established\n
-     *          <b>GJ_FILE_ERROR</b> if file cannot be written\n
+     *  \param  sURL    Full path of the remote file
+     *  \param  sToFile Relative path of the download target
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_INVALID_INPUT** if URL string or target file string is empty\n
+     *          **GJ_NETWORK_ERROR** if session cannot be established\n
+     *          **GJ_FILE_ERROR** if file cannot be written\n
      *          (see #GJ_ERROR) */
     template <typename T, typename P, typename D> int DownloadFile(const std::string& sURL, const std::string& sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D));
     //! @}
 
-    /*! @name Get Attributes */
+    /*! \name Get Attributes */
     //! @{
     inline size_t GetNumSessions()const {return m_iNumSessions;}   //!< \copybrief m_iNumSessions
     /*! */ //! @}
 
 
 private:
-    /*! @name Disable Copy */
+    /*! \name Disable Copy */
     //! @{
     gjNetwork(const gjNetwork& that);
     gjNetwork& operator = (const gjNetwork& that);
     //! @}
 
-    /*! @name Management Functions */
+    /*! \name Management Functions */
     //! @{
     gjCall* __CheckCall(const std::string& sInfo);
     void    __KillCall(gjCall* pCall);

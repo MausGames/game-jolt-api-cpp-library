@@ -40,7 +40,7 @@
 //|   (http://gamejolt.com/terms/)                                                       |//
 //*--------------------------------------------------------------------------------------*//
 ////////////////////////////////////////////////////////////////////////////////////////////
-/** @file */
+//! \file
 #pragma once
 #ifndef GUARD_GJ_API_H
 #define GUARD_GJ_API_H
@@ -75,11 +75,11 @@
 /* --- configuration --- */
 
 
-/*! @param pOutputObj     output receiving object of <b>class T</b>
- *  @param OutputCallback callback function from <b>class T</b> with a specific return <b>type x</b>
- *  @param pOutputData    additional data which will be forwarded to the callback function
+/*! \param pOutputObj     output receiving object of **class T**
+ *  \param OutputCallback callback function from **class T** with a specific return **type x**
+ *  \param pOutputData    additional data which will be forwarded to the callback function
  *
- *  <b>Code Example</b>
+ *  **Code Example**
  *  \code{.cpp}
  *  void Function(myClass& myObj)
  *  {
@@ -196,29 +196,29 @@ private:
         gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork);
         ~gjInterUser();
 
-        /*! @name Direct Access */
+        /*! \name Direct Access */
         //! @{
         /*! Get direct access to the user objects.\n
          *  This function may block to cache the specific user.
          *  \pre    Login maybe required
-         *  @param  iID   Unique ID of an user (0 = current main user, Login required)
-         *  @param  sName Unique name of an user
-         *  @return Pointer to specific user or empty object (ID == 0) on error */
+         *  \param  iID   Unique ID of an user (0 = current main user, Login required)
+         *  \param  sName Unique name of an user
+         *  \return Pointer to specific user or empty object (ID == 0) on error */
         gjUser* GetUser(const int& iID);
         gjUser* GetUser(const std::string& sName);
         gjUser* GetMainUser();
         //! @}
 
-        /*! @name Fetch User Request */
+        /*! \name Fetch User Request */
         //! @{
         /*! Fetch and cache a specific user through an API request.
          *  \pre    Login maybe required
-         *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-         *  @param  iID   Unique ID of an user (0 = current main user, Login required)
-         *  @param  sName Unique name of an user
-         *  @return <b>GJ_OK</b> on success\n
-         *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-         *          <b>GJ_INVALID_INPUT</b> if name string is empty\n
+         *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+         *  \param  iID   Unique ID of an user (0 = current main user, Login required)
+         *  \param  sName Unique name of an user
+         *  \return **GJ_OK** on success\n
+         *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+         *          **GJ_INVALID_INPUT** if name string is empty\n
          *          (see #GJ_ERROR) */
                               inline int FetchUserNow(const int& iID, gjUserPtr* ppOutput)                     {if(!ppOutput) return GJ_INVALID_INPUT; return this->__FetchUser(iID, ppOutput, GJ_NETWORK_NULL_API(gjUserPtr));}
                               inline int FetchUserNow(const std::string& sName, gjUserPtr* ppOutput)           {if(!ppOutput) return GJ_INVALID_INPUT; return this->__FetchUser(sName, ppOutput, GJ_NETWORK_NULL_API(gjUserPtr));}
@@ -226,7 +226,7 @@ private:
         template <typename T> inline int FetchUserCall(const std::string& sName, GJ_NETWORK_OUTPUT(gjUserPtr)) {return this->__FetchUser(sName, NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
-        /*! @name Clear Cache */
+        /*! \name Clear Cache */
         //! @{
         /*! Delete all cached user objects.
          *  \warning All external pointers will be invalid */
@@ -235,13 +235,13 @@ private:
 
 
     private:
-        /*! @name Superior Request Functions */
+        /*! \name Superior Request Functions */
         //! @{
         template <typename T> int __FetchUser(const int& iID, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr));
         template <typename T> int __FetchUser(const std::string& sName, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr));
         //! @}
 
-        /*! @name Management Functions */
+        /*! \name Management Functions */
         //! @{
         int __CheckCache(const int& iID, gjUserPtr* ppOutput);
         int __CheckCache(const std::string& sName, gjUserPtr* ppOutput);
@@ -272,44 +272,44 @@ private:
         gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork);
         ~gjInterTrophy();
 
-        /*! @name Direct Access */
+        /*! \name Direct Access */
         //! @{
         /*! Get direct access to the trophy objects.\n
          *  This function may block to cache all trophies.
          *  \pre    Login required
-         *  @param  iID Unique ID of a trophy
-         *  @return Pointer to specific trophy or empty object (ID == 0) on error */
+         *  \param  iID Unique ID of a trophy
+         *  \return Pointer to specific trophy or empty object (ID == 0) on error */
         gjTrophy* GetTrophy(const int& iID);
         //! @}
 
-        /*! @name Fetch Trophies Request */
+        /*! \name Fetch Trophies Request */
         //! @{
         /*! Fetch and cache all trophies through an API request.\n
          *  You can sort the returned list with #SetSort.
          *  \pre    Login required
-         *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-         *  @param  iAchieved Status of the returned trophies (see #GJ_TROPHY_TYPE)
-         *  @return <b>GJ_OK</b> on success\n
-         *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-         *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
-         *          <b>GJ_NO_DATA_FOUND</b> if no trophies where found\n
+         *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+         *  \param  iAchieved Status of the returned trophies (see #GJ_TROPHY_TYPE)
+         *  \return **GJ_OK** on success\n
+         *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+         *          **GJ_NOT_CONNECTED** if connection/login is missing\n
+         *          **GJ_NO_DATA_FOUND** if no trophies where found\n
          *          (see #GJ_ERROR) */
                               inline int FetchTrophiesNow(const long& iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
         template <typename T> inline int FetchTrophiesCall(const long& iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
-        /*! @name Clear Cache */
+        /*! \name Clear Cache */
         //! @{
         /*! Delete all cached trophy objects.
          *  \warning All external pointers will be invalid */
         void ClearCache(const bool& bFull);
         //! @}
 
-        /*! @name Control Trophies */
+        /*! \name Control Trophies */
         //! @{
         /*! Define the way trophies are handled and returned from the interface.
-         *  @param  piIDList Array with trophy IDs
-         *  @param  iNum     Number of elements in the array */
+         *  \param  piIDList Array with trophy IDs
+         *  \param  iNum     Number of elements in the array */
         void SetSort(const int* piIDList, const size_t& iNum);
         void SetSecret(const int* piIDList, const size_t& iNum);
         void SetHidden(const int* piIDList, const size_t& iNum);
@@ -317,18 +317,18 @@ private:
 
 
     public:
-        /*! @name Superior Request Functions */
+        /*! \name Superior Request Functions */
         //! @{
         template <typename T> int __FetchTrophies(const long& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));
         //! @}
 
-        /*! @name Management Functions */
+        /*! \name Management Functions */
         //! @{
         int __CheckCache(const int& iAchieved, gjTrophyList* papOutput);
         int __Process(const std::string& sData, void* pAdd, gjTrophyList* papOutput);
         //! @}
 
-        /*! @name Offline Cache Functions */
+        /*! \name Offline Cache Functions */
         //! @{
         void __SaveOffCache(const std::string& sData);
         void __LoadOffCache();
@@ -353,30 +353,30 @@ private:
         gjInterScore(gjAPI* pAPI, gjNetwork* pNetwork);
         ~gjInterScore();
 
-        /*! @name Direct Access */
+        /*! \name Direct Access */
         //! @{
         /*! Get direct access to score table objects.\n
          *  This function may block to cache all score tables.
-         *  @param  iID Unique ID of a score table (0 = primary score table)
-         *  @return Pointer to specific score table or empty object (ID == 0) on error */
+         *  \param  iID Unique ID of a score table (0 = primary score table)
+         *  \return Pointer to specific score table or empty object (ID == 0) on error */
                gjScoreTable* GetScoreTable(const int& iID);
         inline gjScoreTable* GetPrimaryTable() {return this->GetScoreTable(0);}
         //! @}
 
-        /*! @name Fetch Score Tables Request */
+        /*! \name Fetch Score Tables Request */
         //! @{
         /*! Fetch and cache all score tables through an API request.
          *  \bug    The API returns already deleted score tables
-         *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-         *  @return <b>GJ_OK</b> on success\n
-         *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-         *          <b>GJ_NO_DATA_FOUND</b> if no score tables where found\n
+         *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+         *  \return **GJ_OK** on success\n
+         *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+         *          **GJ_NO_DATA_FOUND** if no score tables where found\n
          *          (see #GJ_ERROR) */
                               inline int FetchScoreTablesNow(gjScoreTableMap* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScoreTables(papOutput, GJ_NETWORK_NULL_API(gjScoreTableMap));}
         template <typename T> inline int FetchScoreTablesCall(GJ_NETWORK_OUTPUT(gjScoreTableMap)) {return this->__FetchScoreTables(NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
-        /*! @name Clear Cache */
+        /*! \name Clear Cache */
         //! @{
         /*! Delete all cached score table objects and score entries.
          *  \warning All external pointers will be invalid */
@@ -385,12 +385,12 @@ private:
 
 
     private:
-        /*! @name Superior Request Functions */
+        /*! \name Superior Request Functions */
         //! @{
         template <typename T> int __FetchScoreTables(gjScoreTableMap* papOutput, GJ_NETWORK_OUTPUT(gjScoreTableMap));
         //! @}
 
-        /*! @name Management Functions */
+        /*! \name Management Functions */
         //! @{
         int __CheckCache(gjScoreTableMap* papOutput);
         int __Process(const std::string& sData, void* pAdd, gjScoreTableMap* papOutput);
@@ -417,56 +417,56 @@ private:
         gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork);
         ~gjInterDataStore();
 
-        /*! @name Direct Access */
+        /*! \name Direct Access */
         //! @{
         /*! Get direct access to data store items.\n
          *  This function creates a new data store item, if the key does not exist.\n
          *  To get all existing items, use \link FetchDataItemsNow FetchDataItems\endlink.
          *  \pre    Login maybe required
-         *  @param  sKey Unique key of a data store item
-         *  @return Pointer to specific data store item or NULL on error */
+         *  \param  sKey Unique key of a data store item
+         *  \return Pointer to specific data store item or NULL on error */
         gjDataItem* GetDataItem(const std::string& sKey);
         //! @}
 
-        /*! @name Fetch Data Items Request */
+        /*! \name Fetch Data Items Request */
         //! @{
         /*! Fetch and semi-cache all data store items through an API request.
-         *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-         *  @return <b>GJ_OK</b> on success\n
-         *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-         *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
-         *          <b>GJ_NO_DATA_FOUND</b> if no data items where found\n
+         *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+         *  \return **GJ_OK** on success\n
+         *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+         *          **GJ_NOT_CONNECTED** if connection/login is missing\n
+         *          **GJ_NO_DATA_FOUND** if no data items where found\n
          *          (see #GJ_ERROR) */
                               inline int FetchDataItemsNow(gjDataItemMap* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchDataItems(papOutput, GJ_NETWORK_NULL_API(gjDataItemMap));}
         template <typename T> inline int FetchDataItemsCall(GJ_NETWORK_OUTPUT(gjDataItemMap)) {return this->__FetchDataItems(NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
-        /*! @name Clear Cache */
+        /*! \name Clear Cache */
         //! @{
         /*! Delete all cached data store items.
          *  \warning All external pointers will be invalid */
         void ClearCache();
         //! @}
 
-        /*! @name Get Attributes */
+        /*! \name Get Attributes */
         //! @{
         inline const int& GetType()const {return m_iType;}   //!< \copybrief m_iType
         /*! */ //! @}
 
 
     private:
-        /*! @name Superior Request Functions */
+        /*! \name Superior Request Functions */
         //! @{
         template <typename T> int __FetchDataItems(gjDataItemMap* papOutput, GJ_NETWORK_OUTPUT(gjDataItemMap));
         //! @}
 
-        /*! @name Management Functions */
+        /*! \name Management Functions */
         //! @{
         int __CheckCache(gjDataItemMap* papOutput);
         int __Process(const std::string& sData, void* pAdd, gjDataItemMap* papOutput);
         //! @}
 
-        /*! @name Callback Functions */
+        /*! \name Callback Functions */
         //! @{
         int __AddDataItemCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput);
         int __RemoveDataItemCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput);
@@ -490,22 +490,22 @@ private:
         gjInterFile(gjAPI* pAPI, gjNetwork* pNetwork);
         ~gjInterFile();
 
-        /*! @name Download File */
+        /*! \name Download File */
         /*! Download a file from any URL.\n
          *  Retrieve the local path of the file when finished.
-         *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
+         *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
          *  \warning You need to overwrite the file name if it's not apparent from the URL
-         *  @param  sURL               Full path of the remote file
-         *  @param  sToFolder          Relative path of the download target folder
-         *  @param  sFileNameOverwrite Custom target file name (mandatory, if file name is not apparent from the URL)
-         *  @return <b>GJ_OK</b> on success\n
-         *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-         *          <b>GJ_INVALID_INPUT</b> if URL string or target folder string is empty\n
+         *  \param  sURL               Full path of the remote file
+         *  \param  sToFolder          Relative path of the download target folder
+         *  \param  sFileNameOverwrite Custom target file name (mandatory, if file name is not apparent from the URL)
+         *  \return **GJ_OK** on success\n
+         *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+         *          **GJ_INVALID_INPUT** if URL string or target folder string is empty\n
          *          (see #GJ_ERROR) */
                               inline int DownloadFileNow(const std::string& sURL, const std::string& sToFolder, const std::string& sFileNameOverwrite, std::string* psOutput)           {if(!psOutput) return GJ_INVALID_INPUT; return this->__DownloadFile(sURL, sToFolder, sFileNameOverwrite, psOutput, GJ_NETWORK_NULL_API(std::string));}
         template <typename T> inline int DownloadFileCall(const std::string& sURL, const std::string& sToFolder, const std::string& sFileNameOverwrite, GJ_NETWORK_OUTPUT(std::string)) {return this->__DownloadFile(sURL, sToFolder, sFileNameOverwrite, NULL, GJ_NETWORK_OUTPUT_FW);}
 
-        /*! @name Clear Cache */
+        /*! \name Clear Cache */
         //! @{
         /*! Delete all cached file paths. */
         void ClearCache();
@@ -513,12 +513,12 @@ private:
 
 
     private:
-        /*! @name Superior Request Functions */
+        /*! \name Superior Request Functions */
         //! @{
         template <typename T> int __DownloadFile(const std::string& sURL, const std::string& sToFolder, const std::string& sFileNameOverwrite, std::string* psOutput, GJ_NETWORK_OUTPUT(std::string));
         //! @}
 
-        /*! @name Management Functions */
+        /*! \name Management Functions */
         //! @{
         int __CheckCache(const std::string& sPath);
         int __Process(const std::string& sData, void* pAdd, std::string* psOutput);
@@ -557,7 +557,7 @@ public:
     gjAPI(const int& iGameID, const std::string& sGamePrivateKey);
     ~gjAPI();
 
-    /*! @name Update */
+    /*! \name Update */
     //! @{
     /*! Main update function of the library.
      *  \brief Must be executed in the main loop of the application
@@ -565,37 +565,37 @@ public:
     void Update();
     //! @}
 
-    /*! @name Login User*/
+    /*! \name Login User*/
     //! @{
     /*! Login with a specific user.\n
      *  Authenticate user and establish an user session through the API.\n
-     *  Prefetch the user object, trophies and user releated data store items.
+     *  Prefetch the user object, trophies and user related data store items.
      *  \todo   Only blocking version available at the moment
-     *  @param  bSession   Establish an user session
-     *  @param  sUserName  Login name of the user
-     *  @param  sUserToken Token for that user
-     *  @param  sCredPath  Relative path to the credentials file of the quick play function
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_INVALID_CALL</b> if already connected\n
-     *          <b>GJ_INVALID_INPUT</b> if user name or user token is missing\n
-     *          <b>GJ_FILE_ERROR</b> if credentials file was not found\n
+     *  \param  bSession   Establish an user session
+     *  \param  sUserName  Login name of the user
+     *  \param  sUserToken Token for that user
+     *  \param  sCredPath  Relative path to the credentials file of the quick play function
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_INVALID_CALL** if already connected\n
+     *          **GJ_INVALID_INPUT** if user name or user token is missing\n
+     *          **GJ_FILE_ERROR** if credentials file was not found\n
      *          (see #GJ_ERROR) */
     int Login(const bool bSession, const std::string& sUserName, const std::string& sUserToken);
     int Login(const bool bSession, std::string sCredPath = GJ_API_CRED);
     //! @}
 
-    /*! @name Logout User */
+    /*! \name Logout User */
     //! @{
-    /*! Logout with the current main user.\n
+    /*! Logout with the current main user.
      *  \warning External pointers to trophies and user data store items will be invalid
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
+     *  \return **GJ_OK** on success\n
+     *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
     int Logout();
     //! @}
 
-    /*! @name Sub-Interface Access */
+    /*! \name Sub-Interface Access */
     //! @{
     inline gjInterUser*      InterUser()const            {return m_pInterUser;}
     inline gjInterTrophy*    InterTrophy()const          {return m_pInterTrophy;}
@@ -605,44 +605,44 @@ public:
     inline gjInterFile*      InterFile()const            {return m_pInterFile;}
     //! @}
 
-    /*! @name Send Custom Request */
+    /*! \name Send Custom Request */
     //! @{
     /*! Send a custom request to the API.\n
      *  Retrieve a response string when finished.
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks\n
      *          Use "&POST<data>" at the end of the URL for a POST request
-     *  @param  sURL Relative API request string
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_NETWORK_ERROR</b> if session cannot be established\n
+     *  \param  sURL Relative API request string
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_NETWORK_ERROR** if session cannot be established\n
      *          (see #GJ_ERROR) */
                                                   inline int SendRequestNow(const std::string& sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this,& gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string));}
     template <typename T, typename P, typename D> inline int SendRequestCall(const std::string& sURL, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))                    {return m_pNetwork->SendRequest(sURL, NULL, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     template <typename T, typename P, typename D> inline int SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D)) {return m_pNetwork->SendRequest(sURL, psOutput, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Parse Request */
+    /*! \name Parse Request */
     //! @{
     /*! Parse a valid response string from the API.\n
      *  Retrieve a list of data objects or a single string.
-     *  @param  sInput Valid response string
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if the parsed request was unsuccessful\n
-     *          <b>GJ_INVALID_INPUT</b> if the string parsing failed\n
+     *  \param  sInput Valid response string
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if the parsed request was unsuccessful\n
+     *          **GJ_INVALID_INPUT** if the string parsing failed\n
      *          (see #GJ_ERROR) */
     int ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput);
     int ParseRequestDump(const std::string& sInput, std::string* psOutput);
     //! @}
 
-    /*! @name Clear Cache */
+    /*! \name Clear Cache */
     //! @{
     /*! Delete all cached objects.
-     *  \warning All external pointers will be invalid \n
+     *  \warning All external pointers will be invalid\n
      *           Try to avoid using this function */
     void ClearCache();
     //! @}
 
-    /*! @name Utility Functions */
+    /*! \name Utility Functions */
     //! @{
     std::string UtilEscapeString(const std::string& sString);
     std::string UtilCharToHex(const char& cChar);
@@ -651,19 +651,19 @@ public:
     std::string UtilTimestamp(const time_t iTime = time(NULL));
     //! @}
 
-    /*! @name Error Log */
+    /*! \name Error Log */
     //! @{
                  void                      ErrorLogReset();
                  void                      ErrorLogAdd(const std::string& sMsg);
     inline const std::vector<std::string>& ErrorLogGet()const {return m_asLog;}
     //! @}
 
-    /*! @name Set Attributes */
+    /*! \name Set Attributes */
     //! @{
     inline void SetSession(const bool& bActive) {m_bActive = bActive;}   //!< \copybrief m_bActive
     /*! */ //! @}
 
-    /*! @name Get Attributes */
+    /*! \name Get Attributes */
     //! @{
     inline const int&         GetGameID()const         {return m_iGameID;}           //!< \copybrief m_iGameID
     inline const std::string& GetGamePrivateKey()const {return m_sGamePrivateKey;}   //!< \copybrief m_sGamePrivateKey
@@ -671,20 +671,20 @@ public:
     inline const std::string& GetUserToken()const      {return m_sUserToken;}        //!< \copybrief m_sUserToken
     /*! */ //! @}
 
-    /*! @name Get Processed Attributes */
+    /*! \name Get Processed Attributes */
     //! @{
     inline const std::string& GetProcGameID()const    {return m_sProcGameID;}      //!< \copybrief m_sProcGameID
     inline const std::string& GetProcUserName()const  {return m_sProcUserName;}    //!< \copybrief m_sProcUserName
     inline const std::string& GetProcUserToken()const {return m_sProcUserToken;}   //!< \copybrief m_sProcUserToken
     /*! */ //! @}
 
-    /*! @name Check Status */
+    /*! \name Check Status */
     //! @{
     inline const bool& IsActive()const    {return m_bActive;}
     inline const bool& IsConnected()const {return m_bConnected;}
     //! @}
 
-    /*! @name Callback Placeholder */
+    /*! \name Callback Placeholder */
     //! @{
                           inline int  Null(const std::string& sData, void* pAdd, std::string* psOutput) {if(psOutput) (*psOutput) = sData; return GJ_OK;}
     template <typename D> inline void Null(const D& pObject, void* pData)                               {}
@@ -692,13 +692,13 @@ public:
 
 
 private:
-    /*! @name Disable Copy */
+    /*! \name Disable Copy */
     //! @{
     gjAPI(const gjAPI& that);
     gjAPI& operator = (const gjAPI& that);
     //! @}
 
-    /*! @name Session Functions */
+    /*! \name Session Functions */
     //! @{
     int __OpenSession();
     int __PingSession(const bool& bActive);

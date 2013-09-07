@@ -34,87 +34,87 @@ private:
 public:
     gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI);
 
-    /*! @name Set Data Request */
+    /*! \name Set Data Request */
     //! @{
     /*! Set data of this data store item through an API request.\n
      *  May does nothing, if this is an user item and the same data was already sent.
      *  \pre    Login maybe required
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @param  sData Data to send
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_REQUEST_CANCELED</b> if this is an user item and the same data was already sent\n
-     *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \param  sData Data to send
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_REQUEST_CANCELED** if this is an user item and the same data was already sent\n
+     *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
                           inline int SetDataNow(const std::string& sData)                                    {return this->__SetData(sData, true, GJ_NETWORK_NULL_API(gjDataItemPtr));}
                           inline int SetDataCall(const std::string& sData)                                   {return this->__SetData(sData, false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
     template <typename T> inline int SetDataCall(const std::string& sData, GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__SetData(sData, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Set Data Request Base64 */
+    /*! \name Set Data Request Base64 */
     //! @{
     /*! Like \link SetDataNow SetData\endlink\n
      *  Allows to send data in binary form.
      *  \pre    Login maybe required
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @param  pData Data in binary form to send
-     *  @param  iSize Size of the data
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_REQUEST_CANCELED</b> if this is an user item and the same data was already sent\n
-     *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \param  pData Data in binary form to send
+     *  \param  iSize Size of the data
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_REQUEST_CANCELED** if this is an user item and the same data was already sent\n
+     *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
                           inline int SetDataBase64Now(void* pData, const size_t& iSize)                                    {return this->__SetDataBase64(pData, iSize, true, GJ_NETWORK_NULL_API(gjDataItemPtr));}
                           inline int SetDataBase64Call(void* pData, const size_t& iSize)                                   {return this->__SetDataBase64(pData, iSize, false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
     template <typename T> inline int SetDataBase64Call(void* pData, const size_t& iSize, GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__SetDataBase64(pData, iSize, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Get Data Request */
+    /*! \name Get Data Request */
     //! @{
     /*! Get data of this data store item through an API request.
      *  \pre    Login maybe required
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
                           inline int GetDataNow(std::string* psOutput)           {if(!psOutput) return GJ_INVALID_INPUT; return this->__GetData(psOutput, GJ_NETWORK_NULL_API(std::string));}
     template <typename T> inline int GetDataCall(GJ_NETWORK_OUTPUT(std::string)) {return this->__GetData(NULL, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Get Data Request Base64 */
+    /*! \name Get Data Request Base64 */
     //! @{
     /*! Like \link GetDataNow GetData\endlink\n
      *  Allows to get data in binary form.
      *  \todo   Rewrite section and remove double-code
      *  \pre    Login maybe required
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @param   pTarget Pointer to the target
-     *  @param   iSize   Size of the target
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \param   pTarget Pointer to the target
+     *  \param   iSize   Size of the target
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
                           inline int GetDataBase64Now(void* pTarget, const size_t& iSize)                                {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, true,  GJ_NETWORK_NULL_API(gjVoidPtr));}
                           inline int GetDataBase64Call(void* pTarget, const size_t& iSize)                               {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_NULL_API(gjVoidPtr));}
     template <typename T> inline int GetDataBase64Call(void* pTarget, const size_t& iSize, GJ_NETWORK_OUTPUT(gjVoidPtr)) {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Clear Request */
+    /*! \name Clear Request */
     //! @{
     /*! Clears/Removes the data store item through an API request.\n
      *  \pre    Login maybe required
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_NOT_CONNECTED</b> if connection/login is missing\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
                           inline int ClearNow()                                  {return this->__Clear(true,  GJ_NETWORK_NULL_API(gjDataItemPtr));}
                           inline int ClearCall()                                 {return this->__Clear(false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
     template <typename T> inline int ClearCall(GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__Clear(false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Get Attributes */
+    /*! \name Get Attributes */
     //! @{
     inline const std::string& GetKey()const  {return m_sKey;}    //!< \copybrief m_sKey
     inline const int&         GetType()const {return m_iType;}   //!< \copybrief m_iType
@@ -122,13 +122,13 @@ public:
 
 
 private:
-    /*! @name Disable Copy */
+    /*! \name Disable Copy */
     //! @{
     gjDataItem(const gjDataItem& that);
     gjDataItem& operator = (const gjDataItem& that);
     //! @}
 
-    /*! @name Superior Request Functions */
+    /*! \name Superior Request Functions */
     //! @{
     template <typename T> int __SetData(const std::string& sData, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
     template <typename T> int __SetDataBase64(void* pData, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
@@ -137,7 +137,7 @@ private:
     template <typename T> int __Clear(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
     //! @}
 
-    /*! @name Callback Functions */
+    /*! \name Callback Functions */
     //! @{
     int __SetDataCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput);
     int __GetDataCallback(const std::string& sData, void* pAdd, std::string* psOutput);

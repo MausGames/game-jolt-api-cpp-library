@@ -39,34 +39,34 @@ private:
 public:
     gjUser(const gjData& aUserData, gjAPI* pAPI);
 
-    /*! @name Update Data Request */
+    /*! \name Update Data Request */
     //! @{
     /*! Update data of this user through an API request.
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_INVALID_CALL</b> if this is a guest users\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_INVALID_CALL** if this is a guest users\n
      *          (see #GJ_ERROR) */
                           inline int UpdateDataNow()                              {return this->__UpdateData(true, GJ_NETWORK_NULL_API(gjUserPtr));}
                           inline int UpdateDataCall()                             {return this->__UpdateData(false, GJ_NETWORK_NULL_API(gjUserPtr));}
     template <typename T> inline int UpdateDataCall(GJ_NETWORK_OUTPUT(gjUserPtr)) {return this->__UpdateData(false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Download Avatar */
+    /*! \name Download Avatar */
     //! @{
     /*! Download the avatar of this user.\n
      *  Receive the cached local path of the file.
-     *  \note   <b>-Now</b> blocks, <b>-Call</b> uses non-blocking callbacks
-     *  @param  sToFolder Relative path of the download target folder
-     *  @return <b>GJ_OK</b> on success\n
-     *          <b>GJ_REQUEST_FAILED</b> if request was unsuccessful\n
-     *          <b>GJ_INVALID_INPUT</b> if target folder string is empty\n
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
+     *  \param  sToFolder Relative path of the download target folder
+     *  \return **GJ_OK** on success\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_INVALID_INPUT** if target folder string is empty\n
      *          (see #GJ_ERROR) */
                           inline int DownloadAvatarNow(const std::string& sToFolder, std::string* psOutput)           {return m_pAPI->InterFile()->DownloadFileNow(this->GetAvatarURL(), sToFolder, m_sName + GJ_API_AVATAR_FORMAT, psOutput);}
     template <typename T> inline int DownloadAvatarCall(const std::string& sToFolder, GJ_NETWORK_OUTPUT(std::string)) {return m_pAPI->InterFile()->DownloadFileCall(this->GetAvatarURL(), sToFolder, m_sName + GJ_API_AVATAR_FORMAT, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! @name Get Attributes */
+    /*! \name Get Attributes */
     //! @{
     inline const int&         GetID()const                   {return m_iID;}                     //!< \copybrief m_iID
     inline const std::string& GetName()const                 {return m_sName;}                   //!< \copybrief m_sName
@@ -82,19 +82,19 @@ public:
 
 
 private:
-    /*! @name Disable Copy */
+    /*! \name Disable Copy */
     //! @{
     gjUser(const gjUser& that);
     gjUser& operator = (const gjUser& that);
     friend class gjAPI;
     //! @}
 
-    /*! @name Superior Request Functions */
+    /*! \name Superior Request Functions */
     //! @{
     template <typename T> int __UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjUserPtr));
     //! @}
 
-    /*! @name Callback Functions */
+    /*! \name Callback Functions */
     //! @{
     int __UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* pOutput);
     //! @}
