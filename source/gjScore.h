@@ -15,7 +15,7 @@
 /*! Score table object class.\n
  *  http://gamejolt.com/api/doc/game/scores/
  *  \brief Score Table Object */
-class gjScoreTable
+class gjScoreTable final
 {
 private:
     int m_iID;                          //!< ID of the score table
@@ -119,8 +119,8 @@ public:
 private:
     /*! \name Disable Copy */
     //! @{
-    gjScoreTable(const gjScoreTable& that);
-    gjScoreTable& operator = (const gjScoreTable& that);
+    gjScoreTable(const gjScoreTable& that) deletefunc;
+    gjScoreTable& operator = (const gjScoreTable& that) deletefunc;
     //! @}
 
     /*! \name Superior Request Functions */
@@ -147,7 +147,7 @@ private:
 /*! Score entry class.\n
  *  http://gamejolt.com/api/doc/game/scores/
  *  \brief Score Entry Object */
-class gjScore
+class gjScore final
 {
 private:
     std::string m_sScore;          //!< score string
@@ -204,8 +204,8 @@ public:
 private:
     /*! \name Disable Copy */
     //! @{
-    gjScore(const gjScore& that);
-    gjScore& operator = (const gjScore& that);
+    gjScore(const gjScore& that) deletefunc;
+    gjScore& operator = (const gjScore& that) deletefunc;
     //! @}
 };
 

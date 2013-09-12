@@ -17,7 +17,7 @@
  *  \brief Data Store Item Object
  *  \bug Data store items are not UTF-8 compatible (server-side),\n
  *       if you have problems with string data, use Base64 instead */
-class gjDataItem
+class gjDataItem final
 {
 private:
     std::string m_sKey;        //!< unique key of this item
@@ -124,8 +124,8 @@ public:
 private:
     /*! \name Disable Copy */
     //! @{
-    gjDataItem(const gjDataItem& that);
-    gjDataItem& operator = (const gjDataItem& that);
+    gjDataItem(const gjDataItem& that) deletefunc;
+    gjDataItem& operator = (const gjDataItem& that) deletefunc;
     //! @}
 
     /*! \name Superior Request Functions */

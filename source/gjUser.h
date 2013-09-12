@@ -15,7 +15,7 @@
 /*! User object class.\n
  *  http://gamejolt.com/api/doc/game/users/
  *  \brief User Object */
-class gjUser
+class gjUser final
 {
 private:
     int m_iID;                             //!< ID of the user

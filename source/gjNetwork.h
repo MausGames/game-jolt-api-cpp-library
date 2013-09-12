@@ -16,7 +16,7 @@
  *  Send requests, fetch data and download files with the cURL library.\n
  *  http://curl.haxx.se/
  *  \brief Network Interface */
-class gjNetwork
+class gjNetwork final
 {
 private:
     // ****************************************************************
@@ -84,7 +84,7 @@ private:
     // ****************************************************************
     /*! Request callback sub-interface class for non-blocking cURL sessions.\n
      *  \brief Request Callback Sub-Interface */
-    template <typename T, typename P, typename D> class gjCallRequest : public gjCallTemplate<T,P,D>
+    template <typename T, typename P, typename D> class gjCallRequest final : public gjCallTemplate<T,P,D>
     {
     private:
         std::string* m_psResponse;    //!< response string of the request
@@ -97,7 +97,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        void Finish(const bool& bOK);
+        void Finish(const bool& bOK)override;
         //! @}
     };
 
@@ -105,7 +105,7 @@ private:
     // ****************************************************************
     /*! Download callback sub-interface class for non-blocking cURL sessions.\n
      *  \brief Download Callback Sub-Interface */
-    template <typename T, typename P, typename D> class gjCallDownload : public gjCallTemplate<T,P,D>
+    template <typename T, typename P, typename D> class gjCallDownload final : public gjCallTemplate<T,P,D>
     {
     private:
         FILE* m_pFile;         //!< file handle
@@ -118,7 +118,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        void Finish(const bool& bOK);
+        void Finish(const bool& bOK)override;
         //! @}
     };
 
@@ -191,8 +191,8 @@ public:
 private:
     /*! \name Disable Copy */
     //! @{
-    gjNetwork(const gjNetwork& that);
-    gjNetwork& operator = (const gjNetwork& that);
+    gjNetwork(const gjNetwork& that) deletefunc;
+    gjNetwork& operator = (const gjNetwork& that) deletefunc;
     //! @}
 
     /*! \name Management Functions */

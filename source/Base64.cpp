@@ -107,7 +107,7 @@ int _base64_char_value(char base64char)
  *
  * @param quadruple the 4 characters that should be decoded
  * @param result the decoded data
- * @return lenth of the result (1, 2 or 3), 0 on failure
+ * @return length of the result (1, 2 or 3), 0 on failure
  */
 int _base64_decode_triple(char quadruple[4], unsigned char *result)
 {
@@ -178,7 +178,7 @@ size_t base64_decode(const char *source, unsigned char *target, size_t targetlen
     size_t tmplen = 3;
     size_t converted = 0;
 
-    /* concatinate '===' to the source to handle unpadded base64 data */
+    /* concatenate '===' to the source to handle unpadded base64 data */
     src = (char *)malloc(strlen(source)+5);
     if (src == NULL)
         return -1;

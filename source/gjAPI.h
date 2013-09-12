@@ -102,6 +102,18 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#if defined(_MSC_VER)
+    #define deletefunc
+#else
+    #define deletefunc = delete
+#endif
+
+#if defined(_MSC_VER)
+    #if (_MSC_VER) < 1700
+        #define final
+    #endif
+#endif
+
 #include <string>
 #include <map>
 #include <vector>
@@ -176,14 +188,14 @@ enum GJ_TROPHY_TYPE
  *  \todo Maybe switch all function parameters from std::string to const char*\n
  *        Implement event loop system as third way to do requests\n
  *        Improve offline caching */
-class gjAPI
+class gjAPI final
 {
 private:
     // ****************************************************************
     /*! Sub-Interface class for user operations.\n
      *  http://gamejolt.com/api/doc/game/users/
      *  \brief User Sub-Interface */
-    class gjInterUser
+    class gjInterUser final
     {
     private:
         std::map<int, gjUser*> m_apUser;   //!< cached user objects
@@ -254,7 +266,7 @@ private:
     /*! Sub-Interface class for trophy operations.\n
      *  http://gamejolt.com/api/doc/game/trophies/
      *  \brief Trophy Sub-Interface */
-    class gjInterTrophy
+    class gjInterTrophy final
     {
     private:
         std::map<int, gjTrophy*> m_apTrophy;   //!< cached trophy objects
@@ -340,7 +352,7 @@ private:
     /*! Sub-Interface class for score operations.\n
      *  http://gamejolt.com/api/doc/game/scores/
      *  \brief Score Sub-Interface */
-    class gjInterScore
+    class gjInterScore final
     {
     private:
         std::map<int, gjScoreTable*> m_apScoreTable;   //!< cached score table objects with semi-cached score entries
@@ -402,7 +414,7 @@ private:
     /*! Sub-Interface class for data store operations.\n
      *  http://gamejolt.com/api/doc/game/data-store/
      *  \brief Data Store Sub-Interface */
-    class gjInterDataStore
+    class gjInterDataStore final
     {
     private:
         std::map<std::string, gjDataItem*> m_apDataItem;   //!< semi-cached data store items
@@ -477,7 +489,7 @@ private:
     // ****************************************************************
     /*! Sub-Interface class for file downloads.\n
      *  \brief File Download Sub-Interface */
-    class gjInterFile
+    class gjInterFile final
     {
     private:
         std::vector<std::string> m_asFile;   //!< cached file paths
@@ -694,8 +706,8 @@ public:
 private:
     /*! \name Disable Copy */
     //! @{
-    gjAPI(const gjAPI& that);
-    gjAPI& operator = (const gjAPI& that);
+    gjAPI(const gjAPI& that) deletefunc;
+    gjAPI& operator = (const gjAPI& that) deletefunc;
     //! @}
 
     /*! \name Session Functions */

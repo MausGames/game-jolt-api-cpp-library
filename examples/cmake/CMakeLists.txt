@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 2.6)
 project(GJ_API_example)
 
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "-O2")
-    set(CMAKE_EXE_LINKER_FLAGS "-s")
-    add_definitions(-Wall -std=c++0x)
-endif()
+set(CMAKE_C_COMPILER       "gcc")
+set(CMAKE_CXX_COMPILER     "g++")
+set(CMAKE_CXX_FLAGS        "-O2")
+set(CMAKE_EXE_LINKER_FLAGS "-s")
+add_definitions(-Wall -std=c++11)
 
 
 if(WIN32)
@@ -38,12 +38,12 @@ add_executable(
 
 if(WIN32)
     target_link_libraries(
-      GJ_API_example 
+      GJ_API_example
       "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/windows/libcurl.lib"
     )
 else()
     target_link_libraries(
-      GJ_API_example 
+      GJ_API_example
       "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/linux/libcurl.so"
     )
 endif()

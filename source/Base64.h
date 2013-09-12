@@ -44,7 +44,7 @@ int _base64_char_value(char base64char);
  *
  * @param quadruple the 4 characters that should be decoded
  * @param result the decoded data
- * @return lenth of the result (1, 2 or 3), 0 on failure
+ * @return length of the result (1, 2 or 3), 0 on failure
  */
 int _base64_decode_triple(char quadruple[4], unsigned char *result);
 

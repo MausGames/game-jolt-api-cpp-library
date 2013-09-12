@@ -15,7 +15,7 @@
 /*! Trophy object class.\n
  *  http://gamejolt.com/api/doc/game/trophies/
  *  \brief Trophy Object */
-class gjTrophy
+class gjTrophy  final
 {
 private:
     int m_iID;                     //!< ID of the trophy
