@@ -80,13 +80,13 @@
  *  \param pOutputData    additional data which will be forwarded to the callback function
  *
  *  **Code Example**
- *  \code{.cpp}
- *  void Function(myClass& myObj)
- *  {
- *      // fetch an user with a callback (does not block)
- *      API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
- *  }
- *  \endcode */
+    \code{.cpp}
+    void Function(gjAPI& API, myClass& myObj)
+    {
+        // fetch an user with a callback (does not block)
+        API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
+    }
+    \endcode */
 #define GJ_NETWORK_OUTPUT(x)    T* pOutputObj,  void (T::*OutputCallback)(const x&, void*),               void* pOutputData
 #define GJ_NETWORK_PROCESS      P* pProcessObj, int (P::*ProcessCallback)(const std::string&, void*, D*), void* pProcessData
 
@@ -110,6 +110,13 @@
 
 #if defined(_MSC_VER)
     #if (_MSC_VER) < 1700
+        #define final
+    #endif
+#endif
+
+#if defined(__GNUC__)
+    #if (__GNUC__*100 + __GNUC_MINOR__*1) < 407
+        #define override
         #define final
     #endif
 #endif
