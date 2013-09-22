@@ -15,8 +15,8 @@ The current library is available from [Game Jolt][3] (or from here) and contains
 
 You also need to **create an account and upload your game to Game Jolt** to retrieve a game ID and a private key.
 
-	**Supported compilers:** GCC/MinGW 4.7+, MSVC 10.0+, Clang 3.3+  
-	Documentation for the library can be found in the download or [here][5]
+**Supported compilers:** GCC/MinGW 4.7+, MSVC 10.0+, Clang 3.3+  
+Documentation for the library can be found in the download or [here][5].
 
 [1]: http://gamejolt.com
 [2]: http://gamejolt.com/developers/achievements-new/
