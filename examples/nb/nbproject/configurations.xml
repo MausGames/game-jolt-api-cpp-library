@@ -45,10 +45,10 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug_Windows" type="1">
+    <conf name="Debug_Windows_mingw" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>default</compilerSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -56,7 +56,7 @@
         <ccTool>
           <standard>8</standard>
           <incDir>
-            <pElem>../../libraries/windows/include</pElem>
+            <pElem>../../libraries/include</pElem>
             <pElem>../../source</pElem>
           </incDir>
           <preprocessorList>
@@ -65,7 +65,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_debug.exe</output>
+          <output>../GameJoltAPI_example_mingw_debug.exe</output>
           <linkerAddLib>
             <pElem>../../libraries/windows</pElem>
           </linkerAddLib>
@@ -111,10 +111,142 @@
       <item path="../main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Release_Windows" type="1">
+    <conf name="Debug_Linux_gcc" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>../../libraries/include</pElem>
+            <pElem>../../source</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_DEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>../GameJoltAPI_example_gcc_debug</output>
+          <linkerAddLib>
+            <pElem>../../libraries/linux</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>curl</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../../source/Base64.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/Base64.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/MD5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Debug_Linux_clang" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>CLang|CLang</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>../../libraries/include</pElem>
+            <pElem>../../source</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_DEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>../GameJoltAPI_example_clang_debug</output>
+          <linkerAddLib>
+            <pElem>../../libraries/linux</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>curl</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../../source/Base64.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/Base64.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/MD5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release_Windows_mingw" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -127,7 +259,7 @@
           <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <incDir>
-            <pElem>../../libraries/windows/include</pElem>
+            <pElem>../../libraries/include</pElem>
             <pElem>../../source</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
@@ -139,12 +271,160 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <output>../GameJoltAPI_example.exe</output>
+          <output>../GameJoltAPI_example_mingw.exe</output>
           <linkerAddLib>
             <pElem>../../libraries/windows</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>libcurl</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>-static-libgcc -static-libstdc++</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../../source/Base64.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/Base64.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/MD5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release_Linux_gcc" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <standard>8</standard>
+          <incDir>
+            <pElem>../../libraries/include</pElem>
+            <pElem>../../source</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>../GameJoltAPI_example_gcc</output>
+          <linkerAddLib>
+            <pElem>../../libraries/linux</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>curl</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../../source/Base64.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/Base64.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/MD5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjNetwork.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjScore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjTrophy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../source/gjUser.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release_Linux_clang" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>CLang|CLang</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <standard>8</standard>
+          <incDir>
+            <pElem>../../libraries/include</pElem>
+            <pElem>../../source</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>../GameJoltAPI_example_clang</output>
+          <linkerAddLib>
+            <pElem>../../libraries/linux</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>curl</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

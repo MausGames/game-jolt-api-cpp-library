@@ -9,17 +9,10 @@ set(CMAKE_EXE_LINKER_FLAGS "-s")
 add_definitions(-Wall -std=c++11)
 
 
-if(WIN32)
-    include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../source"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/windows/include"
-    )
-else()
-    include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../source"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/linux/include"
-    )
-endif()
+include_directories(
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../source"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/include"
+)
 
 
 add_executable(
