@@ -13,8 +13,10 @@ examples/msvc/Release/
 examples/cb/obj/
 examples/cb/GameJoltAPI.depend
 examples/cb/GameJoltAPI.layout
-examples/nb/nbproject/Makefile-*.mk
-examples/nb/nbproject/Package-*.bash
-examples/nb/nbproject/private/Makefile-*.mk
+examples/nb/nbproject/*.mk
+examples/nb/nbproject/*.bash
+examples/nb/nbproject/private/*.mk
 examples/nb/.dep.inc
 examples/nb/build/
+examples/*.pdb
+examples/*.ilk

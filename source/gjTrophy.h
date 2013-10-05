@@ -107,7 +107,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
+    /*! \name Hide Copy */
     //! @{
     gjTrophy(const gjTrophy& that);
     gjTrophy& operator = (const gjTrophy& that);

@@ -33,9 +33,6 @@ gjTrophy::gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)
     m_sAchievedDate = (sAchievedDate == "false" || sAchievedDate == "" || !m_pAPI->IsConnected()) ? "" : sAchievedDate;
 }
 
-
-// ****************************************************************
-/* copy-constructor and copy-assignment */
 gjTrophy::gjTrophy(const gjTrophy& that)
 : m_iID              (that.m_iID)
 , m_sTitle           (that.m_sTitle)
@@ -50,24 +47,17 @@ gjTrophy::gjTrophy(const gjTrophy& that)
 {
 }
 
+
+// ****************************************************************
+/* assignment operator */
 gjTrophy& gjTrophy::operator = (const gjTrophy& that)
 {
-    m_iID              = that.m_iID; 
-    m_sTitle           = that.m_sTitle; 
-    m_sDescription     = that.m_sDescription; 
-    m_sDifficulty      = that.m_sDifficulty; 
-    m_iDifficultyValue = that.m_iDifficultyValue; 
-    m_sImageURL        = that.m_sImageURL; 
-    m_sAchievedDate    = that.m_sAchievedDate; 
-    m_iSort            = that.m_iSort;
-    m_bSecret          = that.m_bSecret;
-    m_pAPI             = that.m_pAPI;
-
+    *this = that;
     return *this;
 }
 
 
-// ****************************************************************  
+// ****************************************************************
 // callback for updating the data */
 int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput)
 {
@@ -94,7 +84,7 @@ int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTroph
 }
 
 
-// ****************************************************************  
+// ****************************************************************
 // callback for achieving the trophy */
 int gjTrophy::__AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput)
 {
@@ -109,6 +99,6 @@ int gjTrophy::__AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPt
     // set time string
     m_sAchievedDate = GJ_API_TEXT_NOW;
 
-    if(ppOutput) (*ppOutput) = this; 
+    if(ppOutput) (*ppOutput) = this;
     return GJ_OK;
 }

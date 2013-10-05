@@ -189,11 +189,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
-    //! @{
-    gjNetwork(const gjNetwork& that) deletefunc;
-    gjNetwork& operator = (const gjNetwork& that) deletefunc;
-    //! @}
+    GJ_DISABLE_COPY(gjNetwork)
 
     /*! \name Management Functions */
     //! @{

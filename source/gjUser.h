@@ -82,7 +82,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
+    /*! \name Hide Copy */
     //! @{
     gjUser(const gjUser& that);
     gjUser& operator = (const gjUser& that);

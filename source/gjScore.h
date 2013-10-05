@@ -117,11 +117,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
-    //! @{
-    gjScoreTable(const gjScoreTable& that) deletefunc;
-    gjScoreTable& operator = (const gjScoreTable& that) deletefunc;
-    //! @}
+    GJ_DISABLE_COPY(gjScoreTable)
 
     /*! \name Superior Request Functions */
     //! @{
@@ -202,11 +198,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
-    //! @{
-    gjScore(const gjScore& that) deletefunc;
-    gjScore& operator = (const gjScore& that) deletefunc;
-    //! @}
+    GJ_DISABLE_COPY(gjScore)
 };
 
 

@@ -26,9 +26,6 @@ gjUser::gjUser(const gjData& aUserData, gjAPI* pAPI)
 {
 }
 
-
-// ****************************************************************
-/* copy-constructor and copy-assignment */
 gjUser::gjUser(const gjUser& that)
 : m_iID                   (that.m_iID)
 , m_sName                 (that.m_sName)
@@ -44,25 +41,17 @@ gjUser::gjUser(const gjUser& that)
 {
 }
 
+
+// ****************************************************************
+/* assignment operator */
 gjUser& gjUser::operator = (const gjUser& that)
 {
-    m_iID                   = that.m_iID;
-    m_sName                 = that.m_sName;
-    m_sType                 = that.m_sType;
-    m_sAvatarURL            = that.m_sAvatarURL;
-    m_sSignedUp             = that.m_sSignedUp;
-    m_sLastLoggedIn         = that.m_sLastLoggedIn;
-    m_sStatus               = that.m_sStatus;
-    m_sDeveloperName        = that.m_sDeveloperName;
-    m_sDeveloperWebsite     = that.m_sDeveloperWebsite;
-    m_sDeveloperDescription = that.m_sDeveloperDescription;
-    m_pAPI                  = that.m_pAPI;
-
+    *this = that;
     return *this;
 }
 
 
-// ****************************************************************  
+// ****************************************************************
 /* callback for updating the data */
 int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* pOutput)
 {

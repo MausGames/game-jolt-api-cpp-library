@@ -1105,7 +1105,7 @@ void gjAPI::ErrorLogAdd(const std::string& sMsg)
         }
     }
 
-#if defined(_DEBUG)
+#if defined(_GJ_DEBUG_)
     // print message to terminal
     std::cerr << "(!GJ) " << sTimeMsg << std::endl;
 #endif

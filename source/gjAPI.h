@@ -75,6 +75,54 @@
 /* --- configuration --- */
 
 
+// compiler
+#if defined(_MSC_VER)
+    #define _GJ_MSVC_ (_MSC_VER)
+#endif
+#if defined(__GNUC__)
+    #define _GJ_GCC_ (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
+#endif
+#if defined(__MINGW32__)
+    #include <_mingw.h>
+    #define _GJ_MINGW_ (__MINGW_MAJOR_VERSION*10000 + __MINGW_MINOR_VERSION*100 + __MINGW_PATCHLEVEL*1)
+#endif
+#if defined(__clang__)
+    #define _GJ_CLANG_ (__clang_major__*10000 + __clang_minor__*100 + __clang_patchlevel__*1)
+#endif
+
+// platform
+#if defined(_WIN32)
+    #define _GJ_WINDOWS_
+#endif
+#if defined(__APPLE__)
+    #define _GJ_OSX_
+#endif
+#if defined(__linux__)
+    #define _GJ_LINUX_
+#endif
+
+// debug mode
+#if defined(_DEBUG) || defined(DEBUG) || (defined(_GJ_GCC_) && !defined(__OPTIMIZE__))
+    #define _GJ_DEBUG_
+#endif
+
+// missing functionality
+#if defined(_GJ_MSVC_)
+    #if (_GJ_MSVC_) < 1700
+        #define final
+    #endif
+    #define deletefunc
+#else
+    #define deletefunc = delete
+#endif
+#if defined(_GJ_GCC_)
+    #if (_GJ_GCC_) < 40700
+        #define override
+        #define final
+    #endif
+#endif
+
+
 /*! \param pOutputObj     output receiving object of **class T**
  *  \param OutputCallback callback function from **class T** with a specific return **type x**
  *  \param pOutputData    additional data which will be forwarded to the callback function
@@ -100,36 +148,19 @@
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p)=NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : "")
 
+#define GJ_DISABLE_COPY(c)  \
+    c(const c&) deletefunc; \
+    c& operator = (const c&) deletefunc;
+
 #define _CRT_SECURE_NO_WARNINGS
 
-#if defined(_MSC_VER)
-    #define deletefunc
-#else
-    #define deletefunc = delete
-#endif
-
-#if defined(_MSC_VER)
-    #if (_MSC_VER) < 1700
-        #define final
-    #endif
-#endif
-
-#if defined(__GNUC__)
-    #if (__GNUC__*100 + __GNUC_MINOR__*1) < 407
-        #define override
-        #define final
-    #endif
-#endif
-
+#include <stdlib.h>
 #include <string>
 #include <map>
 #include <vector>
-#if !defined(_WIN32)
+#if !defined(_GJ_WINDOWS_)
     #include <string.h>
     #include <sys/stat.h>
-#endif
-#if defined(__APPLE__)
-    #include <stdlib.h>
 #endif
 
 #include "MD5.h"
@@ -711,11 +742,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
-    //! @{
-    gjAPI(const gjAPI& that) deletefunc;
-    gjAPI& operator = (const gjAPI& that) deletefunc;
-    //! @}
+    GJ_DISABLE_COPY(gjAPI)
 
     /*! \name Session Functions */
     //! @{

@@ -122,11 +122,7 @@ public:
 
 
 private:
-    /*! \name Disable Copy */
-    //! @{
-    gjDataItem(const gjDataItem& that) deletefunc;
-    gjDataItem& operator = (const gjDataItem& that) deletefunc;
-    //! @}
+    GJ_DISABLE_COPY(gjDataItem)
 
     /*! \name Superior Request Functions */
     //! @{
