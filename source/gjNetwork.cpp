@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjNetwork::gjNetwork(gjAPI* pAPI)
+gjNetwork::gjNetwork(gjAPI* pAPI)noexcept
 : m_iNumSessions (0)
 , m_pAPI         (pAPI)
 {
@@ -53,7 +53,7 @@ bool gjNetwork::Update()
 
     // update cURL
     curl_multi_perform(m_pMultiHandle, &m_iNumSessions);
-  
+
     // manage active cURL sessions
     CURLMsg* pMsg;
     while((pMsg = curl_multi_info_read(m_pMultiHandle, &m_iNumSessions)))

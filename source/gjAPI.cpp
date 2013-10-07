@@ -15,7 +15,7 @@
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjInterUser::gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork)
+gjAPI::gjInterUser::gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 : m_pAPI     (pAPI)
 , m_pNetwork (pNetwork)
 {
@@ -156,7 +156,7 @@ int gjAPI::gjInterUser::__Process(const std::string& sData, void* pAdd, gjUserPt
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjInterTrophy::gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork)
+gjAPI::gjInterTrophy::gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 : m_iCache   (0)
 , m_pAPI     (pAPI)
 , m_pNetwork (pNetwork)
@@ -446,7 +446,7 @@ void gjAPI::gjInterTrophy::__LoadOffCache()
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjInterScore::gjInterScore(gjAPI* pAPI, gjNetwork* pNetwork)
+gjAPI::gjInterScore::gjInterScore(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 : m_pAPI     (pAPI)
 , m_pNetwork (pNetwork)
 {
@@ -553,7 +553,7 @@ int gjAPI::gjInterScore::__Process(const std::string& sData, void* pAdd, gjScore
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjInterDataStore::gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork)
+gjAPI::gjInterDataStore::gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 : m_iType    (iType)
 , m_pAPI     (pAPI)
 , m_pNetwork (pNetwork)
@@ -646,7 +646,7 @@ int gjAPI::gjInterDataStore::__Process(const std::string& sData, void* pAdd, gjD
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjInterFile::gjInterFile(gjAPI* pAPI, gjNetwork* pNetwork)
+gjAPI::gjInterFile::gjInterFile(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 : m_pAPI     (pAPI)
 , m_pNetwork (pNetwork)
 {
@@ -700,7 +700,7 @@ int gjAPI::gjInterFile::__Process(const std::string& sData, void* pAdd, std::str
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)
+gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept
 : m_iGameID          (iGameID)
 , m_sGamePrivateKey  (sGamePrivateKey)
 , m_sUserName        ("")

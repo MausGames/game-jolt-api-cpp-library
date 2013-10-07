@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjUser::gjUser(const gjData& aUserData, gjAPI* pAPI)
+gjUser::gjUser(const gjData& aUserData, gjAPI* pAPI)noexcept
 : m_iID                   (atoi(SAFE_MAP_GET(aUserData, "id").c_str()))
 , m_sName                 (SAFE_MAP_GET(aUserData, "username"))
 , m_sType                 (SAFE_MAP_GET(aUserData, "type"))
@@ -26,7 +26,7 @@ gjUser::gjUser(const gjData& aUserData, gjAPI* pAPI)
 {
 }
 
-gjUser::gjUser(const gjUser& that)
+gjUser::gjUser(const gjUser& that)noexcept
 : m_iID                   (that.m_iID)
 , m_sName                 (that.m_sName)
 , m_sType                 (that.m_sType)
@@ -44,9 +44,19 @@ gjUser::gjUser(const gjUser& that)
 
 // ****************************************************************
 /* assignment operator */
-gjUser& gjUser::operator = (const gjUser& that)
+gjUser& gjUser::operator = (const gjUser& that)noexcept
 {
-    *this = that;
+    m_iID                   = that.m_iID;
+    m_sName                 = that.m_sName;
+    m_sType                 = that.m_sType;
+    m_sAvatarURL            = that.m_sAvatarURL;
+    m_sSignedUp             = that.m_sSignedUp;
+    m_sLastLoggedIn         = that.m_sLastLoggedIn;
+    m_sStatus               = that.m_sStatus;
+    m_sDeveloperName        = that.m_sDeveloperName;
+    m_sDeveloperWebsite     = that.m_sDeveloperWebsite;
+    m_sDeveloperDescription = that.m_sDeveloperDescription;
+    m_pAPI                  = that.m_pAPI;
     return *this;
 }
 

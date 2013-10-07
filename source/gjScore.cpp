@@ -14,7 +14,7 @@ gjScoreTable* gjScoreTable::s_pPrimary = NULL;
 
 // ****************************************************************
 /* constructor */
-gjScoreTable::gjScoreTable(const gjData& aScoreTableData, gjAPI* pAPI)
+gjScoreTable::gjScoreTable(const gjData& aScoreTableData, gjAPI* pAPI)noexcept
 : m_iID          (atoi(SAFE_MAP_GET(aScoreTableData, "id").c_str()))
 , m_sTitle       (SAFE_MAP_GET(aScoreTableData, "name"))
 , m_sDescription (SAFE_MAP_GET(aScoreTableData, "description"))
@@ -174,7 +174,7 @@ int gjScoreTable::__AddScoreCallback(const std::string& sData, void* pAdd, gjSco
 
 // ****************************************************************
 /* constructor */
-gjScore::gjScore(const gjData& sScoreData, gjScoreTable* pScoreTable, gjAPI* pAPI)
+gjScore::gjScore(const gjData& sScoreData, gjScoreTable* pScoreTable, gjAPI* pAPI)noexcept
 : m_sScore      (SAFE_MAP_GET(sScoreData, "score"))
 , m_iSort       (atoi(SAFE_MAP_GET(sScoreData, "sort").c_str()))
 , m_sExtraData  (SAFE_MAP_GET(sScoreData, "extra_data"))

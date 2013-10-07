@@ -37,7 +37,7 @@ private:
 
 
 public:
-    gjUser(const gjData& aUserData, gjAPI* pAPI);
+    gjUser(const gjData& aUserData, gjAPI* pAPI)noexcept;
 
     /*! \name Update Data Request */
     //! @{
@@ -84,8 +84,8 @@ public:
 private:
     /*! \name Hide Copy */
     //! @{
-    gjUser(const gjUser& that);
-    gjUser& operator = (const gjUser& that);
+    gjUser(const gjUser& that)noexcept;
+    gjUser& operator = (const gjUser& that)noexcept;
     friend class gjAPI;
     //! @}
 

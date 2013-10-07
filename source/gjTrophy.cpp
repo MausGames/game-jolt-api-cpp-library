@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjTrophy::gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)
+gjTrophy::gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)noexcept
 : m_iID           (atoi(SAFE_MAP_GET(aTrophyData, "id").c_str()))
 , m_sTitle        (SAFE_MAP_GET(aTrophyData, "title"))
 , m_sDescription  (SAFE_MAP_GET(aTrophyData, "description"))
@@ -33,7 +33,7 @@ gjTrophy::gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)
     m_sAchievedDate = (sAchievedDate == "false" || sAchievedDate == "" || !m_pAPI->IsConnected()) ? "" : sAchievedDate;
 }
 
-gjTrophy::gjTrophy(const gjTrophy& that)
+gjTrophy::gjTrophy(const gjTrophy& that)noexcept
 : m_iID              (that.m_iID)
 , m_sTitle           (that.m_sTitle)
 , m_sDescription     (that.m_sDescription)
@@ -50,9 +50,18 @@ gjTrophy::gjTrophy(const gjTrophy& that)
 
 // ****************************************************************
 /* assignment operator */
-gjTrophy& gjTrophy::operator = (const gjTrophy& that)
+gjTrophy& gjTrophy::operator = (const gjTrophy& that)noexcept
 {
-    *this = that;
+    m_iID              = that.m_iID;
+    m_sTitle           = that.m_sTitle;
+    m_sDescription     = that.m_sDescription;
+    m_sDifficulty      = that.m_sDifficulty;
+    m_iDifficultyValue = that.m_iDifficultyValue;
+    m_sImageURL        = that.m_sImageURL;
+    m_sAchievedDate    = that.m_sAchievedDate;
+    m_iSort            = that.m_iSort;
+    m_bSecret          = that.m_bSecret;
+    m_pAPI             = that.m_pAPI;
     return *this;
 }
 

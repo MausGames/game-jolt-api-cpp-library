@@ -34,7 +34,7 @@ private:
 
 
 public:
-    gjScoreTable(const gjData& aScoreTableData, gjAPI* pAPI);
+    gjScoreTable(const gjData& aScoreTableData, gjAPI* pAPI)noexcept;
     ~gjScoreTable();
 
     /*! \name Fetch Scores Request */
@@ -161,7 +161,7 @@ private:
 
 
 public:
-    gjScore(const gjData& aScoreData, gjScoreTable* pScoreTable, gjAPI* pAPI);
+    gjScore(const gjData& aScoreData, gjScoreTable* pScoreTable, gjAPI* pAPI)noexcept;
 
     /*! \name Fetch User Request */
     //! @{

@@ -30,7 +30,7 @@ private:
 
 
     public:
-        gjCall(CURL* pSession, const std::string& sInfo) : m_pSession(pSession), m_sInfo(sInfo) {}
+        gjCall(CURL* pSession, const std::string& sInfo)noexcept : m_pSession(pSession), m_sInfo(sInfo) {}
         virtual ~gjCall() {}
 
         /*! \name Finish Session */
@@ -71,7 +71,7 @@ private:
 
 
     public:
-        gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS);
+        gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept;
         virtual ~gjCallTemplate() {m_aOutput.clear();}
 
         /*! \name Add Output */
@@ -92,7 +92,7 @@ private:
 
 
     public:
-        gjCallRequest(std::string* psResponse, curl_httppost* pPostList, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)
+        gjCallRequest(std::string* psResponse, curl_httppost* pPostList, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
         : gjCallTemplate<T,P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_psResponse(psResponse), m_pPostList(pPostList) {}
 
         /*! \name Finish Session */
@@ -113,7 +113,7 @@ private:
 
 
     public:
-        gjCallDownload(FILE* pFile, const std::string& sPath, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)
+        gjCallDownload(FILE* pFile, const std::string& sPath, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
         : gjCallTemplate<T,P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_pFile(pFile), m_sPath(sPath) {}
 
         /*! \name Finish Session */
@@ -133,7 +133,7 @@ private:
 
 
 public:
-    gjNetwork(gjAPI* pAPI);
+    gjNetwork(gjAPI* pAPI)noexcept;
     ~gjNetwork();
 
     /*! \name Update */

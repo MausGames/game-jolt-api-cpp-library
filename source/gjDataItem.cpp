@@ -11,7 +11,7 @@
 
 // ****************************************************************
 /* constructor */
-gjDataItem::gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI)
+gjDataItem::gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI)noexcept
 : m_sKey     (SAFE_MAP_GET(aDataItemData, "key"))
 , m_sData    ("")
 , m_iType    (iType)
@@ -24,7 +24,7 @@ gjDataItem::gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAP
 
 // ****************************************************************
 /* callback for successfully setting data store item (Base64) data */
-int gjDataItem::__SetDataCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput) 
+int gjDataItem::__SetDataCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput)
 {
     // parse output (only check status)
     gjDataList aaReturn;
@@ -38,11 +38,11 @@ int gjDataItem::__SetDataCallback(const std::string& sData, void* pAdd, gjDataIt
     {
         // use verification data
         std::string* psAdd = (std::string*)pAdd;
-        m_sData            = (*psAdd); 
+        m_sData            = (*psAdd);
         (*psAdd)           = "";
-    } 
+    }
 
-    if(ppOutput) (*ppOutput) = this; 
+    if(ppOutput) (*ppOutput) = this;
     return GJ_OK;
 }
 
@@ -96,6 +96,6 @@ int gjDataItem::__ClearCallback(const std::string& sData, void* pAdd, gjDataItem
         return GJ_REQUEST_FAILED;
     }
 
-    if(ppOutput) (*ppOutput) = this; 
+    if(ppOutput) (*ppOutput) = this;
     return GJ_OK;
 }

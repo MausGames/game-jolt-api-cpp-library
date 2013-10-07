@@ -111,6 +111,7 @@
     #if (_GJ_MSVC_) < 1700
         #define final
     #endif
+    #define noexcept throw()
     #define deletefunc
 #else
     #define deletefunc = delete
@@ -121,7 +122,6 @@
         #define final
     #endif
 #endif
-
 
 /*! \param pOutputObj     output receiving object of **class T**
  *  \param OutputCallback callback function from **class T** with a specific return **type x**
@@ -243,7 +243,7 @@ private:
 
 
     public:
-        gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork);
+        gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
         ~gjInterUser();
 
         /*! \name Direct Access */
@@ -319,7 +319,7 @@ private:
 
 
     public:
-        gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork);
+        gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
         ~gjInterTrophy();
 
         /*! \name Direct Access */
@@ -400,7 +400,7 @@ private:
 
 
     public:
-        gjInterScore(gjAPI* pAPI, gjNetwork* pNetwork);
+        gjInterScore(gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
         ~gjInterScore();
 
         /*! \name Direct Access */
@@ -464,7 +464,7 @@ private:
 
 
     public:
-        gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork);
+        gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
         ~gjInterDataStore();
 
         /*! \name Direct Access */
@@ -537,7 +537,7 @@ private:
 
 
     public:
-        gjInterFile(gjAPI* pAPI, gjNetwork* pNetwork);
+        gjInterFile(gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
         ~gjInterFile();
 
         /*! \name Download File */
@@ -604,7 +604,7 @@ private:
 
 
 public:
-    gjAPI(const int& iGameID, const std::string& sGamePrivateKey);
+    gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept;
     ~gjAPI();
 
     /*! \name Update */

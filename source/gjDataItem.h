@@ -32,7 +32,7 @@ private:
 
 
 public:
-    gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI);
+    gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI)noexcept;
 
     /*! \name Set Data Request */
     //! @{

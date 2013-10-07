@@ -35,7 +35,7 @@ private:
 
 
 public:
-    gjTrophy(const gjData& aTrophyData, gjAPI* pAPI);
+    gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)noexcept;
 
     /*! \name Update Data Request */
     //! @{
@@ -109,8 +109,8 @@ public:
 private:
     /*! \name Hide Copy */
     //! @{
-    gjTrophy(const gjTrophy& that);
-    gjTrophy& operator = (const gjTrophy& that);
+    gjTrophy(const gjTrophy& that)noexcept;
+    gjTrophy& operator = (const gjTrophy& that)noexcept;
     friend class gjAPI;
     //! @}
 

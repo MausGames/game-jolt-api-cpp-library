@@ -13,7 +13,7 @@
 
 // ****************************************************************
 /* constructor */
-template <typename T, typename P, typename D> gjNetwork::gjCallTemplate<T,P,D>::gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)
+template <typename T, typename P, typename D> gjNetwork::gjCallTemplate<T,P,D>::gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
 : gjCall            (pSession, sInfo)
 , m_pProcessObj     (pProcessObj)
 , m_ProcessCallback (ProcessCallback)
