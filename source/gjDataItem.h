@@ -7,8 +7,8 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GUARD_GJ_DATAITEM_H
-#define GUARD_GJ_DATAITEM_H
+#ifndef _GJ_GUARD_DATAITEM_H_
+#define _GJ_GUARD_DATAITEM_H_
 
 
 // ****************************************************************
@@ -297,4 +297,4 @@ template <typename T> int gjDataItem::__Clear(const bool& bNow, GJ_NETWORK_OUTPU
 }
 
 
-#endif /* GUARD_GJ_DATAITEM_H */
+#endif /* _GJ_GUARD_DATAITEM_H_ */

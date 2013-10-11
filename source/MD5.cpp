@@ -33,15 +33,10 @@ documentation and/or software.
 /* interface header */
 #include "MD5.h"
 
-#if defined(__APPLE__)
-    #include <sstream>
-#endif
-#if defined(__MINGW32__) || defined(__CYGWIN__)
-    #include <cstdlib>
-    #include <cstdio>
-    #include <cstring>
-    #include <math.h>
-#endif
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+#include <sstream>
 
 // Constants for MD5Transform routine.
 #define S11 7

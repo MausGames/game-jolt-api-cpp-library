@@ -42,8 +42,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //! \file
 #pragma once
-#ifndef GUARD_GJ_API_H
-#define GUARD_GJ_API_H
+#ifndef _GJ_GUARD_API_H_
+#define _GJ_GUARD_API_H_
 
 
 /* --- configuration --- */
@@ -154,14 +154,14 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdlib.h>
+#if !defined(_GJ_WINDOWS_)
+    #include <sys/stat.h>
+#endif
+#include <cstdlib>
+#include <cstring>
 #include <string>
 #include <map>
 #include <vector>
-#if !defined(_GJ_WINDOWS_)
-    #include <string.h>
-    #include <sys/stat.h>
-#endif
 
 #include "MD5.h"
 #include "Base64.h"
@@ -973,4 +973,4 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
 #include "gjDataItem.h"
 
 
-#endif /* GUARD_GJ_API_H */
+#endif /* _GJ_GUARD_API_H_ */

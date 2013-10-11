@@ -1,13 +1,8 @@
 #include "Base64.h"
 
-#if defined(__APPLE__)
-    #include <stdlib.h>
-#endif
-#if defined(__MINGW32__) || defined(__CYGWIN__)
-    #include <cstdlib>
-    #include <cstring>
-    #include <math.h>
-#endif
+#include <cmath>
+#include <cstring>
+#include <string>
 
 /**
  * characters used for Base64 encoding

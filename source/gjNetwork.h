@@ -7,8 +7,8 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GUARD_GJ_NETWORK_H
-#define GUARD_GJ_NETWORK_H
+#ifndef _GJ_GUARD_NETWORK_H_
+#define _GJ_GUARD_NETWORK_H_
 
 
 // ****************************************************************
@@ -208,4 +208,4 @@ size_t write_to_file(void* ptr, size_t size, size_t count, FILE* stream);
 // template implementation can be found in gjNetwork.hpp
 
 
-#endif /* GUARD_GJ_NETWORK_H */
+#endif /* _GJ_GUARD_NETWORK_H_ */

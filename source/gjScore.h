@@ -7,8 +7,8 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GUARD_GJ_SCORE_H
-#define GUARD_GJ_SCORE_H
+#ifndef _GJ_GUARD_SCORE_H_
+#define _GJ_GUARD_SCORE_H_
 
 
 // ****************************************************************
@@ -348,4 +348,4 @@ template <typename T> int gjScoreTable::__AddScoreBase64(const std::string& sSco
 }
 
 
-#endif /* GUARD_GJ_SCORE_H */
+#endif /* _GJ_GUARD_SCORE_H_ */

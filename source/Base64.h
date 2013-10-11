@@ -5,11 +5,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <string>
-#if !defined(_WIN32)
-    #include <string.h>
-    #include <math.h>
-#endif
+#include <cstdlib>
 
 
 /**

@@ -7,8 +7,8 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GUARD_GJ_USER_H
-#define GUARD_GJ_USER_H
+#ifndef _GJ_GUARD_USER_H_
+#define _GJ_GUARD_USER_H_
 
 
 // ****************************************************************
@@ -119,4 +119,4 @@ template <typename T> int gjUser::__UpdateData(const bool& bNow, GJ_NETWORK_OUTP
 }
 
 
-#endif /* GUARD_GJ_USER_H */
+#endif /* _GJ_GUARD_USER_H_ */

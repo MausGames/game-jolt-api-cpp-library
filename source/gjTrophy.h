@@ -7,8 +7,8 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GUARD_GJ_TROPHY_H
-#define GUARD_GJ_TROPHY_H
+#ifndef _GJ_GUARD_TROPHY_H_
+#define _GJ_GUARD_TROPHY_H_
 
 
 // ****************************************************************
@@ -182,4 +182,4 @@ template <typename T> int gjTrophy::__Achieve(const bool& bNow, GJ_NETWORK_OUTPU
 }
 
 
-#endif /* GUARD_GJ_TROPHY_H */
+#endif /* _GJ_GUARD_TROPHY_H_ */

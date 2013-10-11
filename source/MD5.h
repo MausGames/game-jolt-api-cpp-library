@@ -37,10 +37,8 @@ documentation and/or software.
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#include <cstring>
 #include <string>
-#if !defined(_WIN32)
-    #include <string.h>
-#endif
 
 
 // a small class for calculating MD5 hashes of strings or byte arrays

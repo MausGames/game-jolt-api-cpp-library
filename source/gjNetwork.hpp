@@ -7,8 +7,8 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
-#ifndef GUARD_GJ_NETWORK_HPP
-#define GUARD_GJ_NETWORK_HPP
+#ifndef _GJ_GUARD_NETWORK_HPP_
+#define _GJ_GUARD_NETWORK_HPP_
 
 
 // ****************************************************************
@@ -282,4 +282,4 @@ template <typename T, typename P, typename D>  int gjNetwork::DownloadFile(const
 }
 
 
-#endif /* GUARD_GJ_NETWORK_HPP */
+#endif /* _GJ_GUARD_NETWORK_HPP_ */
