@@ -86,7 +86,7 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P
 
 // ****************************************************************
 /* send direct or non-blocking request */
-template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))
+template <typename T, typename P, typename D> int gjNetwork::SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))noexcept
 {
     if(sURL == "") return GJ_INVALID_INPUT;
 
@@ -200,7 +200,7 @@ template <typename T, typename P, typename D>  int gjNetwork::SendRequest(const 
 
 // ****************************************************************
 /* download file direct or non-blocking */
-template <typename T, typename P, typename D>  int gjNetwork::DownloadFile(const std::string& sURL, const std::string& sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))
+template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const std::string& sURL, const std::string& sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))noexcept
 {
     if(sURL == "" || sToFile == "") return GJ_INVALID_INPUT;
 

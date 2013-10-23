@@ -54,6 +54,7 @@ private:
     template <typename T, typename P, typename D> class gjCallTemplate : public gjCall
     {
     protected:
+        /*! \brief Output Structure */
         struct sOutput
         {
             T* m_pOutputObj;                                //!< object with output callback function
@@ -163,7 +164,7 @@ public:
      *          **GJ_INVALID_INPUT** if URL string is empty\n
      *          **GJ_NETWORK_ERROR** if session cannot be established\n
      *          (see #GJ_ERROR) */
-    template <typename T, typename P, typename D> int SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D));
+    template <typename T, typename P, typename D> int SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))noexcept;
     //! @}
 
     /*! \name Download File */
@@ -179,7 +180,7 @@ public:
      *          **GJ_NETWORK_ERROR** if session cannot be established\n
      *          **GJ_FILE_ERROR** if file cannot be written\n
      *          (see #GJ_ERROR) */
-    template <typename T, typename P, typename D> int DownloadFile(const std::string& sURL, const std::string& sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D));
+    template <typename T, typename P, typename D> int DownloadFile(const std::string& sURL, const std::string& sToFile, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))noexcept;
     //! @}
 
     /*! \name Get Attributes */

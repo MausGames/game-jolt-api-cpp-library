@@ -130,7 +130,7 @@ private:
     //! @{
     inline void __SetSort(const int& iSort)      {m_iSort = iSort;}
     inline void __SetSecret(const bool& bSecret) {m_bSecret = bSecret;}
-    /*! */ //! @}
+    //! @}
 };
 
 

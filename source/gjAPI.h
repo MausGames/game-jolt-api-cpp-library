@@ -104,6 +104,9 @@
 // debug mode
 #if defined(_DEBUG) || defined(DEBUG) || (defined(_GJ_GCC_) && !defined(__OPTIMIZE__))
     #define _GJ_DEBUG_
+    const bool g_bDebug = true;
+#else
+    const bool g_bDebug = false;
 #endif
 
 // missing functionality
@@ -351,7 +354,8 @@ private:
         /*! \name Clear Cache */
         //! @{
         /*! Delete all cached trophy objects.
-         *  \warning All external pointers will be invalid */
+         *  \warning All external pointers will be invalid
+         *  \param   bFull Delete also the offline-cache */
         void ClearCache(const bool& bFull);
         //! @}
 
@@ -366,7 +370,7 @@ private:
         //! @}
 
 
-    public:
+    private:
         /*! \name Superior Request Functions */
         //! @{
         template <typename T> int __FetchTrophies(const long& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));

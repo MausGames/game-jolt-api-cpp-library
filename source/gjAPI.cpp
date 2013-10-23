@@ -223,7 +223,8 @@ void gjAPI::gjInterTrophy::ClearCache(const bool& bFull)
     if(bRemoveAll)
     {
         // save NULL trophy
-        gjTrophy* pNull = m_apTrophy[0]; m_apTrophy.erase(0);
+        gjTrophy* pNull = m_apTrophy[0];
+        m_apTrophy.erase(0);
 
         // delete trophies
         for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
@@ -1044,7 +1045,7 @@ void gjAPI::UtilCreateFolder(const std::string& sFolder)
         const std::string sSubFolder = sFolder.substr(0, iPos);
 
         // create subfolder
-#ifdef _WIN32
+#if defined(_GJ_WINDOWS_)
         CreateDirectoryA(sSubFolder.c_str(), NULL);
 #else
         mkdir(sSubFolder.c_str(), S_IRWXU);
