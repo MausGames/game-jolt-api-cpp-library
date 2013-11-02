@@ -12,6 +12,7 @@
         <itemPath>../../source/Base64.h</itemPath>
         <itemPath>../../source/MD5.cpp</itemPath>
         <itemPath>../../source/MD5.h</itemPath>
+        <itemPath>../../source/coreLookup.h</itemPath>
         <itemPath>../../source/gjAPI.cpp</itemPath>
         <itemPath>../../source/gjAPI.h</itemPath>
         <itemPath>../../source/gjDataItem.cpp</itemPath>
@@ -81,6 +82,8 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -146,6 +149,8 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -210,6 +215,8 @@
       <item path="../../source/MD5.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -286,6 +293,8 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -360,6 +369,8 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -432,6 +443,8 @@
       <item path="../../source/MD5.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>

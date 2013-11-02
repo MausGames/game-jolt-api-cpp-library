@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\Base64.h" />
+    <ClInclude Include="..\..\..\source\coreLookup.h" />
     <ClInclude Include="..\..\..\source\gjAPI.h" />
     <ClInclude Include="..\..\..\source\gjDataItem.h" />
     <ClInclude Include="..\..\..\source\gjNetwork.h" />

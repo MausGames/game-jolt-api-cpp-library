@@ -2,8 +2,8 @@
 //*-------------------------------------------------------------*//
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
-//| Released under zlib License                                 |//
-//| More Information in the README.md and LICENSE.txt           |//
+//| Released under the zlib License                             |//
+//| More information available in the README.md                 |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
@@ -98,10 +98,10 @@ bool gjNetwork::Update()
 void gjNetwork::Wait(const unsigned int& iMaxWait)
 {
     // get max waiting time (low precision)
-    const time_t iMaxTime = time(NULL) + iMaxWait;
+    const time_t iMaxTime = std::time(NULL) + iMaxWait;
 
     // force network update
-    while((iMaxTime >= time(NULL) || !iMaxWait) && this->Update()) {}
+    while((iMaxTime >= std::time(NULL) || !iMaxWait) && this->Update()) {}
 }
 
 

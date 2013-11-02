@@ -401,6 +401,7 @@
  *      <li>implemented handling of trophy attributes (secret, hidden)
  *      <li>implemented timestamp for logging purposes
  *      <li>improved some support-functions
+ *      <li>improved performance
  *      <li>fixed cache-file creation without data
  *      <li>added MinGW and Clang support
  *      <li>added Code::Blocks and NetBeans example project

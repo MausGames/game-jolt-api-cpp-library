@@ -2,8 +2,8 @@
 //*-------------------------------------------------------------*//
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
-//| Released under zlib License                                 |//
-//| More Information in the README.md and LICENSE.txt           |//
+//| Released under the zlib License                             |//
+//| More information available in the README.md                 |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
@@ -96,7 +96,7 @@ int gjScoreTable::__Process(const std::string& sData, void* pAdd, gjScoreList* p
     }
 
     // create score entries
-    for(auto it = aaReturn.begin(); it != aaReturn.end(); ++it)
+    FOR_EACH(it, aaReturn)
     {
         gjScore* pNewScore = new gjScore(*it, this, m_pAPI);
         bool bNew = true;
@@ -133,8 +133,8 @@ int gjScoreTable::__Process(const std::string& sData, void* pAdd, gjScoreList* p
     {
         if(aaReturn.size() >= 2)
         {
-            if(atoi(SAFE_MAP_GET(aaReturn[0], "sort").c_str()) > atoi(SAFE_MAP_GET(aaReturn[1], "sort").c_str())) m_iSortDir = GJ_SORT_DESC;
-            if(atoi(SAFE_MAP_GET(aaReturn[0], "sort").c_str()) < atoi(SAFE_MAP_GET(aaReturn[1], "sort").c_str())) m_iSortDir = GJ_SORT_ASC;
+            if(std::atoi(SAFE_MAP_GET(aaReturn[0], "sort").c_str()) > std::atoi(SAFE_MAP_GET(aaReturn[1], "sort").c_str())) m_iSortDir = GJ_SORT_DESC;
+            if(std::atoi(SAFE_MAP_GET(aaReturn[0], "sort").c_str()) < std::atoi(SAFE_MAP_GET(aaReturn[1], "sort").c_str())) m_iSortDir = GJ_SORT_ASC;
         }
     }
 

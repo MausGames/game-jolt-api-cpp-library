@@ -10,7 +10,7 @@ public:
     {
         // show finished trophy fetch
         std::cout << "[Trophy] Init Trophies" << std::endl;
-        for(auto it = apTrophies.begin(); it != apTrophies.end(); ++it)
+        FOR_EACH(it, apTrophies)
         {
             gjTrophy* pTrophy = (*it);
 
@@ -38,7 +38,7 @@ public:
     {
         // show finished score table fetch
         std::cout << "[Score] Init Score Tables"  << std::endl;
-        for(auto it = apScoreTables.begin(); it != apScoreTables.end(); ++it)
+        FOR_EACH(it, apScoreTables)
         {
             gjScoreTable* pScoreTable = it->second;
 
@@ -52,7 +52,7 @@ public:
     {
         // show finished score entry fetch
         std::cout << "[Score]   Init Scores <" << ((gjScoreTable*)pData)->GetID() << ">" << std::endl;
-        for(auto it = apScores.begin(); it != apScores.end(); ++it)
+        FOR_EACH(it, apScores)
         {
             gjScore* pScore = (*it);
 

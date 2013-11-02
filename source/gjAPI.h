@@ -12,7 +12,7 @@
 //| Game Jolt API C++ Library v0.8.1a (http://gamejolt.com)                              |//
 //*--------------------------------------------------------------------------------------*//
 //| Author: Martin Mauersics                                                             |//
-//| OSX support by: Bruno Assarisse                                                      |//
+//| Confirmed OSX support: Bruno Assarisse                                               |//
 //| Special Thanks to: David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell  |//
 //*--------------------------------------------------------------------------------------*//
 //| Copyright (c) 2013 Martin Mauersics                                                  |//
@@ -114,10 +114,14 @@
     #if (_GJ_MSVC_) < 1700
         #define final
     #endif
-    #define noexcept throw()
-    #define deletefunc
+    #define noexcept       throw()
+    #define delete_func
+    #define constexpr_func inline
+    #define constexpr_var  const
 #else
-    #define deletefunc = delete
+    #define delete_func    = delete
+    #define constexpr_func constexpr
+    #define constexpr_var  constexpr
 #endif
 #if defined(_GJ_GCC_)
     #if (_GJ_GCC_) < 40700
@@ -151,23 +155,28 @@
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p)=NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : "")
 
-#define GJ_DISABLE_COPY(c)  \
-    c(const c&) deletefunc; \
-    c& operator = (const c&) deletefunc;
+#define FOR_EACH(i,c)           for(auto i = c.begin(); i != c.end(); ++i)
+
+#define DISABLE_COPY(c)      \
+    c(const c&) delete_func; \
+    c& operator = (const c&) delete_func;
 
 #define _CRT_SECURE_NO_WARNINGS
 
 #if !defined(_GJ_WINDOWS_)
     #include <sys/stat.h>
 #endif
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 #include <string>
 #include <map>
 #include <vector>
 
 #include "MD5.h"
 #include "Base64.h"
+#include "coreLookup.h"
 #include "curl/curl.h"
 
 #undef GetUserName
@@ -179,7 +188,7 @@ class gjScoreTable;
 class gjScore;
 class gjDataItem;
 
-typedef std::map<std::string, std::string> gjData;
+typedef coreLookup<std::string>            gjData;
 typedef std::vector<gjData>                gjDataList;
 typedef void*                              gjVoidPtr;
 typedef gjUser*                            gjUserPtr;
@@ -702,7 +711,7 @@ public:
     std::string UtilCharToHex(const char& cChar);
     std::string UtilIntToString(const int& iInt);
     void        UtilCreateFolder(const std::string& sFolder);
-    std::string UtilTimestamp(const time_t iTime = time(NULL));
+    std::string UtilTimestamp(const time_t iTime = std::time(NULL));
     //! @}
 
     /*! \name Error Log */
@@ -746,7 +755,7 @@ public:
 
 
 private:
-    GJ_DISABLE_COPY(gjAPI)
+    DISABLE_COPY(gjAPI)
 
     /*! \name Session Functions */
     //! @{
@@ -947,7 +956,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
 
     // create output path
     const std::string sFileName = (sFileNameOverwrite == "") ? sURL.substr(sURL.find_last_of("/\\")+1) : sFileNameOverwrite;
-    const std::string sToFile = sToFolder + "/" + sFileName;
+    const std::string sToFile   = sToFolder + "/" + sFileName;
 
     // check for cached file
     if(this->__CheckCache(sToFile) == GJ_OK)

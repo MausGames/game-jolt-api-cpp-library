@@ -73,6 +73,7 @@
 		<Unit filename="../../source/Base64.h" />
 		<Unit filename="../../source/MD5.cpp" />
 		<Unit filename="../../source/MD5.h" />
+		<Unit filename="../../source/coreLookup.h" />
 		<Unit filename="../../source/gjAPI.cpp" />
 		<Unit filename="../../source/gjAPI.h" />
 		<Unit filename="../../source/gjDataItem.cpp" />

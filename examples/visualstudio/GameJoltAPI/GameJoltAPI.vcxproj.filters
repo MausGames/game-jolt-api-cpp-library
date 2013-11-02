@@ -66,5 +66,8 @@
     <ClInclude Include="..\..\..\source\gjUser.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\coreLookup.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

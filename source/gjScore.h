@@ -2,8 +2,8 @@
 //*-------------------------------------------------------------*//
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
-//| Released under zlib License                                 |//
-//| More Information in the README.md and LICENSE.txt           |//
+//| Released under the zlib License                             |//
+//| More information available in the README.md                 |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
@@ -117,7 +117,7 @@ public:
 
 
 private:
-    GJ_DISABLE_COPY(gjScoreTable)
+    DISABLE_COPY(gjScoreTable)
 
     /*! \name Superior Request Functions */
     //! @{
@@ -198,7 +198,7 @@ public:
 
 
 private:
-    GJ_DISABLE_COPY(gjScore)
+    DISABLE_COPY(gjScore)
 };
 
 

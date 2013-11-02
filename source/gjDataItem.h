@@ -2,8 +2,8 @@
 //*-------------------------------------------------------------*//
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
-//| Released under zlib License                                 |//
-//| More Information in the README.md and LICENSE.txt           |//
+//| Released under the zlib License                             |//
+//| More information available in the README.md                 |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
@@ -122,7 +122,7 @@ public:
 
 
 private:
-    GJ_DISABLE_COPY(gjDataItem)
+    DISABLE_COPY(gjDataItem)
 
     /*! \name Superior Request Functions */
     //! @{

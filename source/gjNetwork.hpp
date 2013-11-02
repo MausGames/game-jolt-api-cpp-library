@@ -2,8 +2,8 @@
 //*-------------------------------------------------------------*//
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
-//| Released under zlib License                                 |//
-//| More Information in the README.md and LICENSE.txt           |//
+//| Released under the zlib License                             |//
+//| More information available in the README.md                 |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
@@ -68,7 +68,7 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,
 template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P,D>::Finish(const bool& bOK)
 {
     // close file handle
-    fclose(m_pFile);
+    std::fclose(m_pFile);
 
     if(bOK)
     {
@@ -225,7 +225,7 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
     if(pSession)
     {
         // open file
-        FILE* pFile = fopen(sToFile.c_str(), "wb");
+        std::FILE* pFile = std::fopen(sToFile.c_str(), "wb");
         if(pFile)
         {
             // set all session parameters
@@ -241,7 +241,7 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
                 curl_easy_cleanup(pSession);
 
                 // close file
-                fclose(pFile);
+                std::fclose(pFile);
 
                 // check for errors
                 if(res != CURLE_OK)

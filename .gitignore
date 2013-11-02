@@ -17,6 +17,7 @@ examples/netbeans/nbproject/*.mk
 examples/netbeans/nbproject/*.bash
 examples/netbeans/nbproject/private/*.mk
 examples/netbeans/nbproject/private/launcher.properties
+examples/netbeans/nbproject/private/private.xml
 examples/netbeans/.dep.inc
 examples/netbeans/build/
 examples/*.pdb

@@ -2,8 +2,8 @@
 //*-------------------------------------------------------------*//
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
-//| Released under zlib License                                 |//
-//| More Information in the README.md and LICENSE.txt           |//
+//| Released under the zlib License                             |//
+//| More information available in the README.md                 |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
@@ -42,7 +42,7 @@ gjAPI::gjInterUser::gjInterUser(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 gjAPI::gjInterUser::~gjInterUser()
 {
     // delete all users
-    for(auto it = m_apUser.begin(); it != m_apUser.end(); ++it)
+    FOR_EACH(it, m_apUser)
         SAFE_DELETE(it->second)
 
     // clear container
@@ -91,7 +91,7 @@ void gjAPI::gjInterUser::ClearCache()
     gjUser* pGuest = m_apUser[-1]; m_apUser.erase(-1);
 
     // delete users
-    for(auto it = m_apUser.begin(); it != m_apUser.end(); ++it)
+    FOR_EACH(it, m_apUser)
         SAFE_DELETE(it->second)
 
     // clear container
@@ -117,7 +117,7 @@ int gjAPI::gjInterUser::__CheckCache(const int& iID, gjUserPtr* ppOutput)
 int gjAPI::gjInterUser::__CheckCache(const std::string& sName, gjUserPtr* ppOutput)
 {
     // retrieve cached user
-    for(auto it = m_apUser.begin(); it != m_apUser.end(); ++it)
+    FOR_EACH(it, m_apUser)
     {
         if(it->second->GetName() == sName)
         {
@@ -184,7 +184,7 @@ gjAPI::gjInterTrophy::gjInterTrophy(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 gjAPI::gjInterTrophy::~gjInterTrophy()
 {
     // delete all trophies
-    for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+    FOR_EACH(it, m_apTrophy)
         SAFE_DELETE(it->second)
 
     // clear containers
@@ -227,7 +227,7 @@ void gjAPI::gjInterTrophy::ClearCache(const bool& bFull)
         m_apTrophy.erase(0);
 
         // delete trophies
-        for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+        FOR_EACH(it, m_apTrophy)
             SAFE_DELETE(it->second)
 
         // clear container
@@ -255,7 +255,7 @@ void gjAPI::gjInterTrophy::SetSort(const int* piIDList, const size_t& iNum)
     }
 
     // apply sort attribute
-    for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+    FOR_EACH(it, m_apTrophy)
         it->second->__SetSort(0);
     for(size_t i = 0; i < m_aiSort.size(); ++i)
         if(m_apTrophy.count(m_aiSort[i])) m_apTrophy[m_aiSort[i]]->__SetSort(int(i+1));
@@ -277,10 +277,10 @@ void gjAPI::gjInterTrophy::SetSecret(const int* piIDList, const size_t& iNum)
     }
 
     // apply secret attribute
-    for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+    FOR_EACH(it, m_apTrophy)
         it->second->__SetSecret(false);
-    for(auto it = m_aiSecret.begin(); it != m_aiSecret.end(); ++it)
-        if(m_apTrophy.count(*it)) m_apTrophy[(*it)]->__SetSecret(true);
+    FOR_EACH(it, m_aiSecret)
+        if(m_apTrophy.count(*it)) m_apTrophy[*it]->__SetSecret(true);
 }
 
 
@@ -299,7 +299,7 @@ void gjAPI::gjInterTrophy::SetHidden(const int* piIDList, const size_t& iNum)
     }
 
     // apply hidden attribute and remove all hidden trophy objects
-    for(auto it = m_aiHidden.begin(); it != m_aiHidden.end(); ++it)
+    FOR_EACH(it, m_aiHidden)
         if(m_apTrophy.count(*it)) m_apTrophy.erase(m_apTrophy.find(*it));
 }
 
@@ -321,7 +321,7 @@ int gjAPI::gjInterTrophy::__CheckCache(const int& iAchieved, gjTrophyList* papOu
                 if(m_apTrophy.count(m_aiSort[i])) apConvert.push_back(m_apTrophy[m_aiSort[i]]);
 
             // add missing unsorted trophies
-            for(auto it = m_apTrophy.begin(); it != m_apTrophy.end(); ++it)
+            FOR_EACH(it, m_apTrophy)
             {
                 if(it->first)
                 {
@@ -361,7 +361,7 @@ int gjAPI::gjInterTrophy::__Process(const std::string& sData, void* pAdd, gjTrop
     if(m_iCache == 0) m_iCache = 2;
 
     // create and cache trophy objects
-    for(auto it = aaReturn.begin(); it != aaReturn.end(); ++it)
+    FOR_EACH(it, aaReturn)
     {
         gjTrophy* pNewTrophy = new gjTrophy(*it, m_pAPI);
         const int iID = pNewTrophy->GetID();
@@ -384,20 +384,20 @@ int gjAPI::gjInterTrophy::__Process(const std::string& sData, void* pAdd, gjTrop
 
 
 // ****************************************************************
-/* save tropy data to a cache file */
+/* save trophy data to a cache file */
 void gjAPI::gjInterTrophy::__SaveOffCache(const std::string& sData)
 {
     if(!GJ_API_OFFCACHE_TROPHY) return;
     if(m_iCache != 0) return;
 
     // open cache file
-    FILE* pFile = fopen(GJ_API_OFFCACHE_NAME, "w");
+    std::FILE* pFile = std::fopen(GJ_API_OFFCACHE_NAME, "w");
     if(pFile)
     {
         // write data and close cache file
-        fprintf(pFile, "[TROPHY]\n");
-        fprintf(pFile, "%s", sData.c_str());
-        fclose(pFile);
+        std::fprintf(pFile, "[TROPHY]\n");
+        std::fprintf(pFile, "%s", sData.c_str());
+        std::fclose(pFile);
     }
 }
 
@@ -410,22 +410,22 @@ void gjAPI::gjInterTrophy::__LoadOffCache()
     if(m_iCache != 0) return;
 
     // open cache file
-    FILE* pFile = fopen(GJ_API_OFFCACHE_NAME, "r");
+    std::FILE* pFile = std::fopen(GJ_API_OFFCACHE_NAME, "r");
     if(pFile)
     {
         // read trophy header
         char acHeader[32];
-        fscanf(pFile, "%31[^\n]%*c", acHeader);
+        std::fscanf(pFile, "%31[^\n]%*c", acHeader);
 
         // read trophy data
         std::string sData;
         while(true)
         {
             char acLine[1024];
-            fscanf(pFile, "%1023[^\n]%*c", acLine);
-            if(feof(pFile)) break;
+            std::fscanf(pFile, "%1023[^\n]%*c", acLine);
+            if(std::feof(pFile)) break;
 
-            if(strlen(acLine) > 1)
+            if(std::strlen(acLine) > 1)
             {
                 sData += acLine;
                 sData += '\n';
@@ -433,7 +433,7 @@ void gjAPI::gjInterTrophy::__LoadOffCache()
         }
 
         // close cache file
-        fclose(pFile);
+        std::fclose(pFile);
 
         if(!sData.empty())
         {
@@ -464,7 +464,7 @@ gjAPI::gjInterScore::gjInterScore(gjAPI* pAPI, gjNetwork* pNetwork)noexcept
 gjAPI::gjInterScore::~gjInterScore()
 {
     // delete all score tables and scores entries
-    for(auto it = m_apScoreTable.begin(); it != m_apScoreTable.end(); ++it)
+    FOR_EACH(it, m_apScoreTable)
         SAFE_DELETE(it->second)
 
     // clear container
@@ -499,7 +499,7 @@ void gjAPI::gjInterScore::ClearCache()
     gjScoreTable* pNull = m_apScoreTable[0]; m_apScoreTable.erase(0);
 
     // delete score tables and scores entries
-    for(auto it = m_apScoreTable.begin(); it != m_apScoreTable.end(); ++it)
+    FOR_EACH(it, m_apScoreTable)
         SAFE_DELETE(it->second)
 
     // clear container
@@ -517,7 +517,7 @@ int gjAPI::gjInterScore::__CheckCache(gjScoreTableMap* papOutput)
     {
         if(papOutput)
         {
-            for(auto it = m_apScoreTable.begin(); it != m_apScoreTable.end(); ++it)
+            FOR_EACH(it, m_apScoreTable)
                 if(it->first) (*papOutput)[it->first] = it->second;
         }
         return GJ_OK;
@@ -539,7 +539,7 @@ int gjAPI::gjInterScore::__Process(const std::string& sData, void* pAdd, gjScore
     }
 
     // create and cache score tables
-    for(auto it = aaReturn.begin(); it != aaReturn.end(); ++it)
+    FOR_EACH(it, aaReturn)
     {
         gjScoreTable* pNewScoreTable = new gjScoreTable(*it, m_pAPI);
         const int iID = pNewScoreTable->GetID();
@@ -591,7 +591,7 @@ gjDataItem* gjAPI::gjInterDataStore::GetDataItem(const std::string& sKey)
 void gjAPI::gjInterDataStore::ClearCache()
 {
     // delete data store items
-    for(auto it = m_apDataItem.begin(); it != m_apDataItem.end(); ++it)
+    FOR_EACH(it, m_apDataItem)
         SAFE_DELETE(it->second)
 
     // clear container
@@ -608,7 +608,7 @@ int gjAPI::gjInterDataStore::__CheckCache(gjDataItemMap* papOutput)
     {
         if(papOutput)
         {
-            for(auto it = m_apDataItem.begin(); it != m_apDataItem.end(); ++it)
+            FOR_EACH(it, m_apDataItem)
                 (*papOutput)[it->first] = it->second;
         }
         return GJ_OK;
@@ -630,7 +630,7 @@ int gjAPI::gjInterDataStore::__Process(const std::string& sData, void* pAdd, gjD
     }
 
     // create and cache data store items
-    for(auto it = aaReturn.begin(); it != aaReturn.end(); ++it)
+    FOR_EACH(it, aaReturn)
     {
         gjDataItem* pNewDataItem = new gjDataItem(*it, m_iType, m_pAPI);
         const std::string sKey = pNewDataItem->GetKey();
@@ -828,24 +828,24 @@ int gjAPI::Login(const bool bSession, const std::string& sUserName, const std::s
 int gjAPI::Login(const bool bSession, std::string sCredPath)
 {
     // open credentials file
-    FILE* pFile = fopen(sCredPath.c_str(), "rb");
+    std::FILE* pFile = std::fopen(sCredPath.c_str(), "rb");
     if(!pFile) return GJ_FILE_ERROR;
 
     char acName[128], acToken[128];
     char* pcEnd;
 
     // get user name
-    fscanf(pFile, "%127[^\n]%*c", acName);
-    pcEnd = strchr(acName, 13);
+    std::fscanf(pFile, "%127[^\n]%*c", acName);
+    pcEnd = std::strchr(acName, 13);
     if(pcEnd) *pcEnd = '\0';
 
     // get user token
-    fscanf(pFile, "%127[^\n]%*c", acToken);
-    pcEnd = strchr(acToken, 13);
+    std::fscanf(pFile, "%127[^\n]%*c", acToken);
+    pcEnd = std::strchr(acToken, 13);
     if(pcEnd) *pcEnd = '\0';
 
     // close file and login
-    fclose(pFile);
+    std::fclose(pFile);
     return this->Login(bSession, acName, acToken);
 }
 
@@ -904,14 +904,14 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
         const std::string sValue = sToken.substr(iPos + 2, sToken.length() - iPos - 3);
 
         // next data block on same key
-        if(aData.count(sKey))
+        if(aData.count(sKey.c_str()))
         {
             paaOutput->push_back(aData);
             aData.clear();
         }
 
         // create key and save value
-        aData[sKey] = sValue;
+        aData[sKey.c_str()] = sValue;
     }
 
     // insert last data block and check size
@@ -999,7 +999,7 @@ std::string gjAPI::UtilEscapeString(const std::string& sString)
         else
         {
             // convert character to hexadecimal value
-            sOutput += "%" + UtilCharToHex(sString[i]);
+            sOutput += "%" + this->UtilCharToHex(sString[i]);
         }
     }
 
@@ -1015,7 +1015,7 @@ std::string gjAPI::UtilCharToHex(const char& cChar)
     if(iValue < 0) iValue += 256;
 
     char acBuffer[8];
-    sprintf(acBuffer, "%02X", iValue);
+    std::sprintf(acBuffer, "%02X", iValue);
 
     return acBuffer;
 }
@@ -1026,7 +1026,7 @@ std::string gjAPI::UtilCharToHex(const char& cChar)
 std::string gjAPI::UtilIntToString(const int& iInt)
 {
     char acBuffer[32];
-    sprintf(acBuffer, "%d", iInt);
+    std::sprintf(acBuffer, "%d", iInt);
 
     return acBuffer;
 }
@@ -1060,11 +1060,11 @@ void gjAPI::UtilCreateFolder(const std::string& sFolder)
 std::string gjAPI::UtilTimestamp(const time_t iTime)
 {
     // format the time value
-    tm* pFormat = localtime(&iTime);
+    tm* pFormat = std::localtime(&iTime);
 
     // create output
     char acBuffer[16];
-    sprintf(acBuffer, "%02d:%02d:%02d", pFormat->tm_hour, pFormat->tm_min, pFormat->tm_sec);
+    std::sprintf(acBuffer, "%02d:%02d:%02d", pFormat->tm_hour, pFormat->tm_min, pFormat->tm_sec);
 
     return acBuffer;
 }
@@ -1078,7 +1078,7 @@ void gjAPI::ErrorLogReset()
     {
         // remove error log file if empty
         if(m_asLog.empty())
-            remove(GJ_API_LOGFILE_NAME);
+            std::remove(GJ_API_LOGFILE_NAME);
     }
 
     // clear all log entries
@@ -1098,11 +1098,11 @@ void gjAPI::ErrorLogAdd(const std::string& sMsg)
     if(GJ_API_LOGFILE)
     {
         // add message to error log file
-        FILE* pFile = fopen(GJ_API_LOGFILE_NAME, "a");
+        std::FILE* pFile = std::fopen(GJ_API_LOGFILE_NAME, "a");
         if(pFile)
         {
-            fprintf(pFile, "%s\n", sTimeMsg.c_str());
-            fclose(pFile);
+            std::fprintf(pFile, "%s\n", sTimeMsg.c_str());
+            std::fclose(pFile);
         }
     }
 
@@ -1127,7 +1127,7 @@ int gjAPI::__OpenSession()
                                NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
 
     // init session attributes
-    m_iNextPing = time(NULL) + GJ_API_PING_TIME;
+    m_iNextPing = std::time(NULL) + GJ_API_PING_TIME;
     m_bActive   = true;
 
     return GJ_OK;
