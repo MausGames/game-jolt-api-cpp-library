@@ -111,11 +111,15 @@
 
 // missing functionality
 #if defined(_GJ_MSVC_)
+    #if (_GJ_MSVC_) < 1800
+        #define delete_func
+    #else
+        #define delete_func = delete
+    #endif
     #if (_GJ_MSVC_) < 1700
         #define final
     #endif
     #define noexcept       throw()
-    #define delete_func
     #define constexpr_func inline
     #define constexpr_var  const
 #else
@@ -162,6 +166,7 @@
     c& operator = (const c&) delete_func;
 
 #define _CRT_SECURE_NO_WARNINGS
+#define _ALLOW_KEYWORD_MACROS
 
 #if !defined(_GJ_WINDOWS_)
     #include <sys/stat.h>
