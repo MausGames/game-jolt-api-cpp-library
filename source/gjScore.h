@@ -183,7 +183,7 @@ public:
     inline const int&          GetUserID()const     {return m_iUserID;}       //!< \copybrief m_iUserID
     inline const std::string&  GetUserName()const   {return m_sUserName;}     //!< \copybrief m_sUserName
     inline const std::string&  GetDate()const       {return m_sDate;}         //!< \copybrief m_sDate
-    inline const gjScoreTable* GetScoreTable()const {return m_pScoreTable;}   //!< \copybrief m_pScoreTable
+    inline       gjScoreTable* GetScoreTable()const {return m_pScoreTable;}   //!< \copybrief m_pScoreTable
     /*! */ //! @}
 
     /*! \name Get Base64 Attributes */

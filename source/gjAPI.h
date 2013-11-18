@@ -9,7 +9,7 @@
 //*--------------------------------------------------------------------------------------*//
 ////////////////////////////////////////////////////////////////////////////////////////////
 //*--------------------------------------------------------------------------------------*//
-//| Game Jolt API C++ Library v0.8.1a (http://gamejolt.com)                              |//
+//| Game Jolt API C++ Library v0.9a (http://gamejolt.com)                                |//
 //*--------------------------------------------------------------------------------------*//
 //| Author: Martin Mauersics                                                             |//
 //| Confirmed OSX support: Bruno Assarisse                                               |//
@@ -64,8 +64,8 @@
 #define GJ_API_RESERVE_TROPHY      32
 #define GJ_API_RESERVE_SCORE       128
 #define GJ_API_RESERVE_FILE        64
-#define GJ_API_TIMEOUT_CONNECTION  10
-#define GJ_API_TIMEOUT_REQUEST     20
+#define GJ_API_TIMEOUT_CONNECTION  3
+#define GJ_API_TIMEOUT_REQUEST     3
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true

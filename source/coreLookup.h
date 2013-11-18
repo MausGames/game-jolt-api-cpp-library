@@ -78,8 +78,8 @@ public:
 private:
     //! retrieve iterator by specific key
     //! @{
-    inline coreIterator __retrieve(const char* pcKey)noexcept;
-    inline coreConstIterator __retrieve(const char* pcKey)const noexcept;
+    coreIterator __retrieve(const char* pcKey)noexcept;
+    coreConstIterator __retrieve(const char* pcKey)const noexcept;
     //! @}
 
     //! check for valid iterator

@@ -396,6 +396,8 @@
 
 /*! \page update_notes Update Notes
  *
+ * v0.9a (2013-08-02)
+ * ------------------
  * <ul>
  *      <li>implemented trophy sorting
  *      <li>implemented handling of trophy attributes (secret, hidden)
@@ -405,11 +407,6 @@
  *      <li>fixed cache-file creation without data
  *      <li>added MinGW and Clang support
  *      <li>added Code::Blocks and NetBeans example project
- * </ul>
- *
- * v0.8.1a (2013-08-02)
- * ------------------
- * <ul>
  *      <li>confirmed OSX support (by <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>)
  * </ul>
  * v0.8a (2013-07-22)
