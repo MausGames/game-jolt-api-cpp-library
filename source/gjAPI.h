@@ -748,15 +748,19 @@ public:
 
     /*! \name Check Status */
     //! @{
-    inline const bool& IsActive()const    {return m_bActive;}
-    inline const bool& IsConnected()const {return m_bConnected;}
+    inline const bool& IsActive()const    {return m_bActive;}      //!< \copybrief m_bActive
+    inline const bool& IsConnected()const {return m_bConnected;}   //!< \copybrief m_bConnected
     //! @}
+
+#if !defined(DOXYGEN_SHOULD_SKIP_THIS)
 
     /*! \name Callback Placeholder */
     //! @{
                           inline int  Null(const std::string& sData, void* pAdd, std::string* psOutput) {if(psOutput) (*psOutput) = sData; return GJ_OK;}
     template <typename D> inline void Null(const D& pObject, void* pData)                               {}
     //! @}
+
+#endif
 
 
 private:

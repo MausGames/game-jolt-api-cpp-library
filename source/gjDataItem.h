@@ -100,7 +100,7 @@ public:
     template <typename T> inline int GetDataBase64Call(void* pTarget, const size_t& iSize, GJ_NETWORK_OUTPUT(gjVoidPtr)) {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
-    /*! \name Clear Request */
+    /*! \name Remove Request */
     //! @{
     /*! Clears/Removes the data store item through an API request.\n
      *  \pre    Login maybe required
@@ -109,9 +109,9 @@ public:
      *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
-                          inline int ClearNow()                                  {return this->__Clear(true,  GJ_NETWORK_NULL_API(gjDataItemPtr));}
-                          inline int ClearCall()                                 {return this->__Clear(false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
-    template <typename T> inline int ClearCall(GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__Clear(false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int RemoveNow()                                  {return this->__Remove(true,  GJ_NETWORK_NULL_API(gjDataItemPtr));}
+                          inline int RemoveCall()                                 {return this->__Remove(false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
+    template <typename T> inline int RemoveCall(GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__Remove(false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Get Attributes */
@@ -130,7 +130,7 @@ private:
     template <typename T> int __SetDataBase64(void* pData, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
     template <typename T> int __GetData(std::string* psOutput, GJ_NETWORK_OUTPUT(std::string));
     template <typename T> int __GetDataBase64(void* pTarget, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjVoidPtr));
-    template <typename T> int __Clear(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
+    template <typename T> int __Remove(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
     //! @}
 
     /*! \name Callback Functions */
@@ -138,7 +138,7 @@ private:
     int __SetDataCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput);
     int __GetDataCallback(const std::string& sData, void* pAdd, std::string* psOutput);
     int __GetDataBase64Callback(const std::string& sData, void* pAdd, gjVoidPtr* ppOutput);
-    int __ClearCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput);
+    int __RemoveCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput);
     //! @}
 };
 
@@ -275,7 +275,7 @@ template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_
 
 // ****************************************************************
 /* clear/remove this data store item */
-template <typename T> int gjDataItem::__Clear(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
+template <typename T> int gjDataItem::__Remove(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
     if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
 
@@ -290,9 +290,9 @@ template <typename T> int gjDataItem::__Clear(const bool& bNow, GJ_NETWORK_OUTPU
     if(m_pAPI->SendRequest("/data-store/remove/"
                            "?game_id=" + m_pAPI->GetProcGameID()          +
                            "&key="     + m_pAPI->UtilEscapeString(m_sKey) +
-                           sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__ClearCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
+                           sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__RemoveCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
-    if(bNow) return this->__ClearCallback(sResponse, NULL, NULL);
+    if(bNow) return this->__RemoveCallback(sResponse, NULL, NULL);
     return GJ_OK;
 }
 

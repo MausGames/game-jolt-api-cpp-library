@@ -236,11 +236,11 @@
        gjDataItemMap apDataItemMap;
        if(API.InterDataStoreUser()->FetchDataItemsNow(&apDataItemMap) == GJ_OK)
        {
-           // and delete all user data store items (does not block)
+           // and remove all user data store items (does not block)
            for(auto it = apDataItemMap.begin(); it != apDataItemMap.end(); ++it)
            {
                gjDataItem* pDataItem = it->second;
-               pDataItem->ClearCall();
+               pDataItem->RemoveCall();
            }
        }
    }
@@ -396,7 +396,7 @@
 
 /*! \page update_notes Update Notes
  *
- * v0.9a (2013-08-02)
+ * v0.9a (2013-11-18)
  * ------------------
  * <ul>
  *      <li>implemented trophy sorting

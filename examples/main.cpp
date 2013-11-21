@@ -112,7 +112,7 @@ public:
         }
 
         // remove the data item again without callback, but stil non-blocking
-        ((gjDataItemPtr)pData)->ClearCall();
+        ((gjDataItemPtr)pData)->RemoveCall();
     }
 };
 

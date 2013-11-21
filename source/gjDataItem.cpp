@@ -86,7 +86,7 @@ int gjDataItem::__GetDataBase64Callback(const std::string& sData, void* pAdd, gj
 
 // ****************************************************************
 /* callback for successfully clearing/removing the data store item  */
-int gjDataItem::__ClearCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput)
+int gjDataItem::__RemoveCallback(const std::string& sData, void* pAdd, gjDataItemPtr* ppOutput)
 {
     // parse output (only check status)
     gjDataList aaReturn;

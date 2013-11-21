@@ -112,7 +112,7 @@ public:
 
     /*! \name Check Status */
     //! @{
-    inline bool IsPrimary()const {return m_bPrimary;}
+    inline bool IsPrimary()const {return m_bPrimary;}   //!< \copybrief m_bPrimary
     //! @}
 
 
@@ -193,7 +193,7 @@ public:
 
     /*! \name Check Status */
     //! @{
-    inline bool IsGuest()const {return m_iUserID ? false : true;}
+    inline bool IsGuest()const {return m_iUserID ? false : true;}   //!< guest status
     //! @}
 
 
@@ -256,7 +256,7 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
 {
     if(sScore == "" || iSort == 0) return GJ_INVALID_INPUT;
 
-    const bool bGuest = (sGuestName == "") ? true : false;
+    const bool bGuest = (sGuestName != "") ? true : false;
     if(!m_pAPI->IsConnected() && !bGuest) return GJ_NOT_CONNECTED;
 
     if(m_iSortDir && !bGuest)
@@ -309,9 +309,9 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
 
     // use user data or guest name
     const std::string sUserData = bGuest ?
-                                  "&username="   + m_pAPI->GetProcUserName()  +
-                                  "&user_token=" + m_pAPI->GetProcUserToken() :
-                                  "&guest="      + m_pAPI->UtilEscapeString(sGuestName);
+                                  "&guest="      + m_pAPI->UtilEscapeString(sGuestName) : 
+                                  "&username="   + m_pAPI->GetProcUserName()            +
+                                  "&user_token=" + m_pAPI->GetProcUserToken();
 
     // send add score request
     std::string sResponse;
