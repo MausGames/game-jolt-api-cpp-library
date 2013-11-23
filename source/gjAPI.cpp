@@ -146,7 +146,11 @@ int gjAPI::gjInterUser::__Process(const std::string& sData, void* pAdd, gjUserPt
     gjUser* pNewUser = new gjUser(aaReturn[0], m_pAPI);
     const int iID = pNewUser->GetID();
 
-    if(m_apUser.count(iID)) SAFE_DELETE(pNewUser)
+    if(m_apUser.count(iID))
+    {
+        SAFE_DELETE(pNewUser)
+        pNewUser = m_apUser[iID];
+    }
     else m_apUser[iID] = pNewUser;
 
     if(ppOutput) (*ppOutput) = pNewUser;
@@ -317,8 +321,8 @@ int gjAPI::gjInterTrophy::__CheckCache(const int& iAchieved, gjTrophyList* papOu
             apConvert.reserve(GJ_API_RESERVE_TROPHY);
 
             // add sorted trophies
-            for(size_t i = 0; i < m_aiSort.size(); ++i)
-                if(m_apTrophy.count(m_aiSort[i])) apConvert.push_back(m_apTrophy[m_aiSort[i]]);
+            FOR_EACH(it, m_aiSort)
+                if(m_apTrophy.count(*it)) apConvert.push_back(m_apTrophy[*it]);
 
             // add missing unsorted trophies
             FOR_EACH(it, m_apTrophy)
@@ -331,11 +335,13 @@ int gjAPI::gjInterTrophy::__CheckCache(const int& iAchieved, gjTrophyList* papOu
             }
 
             // check for achieved status
-            for(size_t i = 0; i < apConvert.size(); ++i)
+            FOR_EACH(it, apConvert)
             {
-                if((iAchieved > 0 &&  apConvert[i]->IsAchieved()) ||
-                   (iAchieved < 0 && !apConvert[i]->IsAchieved()) || !iAchieved)
-                    (*papOutput).push_back(apConvert[i]);
+                gjTrophy* pTrophy = (*it);
+
+                if((iAchieved > 0 &&  pTrophy->IsAchieved()) ||
+                   (iAchieved < 0 && !pTrophy->IsAchieved()) || !iAchieved)
+                    (*papOutput).push_back(pTrophy);
             }
         }
         return GJ_OK;
@@ -635,13 +641,17 @@ int gjAPI::gjInterDataStore::__Process(const std::string& sData, void* pAdd, gjD
         gjDataItem* pNewDataItem = new gjDataItem(*it, m_iType, m_pAPI);
         const std::string sKey = pNewDataItem->GetKey();
 
-        if(m_apDataItem.count(sKey)) SAFE_DELETE(pNewDataItem)
+        if(m_apDataItem.count(sKey))
+        {
+            SAFE_DELETE(pNewDataItem)
+            pNewDataItem = m_apDataItem[sKey];
+        }
         else m_apDataItem[sKey] = pNewDataItem;
 
-        if(papOutput) (*papOutput)[sKey] = m_apDataItem[sKey];
+        if(papOutput) (*papOutput)[sKey] = pNewDataItem;
     }
 
-    return aaReturn.size() ? GJ_OK : GJ_NO_DATA_FOUND;
+    return aaReturn.empty() ? GJ_NO_DATA_FOUND : GJ_OK;
 }
 
 
@@ -678,9 +688,9 @@ void gjAPI::gjInterFile::ClearCache()
 int gjAPI::gjInterFile::__CheckCache(const std::string& sPath)
 {
     // compare cached file paths
-    for(size_t i = 0; i < m_asFile.size(); ++i)
+    FOR_EACH(it, m_asFile)
     {
-        if(sPath == m_asFile[i])
+        if(sPath == (*it))
             return GJ_OK;
     }
     return GJ_NO_DATA_FOUND;

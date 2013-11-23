@@ -41,10 +41,10 @@ gjScoreTable::~gjScoreTable()
     if(s_pPrimary == this) s_pPrimary = NULL;
 
     // delete score entries
-    for(size_t i = 0; i < m_apScore.size(); ++i)
-        SAFE_DELETE(m_apScore[i])
-    for(size_t i = 0; i < m_apVerify.size(); ++i)
-        SAFE_DELETE(m_apVerify[i])
+    FOR_EACH(it, m_apScore)
+        SAFE_DELETE(*it)
+    FOR_EACH(it, m_apVerify)
+        SAFE_DELETE(*it)
 
     // clear container
     m_apScore.clear();
@@ -56,8 +56,8 @@ gjScoreTable::~gjScoreTable()
 /* check for cached score entries */
 int gjScoreTable::__CheckCache(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput)
 {
-    if(!bOnlyUser) return GJ_INVALID_INPUT;
-    if(m_iSortDir) return GJ_INVALID_CALL;
+    if(!bOnlyUser)  return GJ_INVALID_INPUT;
+    if(!m_iSortDir) return GJ_INVALID_CALL;
 
     // fetch cached main user
     gjUserPtr pMainUser;
@@ -68,11 +68,13 @@ int gjScoreTable::__CheckCache(const bool bOnlyUser, const int& iLimit, gjScoreL
     {
         // retrieve cached main user score entries
         int iCount = 0;
-        for(size_t i = 0; i < m_apScore.size(); ++i)
+        FOR_EACH(it, m_apScore)
         {
-            if(m_apScore[i]->GetUserID() == pMainUser->GetID())
+            gjScore* pScore = (*it);
+
+            if(pScore->GetUserID() == pMainUser->GetID())
             {
-                (*papOutput).push_back(m_apScore[i]);
+                (*papOutput).push_back(pScore);
                 if(++iCount >= iLimit) break;
             }
         }
@@ -109,9 +111,9 @@ int gjScoreTable::__Process(const std::string& sData, void* pAdd, gjScoreList* p
         }
 
         // check if specific score entry is already available
-        for(size_t i = 0; i < m_apScore.size(); ++i)
+        FOR_EACH(it, m_apScore)
         {
-            gjScore* pOldScore = m_apScore[i];
+            gjScore* pOldScore = (*it);
 
             if(pOldScore->GetUserName() == pNewScore->GetUserName() &&
                pOldScore->GetSort()     == pNewScore->GetSort())
@@ -152,11 +154,11 @@ int gjScoreTable::__AddScoreCallback(const std::string& sData, void* pAdd, gjSco
     gjScore* pNewScore = static_cast<gjScore*>(pAdd);
 
     // remove score entry from verification list
-    for(size_t i = 0; i < m_apVerify.size(); ++i)
+    FOR_EACH(it, m_apVerify)
     {
-        if(m_apVerify[i] == pNewScore)
+        if((*it) == pNewScore)
         {
-            m_apVerify.erase(m_apVerify.begin()+i);
+            m_apVerify.erase(it);
             break;
         }
     }
@@ -187,7 +189,7 @@ gjScore::gjScore(const gjData& sScoreData, gjScoreTable* pScoreTable, gjAPI* pAP
     const bool bGuest = (sGuest == "") ? false : true;
 
     // set user name and ID
-    m_iUserID   = bGuest ?      0 : atoi(SAFE_MAP_GET(sScoreData, "user_id").c_str());
+    m_iUserID   = bGuest ?     -1 : atoi(SAFE_MAP_GET(sScoreData, "user_id").c_str());
     m_sUserName = bGuest ? sGuest : SAFE_MAP_GET(sScoreData, "user");
 }
 

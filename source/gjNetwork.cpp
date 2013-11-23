@@ -65,20 +65,22 @@ bool gjNetwork::Update()
             const bool bOK = (pMsg->data.result == CURLE_OK) ? true : false;
 
             // search callback object and finish the operation
-            for(size_t i = 0; i < m_apCall.size(); ++i)
+            FOR_EACH(it, m_apCall)
             {
-                if(m_apCall[i]->GetSession() == pSession)
+                gjCall* pCall = (*it);
+
+                if(pCall->GetSession() == pSession)
                 {
                     // check for errors
                     if(!bOK)
                     {
-                        m_pAPI->ErrorLogAdd("Network Error: sending non-blocking request failed <" + m_apCall[i]->GetInfo() + ">");
+                        m_pAPI->ErrorLogAdd("Network Error: sending non-blocking request failed <" + pCall->GetInfo() + ">");
                         m_pAPI->ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(pMsg->data.result)));
                     }
 
-                    m_apCall[i]->Finish(bOK);
-                    SAFE_DELETE(m_apCall[i])
-                    m_apCall.erase(m_apCall.begin()+i);
+                    pCall->Finish(bOK);
+                    SAFE_DELETE(pCall)
+                    m_apCall.erase(it);
                     break;
                 }
             }
@@ -110,10 +112,10 @@ void gjNetwork::Wait(const unsigned int& iMaxWait)
 gjNetwork::gjCall* gjNetwork::__CheckCall(const std::string& sInfo)
 {
     // search callback object and compare info string
-    for(size_t i = 0; i < m_apCall.size(); ++i)
+    FOR_EACH(it, m_apCall)
     {
-        if(m_apCall[i]->GetInfo() == sInfo)
-            return m_apCall[i];
+        if((*it)->GetInfo() == sInfo)
+            return (*it);
     }
 
     return NULL;
@@ -125,16 +127,18 @@ gjNetwork::gjCall* gjNetwork::__CheckCall(const std::string& sInfo)
 void gjNetwork::__KillCall(gjCall* pCall)
 {
     // search callback object
-    for(size_t i = 0; i < m_apCall.size(); ++i)
+    FOR_EACH(it, m_apCall)
     {
-        if(m_apCall[i] == pCall)
+        gjCall* pCurCall = (*it);
+
+        if(pCurCall == pCall)
         {
-            CURL* pSession = m_apCall[i]->GetSession();
+            CURL* pSession = pCurCall->GetSession();
 
             // delete callback object
-            m_apCall[i]->Finish(false);
-            SAFE_DELETE(m_apCall[i])
-            m_apCall.erase(m_apCall.begin()+i);
+            pCurCall->Finish(false);
+            SAFE_DELETE(pCurCall)
+            m_apCall.erase(it);
 
             // close cURL session
             curl_multi_remove_handle(m_pMultiHandle, pSession);

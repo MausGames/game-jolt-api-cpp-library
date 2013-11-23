@@ -273,12 +273,13 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
 
     // check if specific score entry is already available and cancel request
     const std::string sUserName = bGuest ? sGuestName : m_pAPI->GetUserName();
-    for(size_t i = 0; i < m_apScore.size(); ++i)
+    FOR_EACH(it, m_apScore)
     {
-        gjScore* pOldScore = m_apScore[i];
+        gjScore* pScore = (*it);
 
-        if(pOldScore->GetUserName() == sUserName &&
-           pOldScore->GetSort()     == iSort)
+        if((pScore->GetUserID() == -1) == bGuest &&
+            pScore->GetUserName() == sUserName   &&
+            pScore->GetSort()     == iSort)
         {
             // specific score entry already available
             return GJ_REQUEST_CANCELED;

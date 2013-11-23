@@ -18,7 +18,7 @@
 class gjUser final
 {
 private:
-    int m_iID;                             //!< ID of the user
+    int m_iID;                             //!< ID of the user (-1 = guest)
     std::string m_sName;                   //!< display name of the user
 
     std::string m_sType;                   //!< type of the user ("Guest", "User", "Developer", "Moderator", "Administrator")

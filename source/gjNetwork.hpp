@@ -50,8 +50,8 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,
         // call the callbacks
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(*m_psResponse, this->m_pProcessData, &pProcessedOutput))
         {
-            for(size_t i = 0; i < this->m_aOutput.size(); ++i)
-                (this->m_aOutput[i].m_pOutputObj->*this->m_aOutput[i].m_OutputCallback)(pProcessedOutput, this->m_aOutput[i].m_pOutputData);
+            FOR_EACH(it, this->m_aOutput)
+                (it->m_pOutputObj->*(it->m_OutputCallback))(pProcessedOutput, it->m_pOutputData);
         }
     }
 
@@ -77,8 +77,8 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P
         // call the callbacks
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(m_sPath, this->m_pProcessData, &pProcessedOutput))
         {
-            for(size_t i = 0; i < this->m_aOutput.size(); ++i)
-                (this->m_aOutput[i].m_pOutputObj->*this->m_aOutput[i].m_OutputCallback)(pProcessedOutput, this->m_aOutput[i].m_pOutputData);
+            FOR_EACH(it, this->m_aOutput)
+                (it->m_pOutputObj->*(it->m_OutputCallback))(pProcessedOutput, it->m_pOutputData);
         }
     }
 }
