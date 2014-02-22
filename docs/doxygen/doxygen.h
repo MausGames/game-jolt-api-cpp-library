@@ -398,7 +398,7 @@
 
 /*! \page update_notes Update Notes
  *
- * v1.0a (2014-02-22)
+ * v1.0 (2014-02-22)
  * ------------------
  * <ul>
  *      <li>implemented asynchronous login functions
