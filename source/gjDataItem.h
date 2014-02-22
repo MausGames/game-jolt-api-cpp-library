@@ -3,7 +3,7 @@
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
 //| Released under the zlib License                             |//
-//| More information available in the README.md                 |//
+//| More information available in the readme file               |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #pragma once
@@ -86,7 +86,6 @@ public:
     //! @{
     /*! Like \link GetDataNow GetData\endlink\n
      *  Allows to get data in binary form.
-     *  \todo   Rewrite section and remove double-code
      *  \pre    Login maybe required
      *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
      *  \param   pTarget Pointer to the target
@@ -265,7 +264,7 @@ template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_
     if(m_pAPI->SendRequest("/data-store/"
                            "?game_id=" + m_pAPI->GetProcGameID()          +
                            "&key="     + m_pAPI->UtilEscapeString(m_sKey) +
-                           "&format="  + "dump" +
+                           "&format="  + "dump"                           +
                            sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__GetDataBase64Callback, (void*)iSize, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__GetDataBase64Callback(sResponse, (void*)iSize, NULL);

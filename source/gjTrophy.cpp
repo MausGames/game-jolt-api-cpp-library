@@ -3,7 +3,7 @@
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
 //| Released under the zlib License                             |//
-//| More information available in the README.md                 |//
+//| More information available in the readme file               |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
@@ -67,7 +67,7 @@ gjTrophy& gjTrophy::operator = (const gjTrophy& that)noexcept
 
 
 // ****************************************************************
-// callback for updating the data */
+/* callback for updating the data */
 int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput)
 {
     // parse output
@@ -94,7 +94,7 @@ int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTroph
 
 
 // ****************************************************************
-// callback for achieving the trophy */
+/* callback for achieving the trophy */
 int gjTrophy::__AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput)
 {
     // parse output (only check status)

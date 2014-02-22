@@ -3,7 +3,7 @@
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
 //| Released under the zlib License                             |//
-//| More information available in the README.md                 |//
+//| More information available in the readme file               |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"

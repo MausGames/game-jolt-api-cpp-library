@@ -66,7 +66,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>libcurl.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>libcurl.a %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Lib>
       <AdditionalDependencies>
@@ -111,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\Base64.h" />
-    <ClInclude Include="..\..\..\source\coreLookup.h" />
+    <ClInclude Include="..\..\..\source\gjLookup.h" />
     <ClInclude Include="..\..\..\source\gjAPI.h" />
     <ClInclude Include="..\..\..\source\gjDataItem.h" />
     <ClInclude Include="..\..\..\source\gjNetwork.h" />

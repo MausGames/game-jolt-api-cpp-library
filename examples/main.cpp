@@ -105,6 +105,7 @@ public:
         // show finished Base64 data retrieve
         std::cout << "[Data]  Data Get" << std::endl;
 
+        // check for wrong data upload and download
         for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
         {
             if(m_aiTestData[i] != i)
@@ -113,6 +114,41 @@ public:
 
         // remove the data item again without callback, but stil non-blocking
         ((gjDataItemPtr)pData)->RemoveCall();
+    }
+};
+
+
+// ****************************************************************
+class TestLogin
+{
+private:
+    TestTrophy       testTrophyObject;
+    TestScoreAndUser testScoreAndUserObject;
+    TestDataItem     testDataItemObject;
+
+
+public:
+    void FinishLogin(const int& iStatus, void* pData)
+    {
+        // check for succesfull login
+        if(iStatus != GJ_OK) std::cout << "[Login] Login failed" << std::endl;
+                        else std::cout << "[Login] Login succesfull" << std::endl;
+
+        gjAPI* pAPI = ((gjAPI*)pData);
+
+        // test trophies
+        pAPI->InterTrophy()->FetchTrophiesCall(0, &testTrophyObject, &TestTrophy::InitTrophies, NULL);
+
+        // test scores and users
+        pAPI->InterScore()->FetchScoreTablesCall(&testScoreAndUserObject, &TestScoreAndUser::InitScoreTable, NULL);
+
+        // test data store
+        int* aiTestData = new int[TEST_DATA_ITEM_SIZE];
+        for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
+            aiTestData[i] = i;
+
+        pAPI->InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
+        SAFE_DELETE_ARRAY(aiTestData)
     }
 };
 
@@ -134,27 +170,14 @@ int main()
     API.InterTrophy()->SetHidden(iHidden, sizeof(iHidden)/sizeof(iHidden[0]));
 
     // login with user
-    if(API.Login(true) != GJ_OK)
-        API.Login(true, "user_name", "user_token"); // should I ever forget my credentials here, get some trophies for me, thx
-
-    // test trophies
-    TestTrophy testTrophyObject;
-    API.InterTrophy()->FetchTrophiesCall(0, &testTrophyObject, &TestTrophy::InitTrophies, NULL);
-
-    // test scores and users
-    TestScoreAndUser testScoreAndUserObject;
-    API.InterScore()->FetchScoreTablesCall(&testScoreAndUserObject, &TestScoreAndUser::InitScoreTable, NULL);
-
-    // test data store
-    int* aiTestData = new int[TEST_DATA_ITEM_SIZE];
-    for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
-        aiTestData[i] = i;
-
-    TestDataItem testDataItemObject;
-    API.InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
+    TestLogin testLoginObject;
+    if(API.LoginCall(true, GJ_API_CRED, &testLoginObject, &TestLogin::FinishLogin, &API) != GJ_OK) // check for credentials file (QuickPlay)
+    {
+        API.LoginCall(true, "MausGames", "lenia", &testLoginObject, &TestLogin::FinishLogin, &API); // normal async login (forwarding the API object)
+    }
 
     // main loop
-    const time_t iMaxTime = time(NULL) + 3;
+    const time_t iMaxTime = time(NULL) + 5;
     while(iMaxTime >= time(NULL))
     {
         API.Update();
@@ -163,6 +186,5 @@ int main()
     std::cout << "\nPress any key to continue ..." << std::endl;
     std::cin.get();
 
-    SAFE_DELETE_ARRAY(aiTestData)
     return 0;
 }

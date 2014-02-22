@@ -9,13 +9,13 @@
 //*--------------------------------------------------------------------------------------*//
 ////////////////////////////////////////////////////////////////////////////////////////////
 //*--------------------------------------------------------------------------------------*//
-//| Game Jolt API C++ Library v0.9a (http://gamejolt.com)                                |//
+//| Game Jolt API C++ Library v1.0a (http://gamejolt.com)                                |//
 //*--------------------------------------------------------------------------------------*//
 //| Author: Martin Mauersics                                                             |//
 //| Confirmed OSX support: Bruno Assarisse                                               |//
 //| Special Thanks to: David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell  |//
 //*--------------------------------------------------------------------------------------*//
-//| Copyright (c) 2013 Martin Mauersics                                                  |//
+//| Copyright (c) 2013-2014 Martin Mauersics                                             |//
 //|                                                                                      |//
 //| This software is provided 'as-is', without any express or implied                    |//
 //| warranty. In no event will the authors be held liable for any damages                |//
@@ -65,12 +65,12 @@
 #define GJ_API_RESERVE_SCORE       128
 #define GJ_API_RESERVE_FILE        64
 #define GJ_API_TIMEOUT_CONNECTION  3
-#define GJ_API_TIMEOUT_REQUEST     3
+#define GJ_API_TIMEOUT_REQUEST     10
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
-#define GJ_API_OFFCACHE_TROPHY     true
-#define GJ_API_OFFCACHE_FILE       true
+#define GJ_API_OFFCACHE_TROPHY     false
+#define GJ_API_OFFCACHE_FILE       false // not used
 #define GJ_API_OFFCACHE_NAME       "gjapi_cache.dat"
 /* --- configuration --- */
 
@@ -139,13 +139,13 @@
  *  \param pOutputData    additional data which will be forwarded to the callback function
  *
  *  **Code Example**
-    \code{.cpp}
-    void Function(gjAPI& API, myClass& myObj)
-    {
-        // fetch an user with a callback (does not block)
-        API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
-    }
-    \endcode */
+ *  \code{.cpp}
+ *  void Function(gjAPI& API, myClass& myObj)
+ *  {
+ *      // fetch an user with a callback (does not block)
+ *      API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
+ *  }
+ *  \endcode */
 #define GJ_NETWORK_OUTPUT(x)    T* pOutputObj,  void (T::*OutputCallback)(const x&, void*),               void* pOutputData
 #define GJ_NETWORK_PROCESS      P* pProcessObj, int (P::*ProcessCallback)(const std::string&, void*, D*), void* pProcessData
 
@@ -181,7 +181,7 @@
 
 #include "MD5.h"
 #include "Base64.h"
-#include "coreLookup.h"
+#include "gjLookup.h"
 #include "curl/curl.h"
 
 #undef GetUserName
@@ -193,7 +193,7 @@ class gjScoreTable;
 class gjScore;
 class gjDataItem;
 
-typedef coreLookup<std::string>            gjData;
+typedef gjLookup<std::string>              gjData;
 typedef std::vector<gjData>                gjDataList;
 typedef void*                              gjVoidPtr;
 typedef gjUser*                            gjUserPtr;
@@ -239,10 +239,7 @@ enum GJ_TROPHY_TYPE
 /*! Main interface class of the library to connect with the Game Jolt API.\n
  *  Manages sessions, users, trophies, scores, data items and downloaded files.\n
  *  http://gamejolt.com/api/doc/game/
- *  \brief Main Interface
- *  \todo Maybe switch all function parameters from std::string to const char*\n
- *        Implement event loop system as third way to do requests\n
- *        Improve offline caching */
+ *  \brief Main Interface */
 class gjAPI final
 {
 private:
@@ -435,6 +432,7 @@ private:
         //! @{
         /*! Fetch and cache all score tables through an API request.
          *  \bug    The API returns already deleted score tables
+         *
          *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
          *  \return **GJ_OK** on success\n
          *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
@@ -638,7 +636,7 @@ public:
     /*! Login with a specific user.\n
      *  Authenticate user and establish an user session through the API.\n
      *  Prefetch the user object, trophies and user related data store items.
-     *  \todo   Only blocking version available at the moment
+     *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
      *  \param  bSession   Establish an user session
      *  \param  sUserName  Login name of the user
      *  \param  sUserToken Token for that user
@@ -649,8 +647,12 @@ public:
      *          **GJ_INVALID_INPUT** if user name or user token is missing\n
      *          **GJ_FILE_ERROR** if credentials file was not found\n
      *          (see #GJ_ERROR) */
-    int Login(const bool bSession, const std::string& sUserName, const std::string& sUserToken);
-    int Login(const bool bSession, std::string sCredPath = GJ_API_CRED);
+                          inline int LoginNow(const bool& bSession, const std::string& sUserName, const std::string& sUserToken)                          {return __Login(bSession, sUserName, sUserToken, true, GJ_NETWORK_NULL_THIS(int));}
+                          inline int LoginNow(const bool& bSession, const std::string& sCredPath)                                                         {return __Login(bSession, sCredPath, true, GJ_NETWORK_NULL_THIS(int));}
+                          inline int LoginNow(const bool& bSession)                                                                                       {return __Login(bSession, GJ_API_CRED, true, GJ_NETWORK_NULL_THIS(int));}
+    template <typename T> inline int LoginCall(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, GJ_NETWORK_OUTPUT(int)) {return __Login(bSession, sUserName, sUserToken, false, GJ_NETWORK_OUTPUT_FW);}
+    template <typename T> inline int LoginCall(const bool& bSession, const std::string& sCredPath, GJ_NETWORK_OUTPUT(int))                                {return __Login(bSession, sCredPath, false, GJ_NETWORK_OUTPUT_FW);}
+    template <typename T> inline int LoginCall(const bool& bSession, GJ_NETWORK_OUTPUT(int))                                                              {return __Login(bSession, GJ_API_CRED, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Logout User */
@@ -771,6 +773,17 @@ private:
     int __OpenSession();
     int __PingSession(const bool& bActive);
     int __CloseSession();
+    //! @}
+
+    /*! \name Superior Request Functions */
+    //! @{ 
+    template <typename T> int __Login(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, const bool& bNow, GJ_NETWORK_OUTPUT(int));
+    template <typename T> int __Login(const bool& bSession, const std::string& sCredPath, const bool& bNow, GJ_NETWORK_OUTPUT(int));
+    //! @}
+
+    /*! \name Callback Functions */
+    //! @{
+    int __LoginCallback(const std::string& sData, void* pAdd, int* pbOutput);
     //! @}
 };
 
@@ -983,6 +996,65 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
 
     if(bNow) this->__Process(*psOutput, NULL, NULL);
     return GJ_OK;
+}
+
+
+// ****************************************************************
+/* login with specific user */
+template <typename T> int gjAPI::__Login(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, const bool& bNow, GJ_NETWORK_OUTPUT(int))
+{
+    if(this->IsConnected()) return GJ_INVALID_CALL;
+
+    // check for missing credentials
+    if(sUserName == "" || sUserToken == "") 
+    {
+        if(!bNow) (pOutputObj->*OutputCallback)(GJ_INVALID_INPUT, pOutputData);
+        return GJ_INVALID_INPUT;
+    }
+
+    // set main user data
+    m_sUserName      = sUserName;
+    m_sUserToken     = sUserToken;
+    m_sProcUserName  = this->UtilEscapeString(m_sUserName);
+    m_sProcUserToken = this->UtilEscapeString(m_sUserToken);
+    
+    // convert session parameter
+    void* pSession = (void*)long(bSession ? 1 : 0);
+
+    // authenticate user
+    std::string sResponse;
+    if(m_pNetwork->SendRequest("/users/auth/"
+                               "?game_id="    + m_sProcGameID   +
+                               "&username="   + m_sProcUserName +
+                               "&user_token=" + m_sProcUserToken,
+                               bNow ? &sResponse : NULL, this, &gjAPI::__LoginCallback, pSession, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
+
+    if(bNow) return this->__LoginCallback(sResponse, pSession, NULL);
+    return GJ_OK;
+}
+
+template <typename T> int gjAPI::__Login(const bool& bSession, const std::string& sCredPath, const bool& bNow, GJ_NETWORK_OUTPUT(int))
+{
+    // open credentials file
+    std::FILE* pFile = std::fopen(sCredPath.c_str(), "rb");
+    if(!pFile) return GJ_FILE_ERROR;
+
+    char acName[128], acToken[128];
+    char* pcEnd;
+
+    // get user name
+    std::fscanf(pFile, "%127[^\n]%*c", acName);
+    pcEnd = std::strchr(acName, 13);
+    if(pcEnd) *pcEnd = '\0';
+
+    // get user token
+    std::fscanf(pFile, "%127[^\n]%*c", acToken);
+    pcEnd = std::strchr(acToken, 13);
+    if(pcEnd) *pcEnd = '\0';
+
+    // close file and login
+    std::fclose(pFile);
+    return this->__Login(bSession, acName, acToken, bNow, GJ_NETWORK_OUTPUT_FW);
 }
 
 

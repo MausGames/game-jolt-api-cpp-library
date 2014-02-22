@@ -46,6 +46,7 @@
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.
  *
  * All source files are distributed raw. You simply need to add them to your project build, compile them with C++11 support, and link with the cURL library.\n
+ * Alternatively you can include the gjInline.h file, instead of adding all code files to your project build.\n
  * <b>Supported compilers:</b> GCC/MinGW 4.7+, MSVC 10.0+, Clang 3.3+
  *
  * \subsection introduction_update   1.2. Update Notes
@@ -60,23 +61,23 @@
  * After that you have to update the API-object in your main loop. This is very important when sending non-blocking requests.
  * \warning NEVER give your private key to anyone
  *
-   \code{.cpp}
-   #include "gjAPI.h"
-
-   int main()
-   {
-       // create API-object and get basic access to Game Jolt
-       gjAPI API(12345, "abcdefghijklmnopqrstuvwxyz012345");
-
-       while(true)
-       {
-           // update the API-object
-           API.Update();
-       }
-
-       return 0;
-   }
-   \endcode
+ * \code{.cpp}
+ * #include "gjAPI.h"
+ *
+ * int main()
+ * {
+ *     // create API-object and get basic access to Game Jolt
+ *     gjAPI API(12345, "abcdefghijklmnopqrstuvwxyz012345");
+ *
+ *     while(true)
+ *     {
+ *         // update the API-object !
+ *         API.Update();
+ *     }
+ *
+ *     return 0;
+ * }
+ * \endcode
  *
  * \subsubsection features_access_session   Sessions
  * (<a href="http://gamejolt.com/api/doc/game/sessions/" target="_blank">http://gamejolt.com/api/doc/game/sessions/</a>)\n
@@ -84,52 +85,52 @@
  * The library starts the session after logging in with an user and updates it autonomously, but you can set the session status manually to active or idle.\n
  * \note Regardless of the session, a user login is required for full access to the API
  *
-   \code{.cpp}
-   void Function(gjAPI& API)
-   {
-       // login with specific user and start session
-       API.Login(true, "UserName", "UserToken");
-
-
-       // or login with credentials file (quick play function) and don't start session
-       API.Login(false);
-
-
-       // set session status to "idle"
-       API.SetSession(false);
-
-
-       // logout with the current main user
-       API.Logout();
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API)
+ * {
+ *     // login with specific user and start session
+ *     API.LoginNow(true, "UserName", "UserToken");
+ *
+ *
+ *     // or login with credentials file (quick play function) and don't start session
+ *     API.LoginNow(false);
+ *
+ *
+ *     // set session status to "idle"
+ *     API.SetSession(false);
+ *
+ *
+ *     // logout with the current main user
+ *     API.Logout();
+ * }
+ * \endcode
  *
  * \subsubsection features_access_user   Users
  * (<a href="http://gamejolt.com/api/doc/game/users/" target="_blank">http://gamejolt.com/api/doc/game/users/</a>)\n
  * Users and all their data can be fetched from Game Jolt by either knowing the user name or the user ID.\n
  * There is also an integration in the score class to easily fetch the associated user.
  *
-   \code{.cpp}
-   void Function(gjAPI& API, myClass& myObj)
-   {
-       // direct access an user object and get last login string (may block if user is not cached)
-       API.InterUser()->GetUser("CROS")->GetLastLoggedIn();
-
-
-       // fetch an user now (same as GetUser, may block if user is not cached)
-       gjUserPtr pUser;
-       if(API.InterUser()->FetchUserNow("CROS", &pUser) == GJ_OK)
-       {
-           // and download his avatar now (may block if file is not cached)
-           std::string sFilePath;
-           pUser->DownloadAvatarNow("pictures/avatars", &sFilePath);
-       }
-
-
-       // fetch an user with a callback (does not block)
-       API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API, myClass& myObj)
+ * {
+ *     // direct access an user object and get last login string (may block if user is not cached)
+ *     API.InterUser()->GetUser("CROS")->GetLastLoggedIn();
+ *
+ *
+ *     // fetch an user now (same as GetUser, may block if user is not cached)
+ *     gjUserPtr pUser;
+ *     if(API.InterUser()->FetchUserNow("CROS", &pUser) == GJ_OK)
+ *     {
+ *         // and download his avatar now (may block if file is not cached)
+ *         std::string sFilePath;
+ *         pUser->DownloadAvatarNow("pictures/avatars", &sFilePath);
+ *     }
+ *
+ *
+ *     // fetch an user with a callback (does not block)
+ *     API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
+ * }
+ * \endcode
  *
  * \subsubsection features_access_trophy   Trophies
  * (<a href="http://gamejolt.com/api/doc/game/trophies/" target="_blank">http://gamejolt.com/api/doc/game/trophies/</a>)\n
@@ -137,40 +138,40 @@
  * Currently it's not possible by the API to retrieve trophy data without an user login.\n
  * Also you have to define the sorting, secret trophies (only display after achieved), and hidden trophies (never display) by yourself.\n
  *
-   \code{.cpp}
-   void Function(gjAPI& API, myClass& myObj)
-   {
-       // direct access a trophy object and achieve it (may block if trophy is not cached)
-       API.InterTrophy()->GetTrophy(1234)->AchieveCall();
-
-
-       // fetch all achieved trophies now (may block if trophies are not cached)
-       gjTrophyMap apTrophyMap;
-       if(API.InterTrophy()->FetchTrophiesNow(GJ_TROPHY_ACHIEVED, &apTrophyMap) == GJ_OK)
-       {
-           // and download their thumbnails with a callback (does not block)
-           for(auto it = apTrophyMap.begin(); it != apTrophyMap.end(); ++it)
-           {
-               gjTrophy* pTrophy = it->second;
-               pTrophy->DownloadThumbnailCall("pictures/trophies", &myObj, &myClass::ReceiveThumbnail, pTrophy);
-           }
-       }
-
-
-       // fetch all trophies with a callback (does not block)
-       API.InterTrophy()->FetchTrophiesCall(GJ_TROPHY_ALL, &myObj, &myClass::ReceiveTrophies, NULL);
-
-
-       // sort trophies
-       const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
-       API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(iSort[0]));
-
-
-       // define secret trophies
-       const int iSecret[] = {2546, 2547};
-       API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(iSecret[0]));
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API, myClass& myObj)
+ * {
+ *     // direct access a trophy object and achieve it (may block if trophy is not cached)
+ *     API.InterTrophy()->GetTrophy(1234)->AchieveCall();
+ *
+ *
+ *     // fetch all achieved trophies now (may block if trophies are not cached)
+ *     gjTrophyMap apTrophyMap;
+ *     if(API.InterTrophy()->FetchTrophiesNow(GJ_TROPHY_ACHIEVED, &apTrophyMap) == GJ_OK)
+ *     {
+ *         // and download their thumbnails with a callback (does not block)
+ *         for(auto it = apTrophyMap.begin(); it != apTrophyMap.end(); ++it)
+ *         {
+ *             gjTrophy* pTrophy = it->second;
+ *             pTrophy->DownloadThumbnailCall("pictures/trophies", &myObj, &myClass::ReceiveThumbnail, pTrophy);
+ *         }
+ *     }
+ *
+ *
+ *     // fetch all trophies with a callback (does not block)
+ *     API.InterTrophy()->FetchTrophiesCall(GJ_TROPHY_ALL, &myObj, &myClass::ReceiveTrophies, NULL);
+ *
+ *
+ *     // sort trophies
+ *     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
+ *     API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(iSort[0]));
+ *
+ *
+ *     // define secret trophies
+ *     const int iSecret[] = {2546, 2547};
+ *     API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(iSecret[0]));
+ * }
+ * \endcode
  *
  * \subsubsection features_access_score   Score Tables and Score Entries
  * (<a href="http://gamejolt.com/api/doc/game/scores/" target="_blank">http://gamejolt.com/api/doc/game/scores/</a>)\n
@@ -178,40 +179,40 @@
  * Score tables are also created and managed on the game's dashboard. There are several properties available, to customize their behavior.\n
  * Score entries are assigned to users or guests, and contain a score string, a sort value and optional extra data.
  *
-   \code{.cpp}
-   void Function(gjAPI& API, myClass& myObj)
-   {
-       // direct access a score table object and add guest score (may block if score table is not cached)
-       API.InterScore()->GetScoreTable(567)->AddScoreCall("123 Points", 123, "", "GuestName");
-
-
-       // fetch all score tables now (may block if score tables are not cached)
-       gjScoreTableMap apScoreTableMap;
-       if(API.InterScore()->FetchScoreTablesNow(&apScoreTableMap) == GJ_OK)
-       {
-           for(auto it = apScoreTableMap.begin(); it != apScoreTableMap.end(); ++it)
-           {
-               gjScoreTable* pScoreTable = it->second;
-
-               // and fetch the first 10 score entries of each score table now (blocks)
-               gjScoreList apScoreList;
-               if(pScoreTable->FetchScoresNow(false, 10, &apScoreList) == GJ_OK)
-               {
-                   // and fetch the associated users with a callback (does not block)
-                   for(size_t i = 0; i < apScoreList.size(); ++i)
-                   {
-                       gjScore* pScore = apScoreList[i];
-                       pScore->FetchUserCall(&myObj, &myClass::ReceiveUser, NULL);
-                   }
-               }
-           }
-       }
-
-
-       // direct access the primary score table object and get his description (may block if score table is not cached)
-       API.InterScore()->GetPrimaryTable()->GetDescription();
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API, myClass& myObj)
+ * {
+ *     // direct access a score table object and add guest score (may block if score table is not cached)
+ *     API.InterScore()->GetScoreTable(567)->AddScoreCall("123 Points", 123, "", "GuestName");
+ *
+ *
+ *     // fetch all score tables now (may block if score tables are not cached)
+ *     gjScoreTableMap apScoreTableMap;
+ *     if(API.InterScore()->FetchScoreTablesNow(&apScoreTableMap) == GJ_OK)
+ *     {
+ *         for(auto it = apScoreTableMap.begin(); it != apScoreTableMap.end(); ++it)
+ *         {
+ *             gjScoreTable* pScoreTable = it->second;
+ *
+ *             // and fetch the first 10 score entries of each score table now (blocks)
+ *             gjScoreList apScoreList;
+ *             if(pScoreTable->FetchScoresNow(false, 10, &apScoreList) == GJ_OK)
+ *             {
+ *                 // and fetch the associated users with a callback (does not block)
+ *                 for(size_t i = 0; i < apScoreList.size(); ++i)
+ *                 {
+ *                     gjScore* pScore = apScoreList[i];
+ *                     pScore->FetchUserCall(&myObj, &myClass::ReceiveUser, NULL);
+ *                 }
+ *             }
+ *         }
+ *     }
+ *
+ *
+ *     // direct access the primary score table object and get his description (may block if score table is not cached)
+ *     API.InterScore()->GetPrimaryTable()->GetDescription();
+ * }
+ * \endcode
  *
  * \subsubsection features_access_datastore   Data Store Items
  * (<a href="http://gamejolt.com/api/doc/game/data-store/" target="_blank">http://gamejolt.com/api/doc/game/data-store/</a>)\n
@@ -220,31 +221,31 @@
  * This library provides a very easy and fast way to access them and allows to handle string and binary data with Base64 encoding.
  * \note The current max size of a data store item is ~1mb for string and ~768kb for binary data.
  *
-   \code{.cpp}
-   void Function(gjAPI& API)
-   {
-       // direct access a global data store item and write some string data (the item is created if it doesn't exist)
-       API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataCall("some data");
-
-
-       // direct access another global data store item and read binary data (blocks)
-       float afData[10];
-       API.InterDataStoreGlobal()->GetDataItem("DataItemKey_2")->GetDataBase64Now(afData, sizeof(afData));
-
-
-       // get all existing user data store items (may block if user data store items are not cached)
-       gjDataItemMap apDataItemMap;
-       if(API.InterDataStoreUser()->FetchDataItemsNow(&apDataItemMap) == GJ_OK)
-       {
-           // and remove all user data store items (does not block)
-           for(auto it = apDataItemMap.begin(); it != apDataItemMap.end(); ++it)
-           {
-               gjDataItem* pDataItem = it->second;
-               pDataItem->RemoveCall();
-           }
-       }
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API)
+ * {
+ *     // direct access a global data store item and write some string data (the item is created if it doesn't exist)
+ *     API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataCall("some data");
+ *
+ *
+ *     // direct access another global data store item and read binary data (blocks)
+ *     float afData[10];
+ *     API.InterDataStoreGlobal()->GetDataItem("DataItemKey_2")->GetDataBase64Now(afData, sizeof(afData));
+ *
+ *
+ *     // get all existing user data store items (may block if user data store items are not cached)
+ *     gjDataItemMap apDataItemMap;
+ *     if(API.InterDataStoreUser()->FetchDataItemsNow(&apDataItemMap) == GJ_OK)
+ *     {
+ *         // and remove all user data store items (does not block)
+ *         for(auto it = apDataItemMap.begin(); it != apDataItemMap.end(); ++it)
+ *         {
+ *             gjDataItem* pDataItem = it->second;
+ *             pDataItem->RemoveCall();
+ *         }
+ *     }
+ * }
+ * \endcode
  *
  * \subsection features_transfer   2.2. Non-Blocking Transfer
  * This library uses the <a href="http://curl.haxx.se/" target="_blank">cURL library</a> for sending an retrieving data, which provides a simple interface to do this without blocking and freezing the application.\n
@@ -254,14 +255,14 @@
  * Now-functions will block the application, if the requested data has to be fetched or downloaded,\n
  * but they have no drawback, when the data is already cached. The data is always forwarded to the target parameter.
  *
-   \code{.cpp}
-   void Function(gjAPI& API)
-   {
-       // fetch an user now (may block if user is not cached)
-       gjUserPtr pUser;
-       API.InterUser()->FetchUserNow("CROS", &pUser);
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API)
+ * {
+ *     // fetch an user now (may block if user is not cached)
+ *     gjUserPtr pUser;
+ *     API.InterUser()->FetchUserNow("CROS", &pUser);
+ * }
+ * \endcode
  *
  * \subsubsection features_transfer_call   Call Request
  * Call-functions use an object-related callback system. You forward an object which receives the data, a function pointer from his class as callback, and optional extra data as a void-pointer.\n
@@ -270,21 +271,21 @@
  * \note Some requests (where you don't fetch data) have also a call-function without callback,\n
  *       where you can simply execute them, without waiting for anything
  *
-   \code{.cpp}
-   // example class
-   class myClass
-   {
-   public:
-       void ReceiveUser(const gjUserPtr& pUser, void* pExtraData);
-   };
-
-
-   void Function(gjAPI& API, myClass& myObj)
-   {
-       // fetch an user with a callback (does not block)
-       API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
-   }
-   \endcode
+ * \code{.cpp}
+ * // example class
+ * class myClass
+ * {
+ * public:
+ *     void ReceiveUser(const gjUserPtr& pUser, void* pExtraData);
+ * };
+ *
+ *
+ * void Function(gjAPI& API, myClass& myObj)
+ * {
+ *     // fetch an user with a callback (does not block)
+ *     API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
+ * }
+ * \endcode
  *
  * \subsection features_caching   2.3. Data Caching and Prefetching
  * To increase the performance and reduce the network load, several data objects from the API are cached, because they won't change much, or only within the scope of the current main user.\n
@@ -300,6 +301,7 @@
  * Currently only available for trophies, this feature saves retrieved Game Jolt data into a file to keep it after a logout, application restart or when offline.\n
  * This feature makes it possible to provide trophies even without an active Game Jolt login, and to ship it with the application for easier integration.\n
  * The local data is updated with the next successful login, the achieved status is not saved to prevent multi-user-conflicts.
+ * Offline Caching is deactivated by default, but can be enabled in the gjAPI.h file.
  *
  * \subsection features_file   2.4. File Download
  * It's possible with the <a href="http://curl.haxx.se/" target="_blank">cURL library</a> to download files from any URL to a local folder and use them directly in your game (e.g. textures).\n
@@ -307,19 +309,19 @@
  * The target folder(-hierarchy) is created if it does not exist. Also a direct download for user avatars and trophy thumbnails is already integrated.
  * \warning You need to overwrite the file name if it's not apparent from the URL
  *
-   \code{.cpp}
-   void Function(gjAPI& API, myClass& myObj)
-   {
-       // download a texture now and use it with my object (may block if file is not cached)
-       std::string sFilePath;
-       API.InterFile()->DownloadFileNow("URL", "ToFolder/ToSubFolder", "FileNameOverwrite", sFilePath);
-       myObj.LoadTexture(sFilePath, NULL);
-
-
-       // download a texture with a callback and use it with my object (does not block)
-       API.InterFile()->DownloadFileCall("URL", "ToFolder", "FileNameOverwrite", &myObj, &myClass::LoadTexture, NULL);
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API, myClass& myObj)
+ * {
+ *     // download a texture now and use it with my object (may block if file is not cached)
+ *     std::string sFilePath;
+ *     API.InterFile()->DownloadFileNow("URL", "ToFolder/ToSubFolder", "FileNameOverwrite", sFilePath);
+ *     myObj.LoadTexture(sFilePath, NULL);
+ *
+ *
+ *     // download a texture with a callback and use it with my object (does not block)
+ *     API.InterFile()->DownloadFileCall("URL", "ToFolder", "FileNameOverwrite", &myObj, &myClass::LoadTexture, NULL);
+ * }
+ * \endcode
  *
  * \subsection features_base64   2.5. Base64url Integration
  * The library uses Base64url encoding and decoding with an URL and filename safe alphabet.\n
@@ -328,31 +330,31 @@
  *
  * Dedicated Base64url-functions are available for data store items and the extra data of score entries.
  * \note You can use the base functions for own implementations:\n
-   \code{.cpp}
-       int base64_encode(unsigned char *source, size_t sourcelen, char *target, size_t targetlen);
-       size_t base64_decode(const char *source, unsigned char *target, size_t targetlen);
-   \endcode
+ * \code{.cpp}
+ *     int base64_encode(unsigned char *source, size_t sourcelen, char *target, size_t targetlen);
+ *     size_t base64_decode(const char *source, unsigned char *target, size_t targetlen);
+ * \endcode
  *
-   \code{.cpp}
-   void Function(gjAPI& API)
-   {
-       // send binary data to a global data store item now (blocks)
-       float afData_1[10] = {0,1,2,3,4,5,6,7,8,9};
-       API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataBase64Now(afData_1, sizeof(afData_1));
-
-
-       // fetch the first user score entry of a score table (may block if first score entry is not cached)
-       gjScoreList apScoreList;
-       if(API.InterScore()->GetScoreTable(567)->FetchScoresNow(true, 1, &apScoreList) == GJ_OK)
-       {
-           gjScore* pScore = apScoreList[0];
-
-           // get binary extra data of this score entry (does not block, only getter)
-           float afData_2[10];
-           pScore->GetExtraDataBase64(afData_2, sizeof(afData_2));
-       }
-   }
-   \endcode
+ * \code{.cpp}
+ * void Function(gjAPI& API)
+ * {
+ *     // send binary data to a global data store item now (blocks)
+ *     float afData_1[10] = {0,1,2,3,4,5,6,7,8,9};
+ *     API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataBase64Now(afData_1, sizeof(afData_1));
+ *
+ *
+ *     // fetch the first user score entry of a score table (may block if first score entry is not cached)
+ *     gjScoreList apScoreList;
+ *     if(API.InterScore()->GetScoreTable(567)->FetchScoresNow(true, 1, &apScoreList) == GJ_OK)
+ *     {
+ *         gjScore* pScore = apScoreList[0];
+ *
+ *         // get binary extra data of this score entry (does not block, only getter)
+ *         float afData_2[10];
+ *         pScore->GetExtraDataBase64(afData_2, sizeof(afData_2));
+ *     }
+ * }
+ * \endcode
  *
  * \subsection features_cross   2.6. Cross-Platform Support
  * <img src="../icon_windows.png" align="left" title="(c) Game Jolt" alt="Windows Logo"> <img src="../icon_osx.png" align="left" title="(c) Game Jolt" alt="OSX Logo"> <img src="../icon_linux.png" align="left" title="(c) Game Jolt" alt="Linux Logo"><br clear="all"><br clear="all">
@@ -396,6 +398,15 @@
 
 /*! \page update_notes Update Notes
  *
+ * v1.0a (2014-02-22)
+ * ------------------
+ * <ul>
+ *      <li>implemented asynchronous login functions
+ *      <li>implemented gjInline.h as alternate way to include the library
+ *      <li>deactivated Offline Caching by default
+ *      <li>updated the enclosed cURL libraries
+ *      <li>fixed some minor bugs
+ * </ul>
  * v0.9a (2013-11-18)
  * ------------------
  * <ul>

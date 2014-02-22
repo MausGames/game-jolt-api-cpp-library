@@ -12,11 +12,11 @@
         <itemPath>../../source/Base64.h</itemPath>
         <itemPath>../../source/MD5.cpp</itemPath>
         <itemPath>../../source/MD5.h</itemPath>
-        <itemPath>../../source/coreLookup.h</itemPath>
         <itemPath>../../source/gjAPI.cpp</itemPath>
         <itemPath>../../source/gjAPI.h</itemPath>
         <itemPath>../../source/gjDataItem.cpp</itemPath>
         <itemPath>../../source/gjDataItem.h</itemPath>
+        <itemPath>../../source/gjLookup.h</itemPath>
         <itemPath>../../source/gjNetwork.cpp</itemPath>
         <itemPath>../../source/gjNetwork.h</itemPath>
         <itemPath>../../source/gjNetwork.hpp</itemPath>
@@ -65,7 +65,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_mingw_debug.exe</output>
+          <output>../GJ_API_example_mingw_debug.exe</output>
           <linkerAddLib>
             <pElem>../../libraries/windows</pElem>
           </linkerAddLib>
@@ -82,8 +82,6 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -91,6 +89,8 @@
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -132,7 +132,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_gcc_debug</output>
+          <output>../GJ_API_example_gcc_debug</output>
           <linkerAddLib>
             <pElem>../../libraries/linux</pElem>
           </linkerAddLib>
@@ -149,8 +149,6 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -158,6 +156,8 @@
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -199,7 +199,7 @@
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_clang_debug</output>
+          <output>../GJ_API_example_clang_debug</output>
           <linkerAddLib>
             <pElem>../../libraries/linux</pElem>
           </linkerAddLib>
@@ -216,8 +216,6 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -225,6 +223,8 @@
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -274,7 +274,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_mingw.exe</output>
+          <output>../GJ_API_example_mingw.exe</output>
           <linkerAddLib>
             <pElem>../../libraries/windows</pElem>
           </linkerAddLib>
@@ -293,8 +293,6 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -302,6 +300,8 @@
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -351,7 +351,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_gcc</output>
+          <output>../GJ_API_example_gcc</output>
           <linkerAddLib>
             <pElem>../../libraries/linux</pElem>
           </linkerAddLib>
@@ -369,8 +369,6 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -378,6 +376,8 @@
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -426,7 +426,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <output>../GameJoltAPI_example_clang</output>
+          <output>../GJ_API_example_clang</output>
           <linkerAddLib>
             <pElem>../../libraries/linux</pElem>
           </linkerAddLib>
@@ -444,8 +444,6 @@
       </item>
       <item path="../../source/MD5.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../source/coreLookup.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
@@ -453,6 +451,8 @@
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjLookup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjNetwork.cpp" ex="false" tool="1" flavor2="0">
       </item>

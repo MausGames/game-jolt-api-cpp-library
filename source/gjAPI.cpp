@@ -3,7 +3,7 @@
 //| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
 //*-------------------------------------------------------------*//
 //| Released under the zlib License                             |//
-//| More information available in the README.md                 |//
+//| More information available in the readme file               |//
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
@@ -712,15 +712,15 @@ int gjAPI::gjInterFile::__Process(const std::string& sData, void* pAdd, std::str
 // ****************************************************************
 /* constructor */
 gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept
-: m_iGameID          (iGameID)
-, m_sGamePrivateKey  (sGamePrivateKey)
-, m_sUserName        ("")
-, m_sUserToken       ("")
-, m_iNextPing        (0)
-, m_bActive          (false)
-, m_bConnected       (false)
-, m_sProcUserName    ("")
-, m_sProcUserToken   ("")
+: m_iGameID         (iGameID)
+, m_sGamePrivateKey (sGamePrivateKey)
+, m_sUserName       ("")
+, m_sUserToken      ("")
+, m_iNextPing       (0)
+, m_bActive         (false)
+, m_bConnected      (false)
+, m_sProcUserName   ("")
+, m_sProcUserToken  ("")
 {
     // pre-process the game ID
     m_sProcGameID = this->UtilIntToString(m_iGameID);
@@ -786,77 +786,6 @@ void gjAPI::Update()
             this->__PingSession(m_bActive);
         }
     }
-}
-
-
-// ****************************************************************
-/* login with specific user */
-int gjAPI::Login(const bool bSession, const std::string& sUserName, const std::string& sUserToken)
-{
-    if(this->IsConnected()) return GJ_INVALID_CALL;
-    if(sUserName == "" || sUserToken == "")  return GJ_INVALID_INPUT;
-
-    // authenticate user
-    std::string sCheck;
-    if(m_pNetwork->SendRequest("/users/auth/"
-                               "?game_id="    + m_sProcGameID                     +
-                               "&username="   + this->UtilEscapeString(sUserName) +
-                               "&user_token=" + this->UtilEscapeString(sUserToken),
-                               &sCheck, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
-
-    // check for success
-    gjDataList aaReturn;
-    if(this->ParseRequestKeypair(sCheck, &aaReturn) != GJ_OK)
-    {
-        this->ErrorLogAdd("API Error: could not authenticate user <" + sUserName + ">");
-        return GJ_REQUEST_FAILED;
-    }
-
-    // set main user data
-    m_sUserName      = sUserName;
-    m_sUserToken     = sUserToken;
-    m_sProcUserName  = this->UtilEscapeString(m_sUserName);
-    m_sProcUserToken = this->UtilEscapeString(m_sUserToken);
-
-    // set connection
-    m_bConnected = true;
-
-    // open the user session
-    if(bSession) this->__OpenSession();
-
-    // prefetch user data
-    if(GJ_API_PREFETCH)
-    {
-        m_pInterUser->FetchUserCall(0, GJ_NETWORK_NULL_THIS(gjUserPtr));
-        m_pInterTrophy->FetchTrophiesCall(0, GJ_NETWORK_NULL_THIS(gjTrophyList));
-        m_pInterDataStoreUser->FetchDataItemsCall(GJ_NETWORK_NULL_THIS(gjDataItemMap));
-    }
-
-    return GJ_OK;
-}
-
-int gjAPI::Login(const bool bSession, std::string sCredPath)
-{
-    // open credentials file
-    std::FILE* pFile = std::fopen(sCredPath.c_str(), "rb");
-    if(!pFile) return GJ_FILE_ERROR;
-
-    char acName[128], acToken[128];
-    char* pcEnd;
-
-    // get user name
-    std::fscanf(pFile, "%127[^\n]%*c", acName);
-    pcEnd = std::strchr(acName, 13);
-    if(pcEnd) *pcEnd = '\0';
-
-    // get user token
-    std::fscanf(pFile, "%127[^\n]%*c", acToken);
-    pcEnd = std::strchr(acToken, 13);
-    if(pcEnd) *pcEnd = '\0';
-
-    // close file and login
-    std::fclose(pFile);
-    return this->Login(bSession, acName, acToken);
 }
 
 
@@ -972,7 +901,7 @@ int gjAPI::ParseRequestDump(const std::string& sInput, std::string* psOutput)
 /* delete all cached objects */
 void gjAPI::ClearCache()
 {
-    // clear cache of all sub-interface
+    // clear cache of all sub-interfaces
     m_pInterUser->ClearCache();
     m_pInterTrophy->ClearCache(true);
     m_pInterScore->ClearCache();
@@ -1181,5 +1110,44 @@ int gjAPI::__CloseSession()
     // clear session attributes
     m_iNextPing = 0;
 
+    return GJ_OK;
+}
+
+
+// ****************************************************************
+/* callback for login with specific user */
+int gjAPI::__LoginCallback(const std::string& sData, void* pAdd, int* pbOutput)
+{
+    // check for success
+    gjDataList aaReturn;
+    if(this->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
+    {
+        this->ErrorLogAdd("API Error: could not authenticate user <" + m_sUserName + ">");
+
+        // clear main user data
+        m_sUserName      = "";
+        m_sUserToken     = "";
+        m_sProcUserName  = "";
+        m_sProcUserToken = "";
+
+        if(pbOutput) (*pbOutput) = GJ_REQUEST_FAILED;
+        return pbOutput ? GJ_OK : GJ_REQUEST_FAILED;
+    }
+
+    // set connection
+    m_bConnected = true;
+
+    // open the user session
+    if(pAdd) this->__OpenSession();
+
+    // prefetch user data
+    if(GJ_API_PREFETCH)
+    {
+        m_pInterUser->FetchUserCall(0, GJ_NETWORK_NULL_THIS(gjUserPtr));
+        m_pInterTrophy->FetchTrophiesCall(0, GJ_NETWORK_NULL_THIS(gjTrophyList));
+        m_pInterDataStoreUser->FetchDataItemsCall(GJ_NETWORK_NULL_THIS(gjDataItemMap));
+    }
+
+    if(pbOutput) (*pbOutput) = GJ_OK;
     return GJ_OK;
 }
