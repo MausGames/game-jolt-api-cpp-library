@@ -159,7 +159,7 @@
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p)=NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : "")
 
-#define FOR_EACH(i,c)           for(auto i = c.begin(); i != c.end(); ++i)
+#define FOR_EACH(i,c)           for(auto i = c.begin(), e = c.end(); i != e; ++i)
 
 #define DISABLE_COPY(c)      \
     c(const c&) delete_func; \
