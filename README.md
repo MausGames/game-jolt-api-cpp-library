@@ -7,8 +7,15 @@ As a gamer you are able to play every game on this site for free, rate them with
 And if your game is written in C++, then **this library is able to connect your game with Game Jolt**.  
 (for other languages/engines/platforms take a look [here][2])
 
-Documentation for the library can be found [here][3].
+> - full access to the [Game Jolt API][3]
+> - non-blocking transfer with object-related callback system 
+> - prefetching, caching and request merging for maximum performance
+> - integrated Base64url encoding to easily transfer binary data (e.g. to the data store) 
+> - integrated file downloader (for avatars, trophy images and anything else)
+
+Documentation for the library can be found [here][4].
 
 [1]: http://gamejolt.com
 [2]: http://gamejolt.com/developers/achievements-new/
-[3]: http://www.maus-games.at/files/gamejolt/html/
+[3]: http://gamejolt.com/api/doc/game/
+[4]: http://www.maus-games.at/files/gamejolt/html/

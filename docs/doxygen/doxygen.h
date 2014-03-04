@@ -42,7 +42,7 @@
  *
  * \subsection introduction_setup   1.1. Setup
  *
- * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> (or <a href="http://www.maus-games.at/site/other/game-jolt-api-cpp-library/info" target="_blank">here</a>) and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
+ * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.
  *
  * All source files are distributed raw. You simply need to add them to your project build, compile them with C++11 support, and link with the cURL library.\n
@@ -300,7 +300,7 @@
  * \subsubsection features_caching_offline   Offline Caching
  * Currently only available for trophies, this feature saves retrieved Game Jolt data into a file to keep it after a logout, application restart or when offline.\n
  * This feature makes it possible to provide trophies even without an active Game Jolt login, and to ship it with the application for easier integration.\n
- * The local data is updated with the next successful login, the achieved status is not saved to prevent multi-user-conflicts.
+ * The local data is updated with the next successful login, the achieved status is not saved to prevent multi-user-conflicts.\n
  * Offline Caching is deactivated by default, but can be enabled in the gjAPI.h file.
  *
  * \subsection features_file   2.4. File Download
