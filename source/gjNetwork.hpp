@@ -13,35 +13,35 @@
 
 // ****************************************************************
 /* constructor */
-template <typename T, typename P, typename D> gjNetwork::gjCallTemplate<T,P,D>::gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
+template <typename P, typename D> gjNetwork::gjCallTemplate<P,D>::gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
 : gjCall            (pSession, sInfo)
 , m_pProcessObj     (pProcessObj)
 , m_ProcessCallback (ProcessCallback)
 , m_pProcessData    (pProcessData)
 {
     // reserve some memory
-    m_aOutput.reserve(GJ_API_RESERVE_CALL_OUTPUT);
+    m_apOutput.reserve(GJ_API_RESERVE_CALL_OUTPUT);
 }
 
 
 // ****************************************************************
 /* add output struct to the list */
-template <typename T, typename P, typename D> void gjNetwork::gjCallTemplate<T,P,D>::AddOutput(GJ_NETWORK_OUTPUT(D))
+template <typename P, typename D> template <typename T> void gjNetwork::gjCallTemplate<P,D>::AddOutput(GJ_NETWORK_OUTPUT(D))
 {
     // create struct
-    sOutput aOutput;
-    aOutput.m_pOutputObj     = pOutputObj;
-    aOutput.m_OutputCallback = OutputCallback;
-    aOutput.m_pOutputData    = pOutputData;
+    sOutputSpecific<T,D>* pOutput = new sOutputSpecific<T,D>;
+    pOutput->m_pOutputObj     = pOutputObj;
+    pOutput->m_OutputCallback = OutputCallback;
+    pOutput->m_pOutputData    = pOutputData;
 
     // add struct
-    m_aOutput.push_back(aOutput);
+    m_apOutput.push_back(pOutput);
 }
 
 
 // ****************************************************************
 /* finish a request session */
-template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,D>::Finish(const bool& bOK)
+template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(const bool& bOK)
 {
     if(bOK)
     {
@@ -50,8 +50,8 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,
         // call the callbacks
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(*m_psResponse, this->m_pProcessData, &pProcessedOutput))
         {
-            FOR_EACH(it, this->m_aOutput)
-                (it->m_pOutputObj->*(it->m_OutputCallback))(pProcessedOutput, it->m_pOutputData);
+            FOR_EACH(it, this->m_apOutput)
+                (*it)->Execute(pProcessedOutput);
         }
     }
 
@@ -65,7 +65,7 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallRequest<T,P,
 
 // ****************************************************************
 /* finish a download session */
-template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P,D>::Finish(const bool& bOK)
+template <typename P, typename D> void gjNetwork::gjCallDownload<P,D>::Finish(const bool& bOK)
 {
     // close file handle
     std::fclose(m_pFile);
@@ -77,8 +77,8 @@ template <typename T, typename P, typename D> void gjNetwork::gjCallDownload<T,P
         // call the callbacks
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(m_sPath, this->m_pProcessData, &pProcessedOutput))
         {
-            FOR_EACH(it, this->m_aOutput)
-                (it->m_pOutputObj->*(it->m_OutputCallback))(pProcessedOutput, it->m_pOutputData);
+            FOR_EACH(it, this->m_apOutput)
+                (*it)->Execute(pProcessedOutput);
         }
     }
 }
@@ -110,7 +110,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
             else
             {
                 // append new callback to old session
-                gjCallRequest<T,P,D>* pOldCallRequest = (gjCallRequest<T,P,D>*)pOldCall;
+                gjCallRequest<P,D>* pOldCallRequest = (gjCallRequest<P,D>*)pOldCall;
                 pOldCallRequest->AddOutput(GJ_NETWORK_OUTPUT_FW);
                 return GJ_OK;
             }
@@ -183,7 +183,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
             curl_multi_perform(m_pMultiHandle, &m_iNumSessions);
 
             // create and save callback object
-            gjCallRequest<T,P,D>* pCall = new gjCallRequest<T,P,D>(psOutput, pPostList, pSession, sInfo, GJ_NETWORK_PROCESS_FW);
+            gjCallRequest<P,D>* pCall = new gjCallRequest<P,D>(psOutput, pPostList, pSession, sInfo, GJ_NETWORK_PROCESS_FW);
             pCall->AddOutput(GJ_NETWORK_OUTPUT_FW);
             m_apCall.push_back(pCall);
         }
@@ -214,7 +214,7 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
         if(pOldCall)
         {
             // append new callback to old session
-            gjCallDownload<T,P,D>* pOldCallDownload = (gjCallDownload<T,P,D>*)pOldCall;
+            gjCallDownload<P,D>* pOldCallDownload = (gjCallDownload<P,D>*)pOldCall;
             pOldCallDownload->AddOutput(GJ_NETWORK_OUTPUT_FW);
             return GJ_OK;
         }
@@ -260,7 +260,7 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
                 curl_multi_perform(m_pMultiHandle, &m_iNumSessions);
 
                 // create and save callback object
-                gjCallDownload<T,P,D>* pCall = new gjCallDownload<T,P,D>(pFile, sToFile, pSession, sInfo, GJ_NETWORK_PROCESS_FW);
+                gjCallDownload<P,D>* pCall = new gjCallDownload<P,D>(pFile, sToFile, pSession, sInfo, GJ_NETWORK_PROCESS_FW);
                 pCall->AddOutput(GJ_NETWORK_OUTPUT_FW);
                 m_apCall.push_back(pCall);
             }

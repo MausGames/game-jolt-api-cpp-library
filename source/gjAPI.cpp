@@ -825,7 +825,7 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
     std::istringstream sStream(sInput);
     std::string sToken;
 
-    // traverse input string
+    // loop through input string
     while(std::getline(sStream, sToken))
     {
         // remove redundant newline characters safely and without C++11
@@ -917,7 +917,7 @@ std::string gjAPI::UtilEscapeString(const std::string& sString)
 {
     std::string sOutput = "";
 
-    // traverse input string
+    // loop through input string
     for(size_t i = 0; i < sString.length(); ++i)
     {
         // check the character type

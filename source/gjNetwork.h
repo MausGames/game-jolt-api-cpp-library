@@ -51,15 +51,29 @@ private:
      *  P = type of processing object\n
      *  D = output type\n
      *  \brief Template Bridge */
-    template <typename T, typename P, typename D> class gjCallTemplate : public gjCall
+    template <typename P, typename D> class gjCallTemplate : public gjCall
     {
     protected:
-        /*! \brief Output Structure */
-        struct sOutput
+        /*! \brief Output Interface Structure */
+        template <typename D> struct sOutput
+        {
+            /*! \name Execute Output Callback */
+            //! @{
+            virtual void Execute(const D& pProcessedOutput) = 0;
+            //! @}
+        };
+
+        /*! \brief Specific Output Structure */
+        template <typename T, typename D> struct sOutputSpecific : public sOutput<D>
         {
             T* m_pOutputObj;                                //!< object with output callback function
             void (T::*m_OutputCallback)(const D&, void*);   //!< callback function to receive the data object when finished
             void* m_pOutputData;                            //!< additional data for the output callback
+
+            /*! \name Execute Output Callback */
+            //! @{
+            void Execute(const D& pProcessedOutput)override {(m_pOutputObj->*(m_OutputCallback))(pProcessedOutput, m_pOutputData);}
+            //! @}
         };
 
 
@@ -68,16 +82,16 @@ private:
         int (P::*m_ProcessCallback)(const std::string&, void*, D*);   //!< callback function to convert the response string to a data object
         void* m_pProcessData;                                         //!< additional data for the processing callback
 
-        std::vector<sOutput> m_aOutput;                               //!< list of output structs
+        std::vector<sOutput<D>*> m_apOutput;                          //!< list of output structs
 
 
     public:
         gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept;
-        virtual ~gjCallTemplate() {m_aOutput.clear();}
+        virtual ~gjCallTemplate() {FOR_EACH(it, m_apOutput) SAFE_DELETE(*it) m_apOutput.clear();}
 
         /*! \name Add Output */
         //! @{
-        void AddOutput(GJ_NETWORK_OUTPUT(D));
+        template <typename T> void AddOutput(GJ_NETWORK_OUTPUT(D));
         //! @}
     };
 
@@ -85,7 +99,7 @@ private:
     // ****************************************************************
     /*! Request callback sub-interface class for non-blocking cURL sessions.\n
      *  \brief Request Callback Sub-Interface */
-    template <typename T, typename P, typename D> class gjCallRequest final : public gjCallTemplate<T,P,D>
+    template <typename P, typename D> class gjCallRequest final : public gjCallTemplate<P,D>
     {
     private:
         std::string* m_psResponse;    //!< response string of the request
@@ -94,7 +108,7 @@ private:
 
     public:
         gjCallRequest(std::string* psResponse, curl_httppost* pPostList, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
-        : gjCallTemplate<T,P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_psResponse(psResponse), m_pPostList(pPostList) {}
+        : gjCallTemplate<P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_psResponse(psResponse), m_pPostList(pPostList) {}
 
         /*! \name Finish Session */
         //! @{
@@ -106,7 +120,7 @@ private:
     // ****************************************************************
     /*! Download callback sub-interface class for non-blocking cURL sessions.\n
      *  \brief Download Callback Sub-Interface */
-    template <typename T, typename P, typename D> class gjCallDownload final : public gjCallTemplate<T,P,D>
+    template <typename P, typename D> class gjCallDownload final : public gjCallTemplate<P,D>
     {
     private:
         FILE* m_pFile;         //!< file handle
@@ -115,7 +129,7 @@ private:
 
     public:
         gjCallDownload(FILE* pFile, const std::string& sPath, CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept
-        : gjCallTemplate<T,P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_pFile(pFile), m_sPath(sPath) {}
+        : gjCallTemplate<P,D>(pSession, sInfo, GJ_NETWORK_PROCESS_FW), m_pFile(pFile), m_sPath(sPath) {}
 
         /*! \name Finish Session */
         //! @{

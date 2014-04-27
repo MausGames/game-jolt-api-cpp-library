@@ -11,7 +11,9 @@
 #define _GJ_GUARD_LOOKUP_H_
 
 typedef unsigned int gjUint;
-#define SDL_assert(x) 
+#ifndef SDL_assert
+    #define SDL_assert(x) 
+#endif
 
 
 // ****************************************************************
@@ -199,7 +201,7 @@ template <typename T> void gjLookup<T>::erase(const char* pcKey)noexcept
 // retrieve iterator by specific value
 template <typename T> typename gjLookup<T>::gjIterator gjLookup<T>::__retrieve(const T& Entry)noexcept
 {
-    // traverse all entries
+    // loop through all entries
     FOR_EACH(it, m_aList)
     {
         // compare values
@@ -211,7 +213,7 @@ template <typename T> typename gjLookup<T>::gjIterator gjLookup<T>::__retrieve(c
 
 template <typename T> typename gjLookup<T>::gjConstIterator gjLookup<T>::__retrieve(const T& Entry)const noexcept
 {
-    // traverse all entries
+    // loop through all entries
     FOR_EACH(it, m_aList)
     {
         // compare values
@@ -226,7 +228,7 @@ template <typename T> typename gjLookup<T>::gjConstIterator gjLookup<T>::__retri
 // retrieve iterator by specific key
 template <typename T> typename gjLookup<T>::gjIterator gjLookup<T>::__retrieve(const char* pcKey)noexcept
 {
-    // traverse all entries
+    // loop through all entries
     FOR_EACH(it, m_aList)
     {
         // compare string-keys
@@ -238,7 +240,7 @@ template <typename T> typename gjLookup<T>::gjIterator gjLookup<T>::__retrieve(c
 
 template <typename T> typename gjLookup<T>::gjConstIterator gjLookup<T>::__retrieve(const char* pcKey)const noexcept
 {
-    // traverse all entries
+    // loop through all entries
     FOR_EACH(it, m_aList)
     {
         // compare string-keys

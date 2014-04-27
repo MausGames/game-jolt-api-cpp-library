@@ -80,7 +80,8 @@ public:
 
 
 // ****************************************************************
-#define TEST_DATA_ITEM_SIZE 1000  // *4 (int)
+#define TEST_DATA_ITEM_COUNT 1000
+#define TEST_DATA_ITEM_SIZE  sizeof(int)*TEST_DATA_ITEM_COUNT
 class TestDataItem
 {
 private:
@@ -88,29 +89,35 @@ private:
 
 
 public:
-    TestDataItem()  {m_aiTestData = new int[TEST_DATA_ITEM_SIZE];}
+    TestDataItem()  {m_aiTestData = new int[TEST_DATA_ITEM_COUNT];}
     ~TestDataItem() {SAFE_DELETE_ARRAY(m_aiTestData)}
 
     void SetData(const gjDataItemPtr& pDataItem, void* pData)
     {
         // show finished Base64 data send
-        std::cout << "[Data] Data Set" << std::endl;
+        std::cout << "[Data] Data Set <" << TEST_DATA_ITEM_SIZE << " bytes>" << std::endl;
 
         // retrieve data again
-        pDataItem->GetDataBase64Call(m_aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, this, &TestDataItem::GetData, pDataItem);
+        pDataItem->GetDataBase64Call(m_aiTestData, TEST_DATA_ITEM_SIZE, this, &TestDataItem::GetData, pDataItem);
     }
 
     void GetData(const gjVoidPtr& pTestData, void* pData)
     {
         // show finished Base64 data retrieve
-        std::cout << "[Data]  Data Get" << std::endl;
+        std::cout << "[Data]  Data Get <" << TEST_DATA_ITEM_SIZE << " bytes>" << std::endl;
 
         // check for wrong data upload and download
-        for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
+        bool bOK = true;
+        for(int i = 0; i < TEST_DATA_ITEM_COUNT; ++i)
         {
             if(m_aiTestData[i] != i)
+            {
                 std::cout << "[Data]   Error getting data" << std::endl;
+                bOK = false;
+                break;
+            }
         }
+        if(bOK) std::cout << "[Data]   Data successfully compared" << std::endl;
 
         // remove the data item again without callback, but stil non-blocking
         ((gjDataItemPtr)pData)->RemoveCall();
@@ -143,11 +150,11 @@ public:
         pAPI->InterScore()->FetchScoreTablesCall(&testScoreAndUserObject, &TestScoreAndUser::InitScoreTable, NULL);
 
         // test data store
-        int* aiTestData = new int[TEST_DATA_ITEM_SIZE];
-        for(int i = 0; i < TEST_DATA_ITEM_SIZE; ++i)
+        int* aiTestData = new int[TEST_DATA_ITEM_COUNT];
+        for(int i = 0; i < TEST_DATA_ITEM_COUNT; ++i)
             aiTestData[i] = i;
 
-        pAPI->InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, sizeof(int)*TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
+        pAPI->InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
         SAFE_DELETE_ARRAY(aiTestData)
     }
 };
@@ -173,7 +180,7 @@ int main()
     TestLogin testLoginObject;
     if(API.LoginCall(true, GJ_API_CRED, &testLoginObject, &TestLogin::FinishLogin, &API) != GJ_OK) // check for credentials file (QuickPlay)
     {
-        API.LoginCall(true, "MausGames", "lenia", &testLoginObject, &TestLogin::FinishLogin, &API); // normal async login (forwarding the API object)
+        API.LoginCall(true, "<UserName>", "<UserToken>", &testLoginObject, &TestLogin::FinishLogin, &API); // normal async login (forwarding the API object)
     }
 
     // main loop

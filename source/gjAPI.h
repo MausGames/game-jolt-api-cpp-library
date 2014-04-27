@@ -65,7 +65,7 @@
 #define GJ_API_RESERVE_SCORE       128
 #define GJ_API_RESERVE_FILE        64
 #define GJ_API_TIMEOUT_CONNECTION  3
-#define GJ_API_TIMEOUT_REQUEST     10
+#define GJ_API_TIMEOUT_REQUEST     5
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
@@ -92,21 +92,24 @@
 
 // platform
 #if defined(_WIN32)
-    #define _GJ_WINDOWS_
-#endif
-#if defined(__APPLE__)
-    #define _GJ_OSX_
+    #define _GJ_WINDOWS_ 1
 #endif
 #if defined(__linux__)
-    #define _GJ_LINUX_
+    #define _GJ_LINUX_ 1
+#endif
+#if defined(__APPLE__)
+    #define _GJ_OSX_ 1
+#endif
+#if defined(__ANDROID__)
+    #define _CORE_ANDROID_ 1
 #endif
 
 // debug mode
 #if defined(_DEBUG) || defined(DEBUG) || (defined(_GJ_GCC_) && !defined(__OPTIMIZE__))
-    #define _GJ_DEBUG_
-    const bool g_bDebug = true;
+    #define _GJ_DEBUG_ 1
+    static const bool g_bGJDebug = true;
 #else
-    const bool g_bDebug = false;
+    static const bool g_bGJDebug = false;
 #endif
 
 // missing functionality
@@ -159,12 +162,15 @@
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p)=NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : "")
 
-#define FOR_EACH(i,c)           for(auto i = c.begin(), e = c.end(); i != e; ++i)
+#define ARRAY_SIZE(a)           (sizeof(a) / sizeof(a[0]))
+#define FOR_EACH(i,c)           for(auto i = c.begin(),  __e = c.end();  i != __e; ++i)
+#define FOR_EACH_REV(i,c)       for(auto i = c.rbegin(), __e = c.rend(); i != __e; ++i)
 
 #define DISABLE_COPY(c)      \
     c(const c&) delete_func; \
     c& operator = (const c&) delete_func;
 
+// #define _HAS_EXCEPTIONS 0
 #define _CRT_SECURE_NO_WARNINGS
 #define _ALLOW_KEYWORD_MACROS
 
@@ -288,6 +294,19 @@ private:
                               inline int FetchUserNow(const std::string& sName, gjUserPtr* ppOutput)           {if(!ppOutput) return GJ_INVALID_INPUT; return this->__FetchUser(sName, ppOutput, GJ_NETWORK_NULL_API(gjUserPtr));}
         template <typename T> inline int FetchUserCall(const int& iID, GJ_NETWORK_OUTPUT(gjUserPtr))           {return this->__FetchUser(iID, NULL, GJ_NETWORK_OUTPUT_FW);}
         template <typename T> inline int FetchUserCall(const std::string& sName, GJ_NETWORK_OUTPUT(gjUserPtr)) {return this->__FetchUser(sName, NULL, GJ_NETWORK_OUTPUT_FW);}
+        //! @}
+
+        /*! \name Check Cache */
+        //! @{
+        /*! Check and retrieve already cached user objects.
+         *  \pre    Login maybe required
+         *  \param  iID   Unique ID of an user (0 = current main user, Login required)
+         *  \param  sName Unique name of an user
+         *  \return **GJ_OK** on success\n
+         *          **GJ_NO_DATA_FOUND** if user is not cached yet or does not even exist\n
+         *          (see #GJ_ERROR) */
+        inline int CheckCache(const int& iID, gjUserPtr* ppOutput)           {return this->__CheckCache(iID, ppOutput);}
+        inline int CheckCache(const std::string& sName, gjUserPtr* ppOutput) {return this->__CheckCache(sName, ppOutput);}
         //! @}
 
         /*! \name Clear Cache */
