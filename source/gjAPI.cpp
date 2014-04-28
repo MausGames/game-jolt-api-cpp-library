@@ -401,7 +401,7 @@ void gjAPI::gjInterTrophy::__SaveOffCache(const std::string& sData)
     if(pFile)
     {
         // write data and close cache file
-        std::fprintf(pFile, "[TROPHY]\n");
+        std::fputs("[TROPHY]\n", pFile);
         std::fprintf(pFile, "%s", sData.c_str());
         std::fclose(pFile);
     }
@@ -828,13 +828,8 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
     // loop through input string
     while(std::getline(sStream, sToken))
     {
-        // remove redundant newline characters safely and without C++11
-        if(sToken.empty()) continue;
-        while(*(sToken.end()-1) == 10 || *(sToken.end()-1) == 13) // .back()
-        {
-           sToken.erase(sToken.end()-1); // .pop_back()
-           if(sToken.empty()) break;
-        }
+        // remove redundant characters
+        this->UtilTrimString(&sToken);
         if(sToken.empty()) continue;
 
         // separate key and value
@@ -883,13 +878,13 @@ int gjAPI::ParseRequestDump(const std::string& sInput, std::string* psOutput)
     const std::string sStatus = sInput.substr(0, sInput.find_first_of(13));
 
     // read data
-    *psOutput = sInput.substr(sStatus.length()+2);
+    (*psOutput) = sInput.substr(sStatus.length()+2);
 
     // check for failed request
     if(sStatus != "SUCCESS")
     {
         this->ErrorLogAdd("API Error: request was unsuccessful");
-        this->ErrorLogAdd("API Error: " + *psOutput);
+        this->ErrorLogAdd("API Error: " + (*psOutput));
         return GJ_REQUEST_FAILED;
     }
 
@@ -943,6 +938,18 @@ std::string gjAPI::UtilEscapeString(const std::string& sString)
     }
 
     return sOutput;
+}
+
+
+// ****************************************************************
+/* trim a standard string on both sides */
+void gjAPI::UtilTrimString(std::string* psInput)
+{
+    const int iFirst = psInput->find_first_not_of(" \n\r\t");
+    if(iFirst >= 0) psInput->erase(0, iFirst);
+
+    const int iLast = psInput->find_last_not_of(" \n\r\t");
+    if(iLast >= 0) psInput->erase(iLast+1);
 }
 
 
@@ -1130,8 +1137,11 @@ int gjAPI::__LoginCallback(const std::string& sData, void* pAdd, int* pbOutput)
         m_sProcUserName  = "";
         m_sProcUserToken = "";
 
-        if(pbOutput) (*pbOutput) = GJ_REQUEST_FAILED;
-        return pbOutput ? GJ_OK : GJ_REQUEST_FAILED;
+        // define error type
+        const int iError = std::strcmp(SAFE_MAP_GET(aaReturn[0], "success").c_str(), "false") ? GJ_NETWORK_ERROR : GJ_REQUEST_FAILED;
+
+        if(pbOutput) (*pbOutput) = iError;
+        return pbOutput ? GJ_OK : iError;
     }
 
     // set connection

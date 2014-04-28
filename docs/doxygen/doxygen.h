@@ -42,7 +42,7 @@
  *
  * \subsection introduction_setup   1.1. Setup
  *
- * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> and contains all necessary files for Windows and Linux 64-bit. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
+ * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> and contains all necessary files for Windows, Linux 64-bit and Android. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.
  *
  * All source files are distributed raw. You simply need to add them to your project build, compile them with C++11 support, and link with the cURL library.\n
@@ -357,8 +357,8 @@
  * \endcode
  *
  * \subsection features_cross   2.6. Cross-Platform Support
- * <img src="../icon_windows.png" align="left" title="(c) Game Jolt" alt="Windows Logo"> <img src="../icon_osx.png" align="left" title="(c) Game Jolt" alt="OSX Logo"> <img src="../icon_linux.png" align="left" title="(c) Game Jolt" alt="Linux Logo"><br clear="all"><br clear="all">
- * This library is developed and tested with Windows, Linux and OSX. The cURL library for Windows and Linux 64-bit is enclosed to the project files.\n
+ * <img src="../os_windows.png" align="left" alt="Windows Logo"> <img src="../os_osx.png" align="left" alt="OSX Logo"> <img src="../os_linux.png" align="left" alt="Linux Logo"> <img src="../os_android.png" align="left" alt="Android Logo"><br clear="all"><br clear="all">
+ * This library is developed and tested with Windows, Linux, OSX and Android. The cURL library for Windows, Linux 64-bit and Android is enclosed to the project files.\n
  * Thanks to <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a> for checking and confirming OSX support.
  *
  * \section credits   3. Credits
@@ -398,6 +398,9 @@
 
 /*! \page update_notes Update Notes
  *
+ * <ul>
+ *      <li>added Android support
+ * </ul>
  * v1.0 (2014-02-22)
  * ------------------
  * <ul>

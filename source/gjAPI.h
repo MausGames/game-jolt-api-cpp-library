@@ -62,10 +62,11 @@
 #define GJ_API_RESERVE_CALL        16
 #define GJ_API_RESERVE_CALL_OUTPUT 4
 #define GJ_API_RESERVE_TROPHY      32
-#define GJ_API_RESERVE_SCORE       128
-#define GJ_API_RESERVE_FILE        64
+#define GJ_API_RESERVE_SCORE       64
+#define GJ_API_RESERVE_FILE        32
 #define GJ_API_TIMEOUT_CONNECTION  3
 #define GJ_API_TIMEOUT_REQUEST     5
+#define GJ_API_COMPRESSION         "gzip, deflate"
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
@@ -101,7 +102,7 @@
     #define _GJ_OSX_ 1
 #endif
 #if defined(__ANDROID__)
-    #define _CORE_ANDROID_ 1
+    #define _GJ_ANDROID_ 1
 #endif
 
 // debug mode
@@ -160,7 +161,7 @@
 
 #define SAFE_DELETE(p)          {if(p) {delete   (p); (p)=NULL;}}
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p)=NULL;}}
-#define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : "")
+#define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : std::string(""))
 
 #define ARRAY_SIZE(a)           (sizeof(a) / sizeof(a[0]))
 #define FOR_EACH(i,c)           for(auto i = c.begin(),  __e = c.end();  i != __e; ++i)
@@ -665,6 +666,7 @@ public:
      *          **GJ_INVALID_CALL** if already connected\n
      *          **GJ_INVALID_INPUT** if user name or user token is missing\n
      *          **GJ_FILE_ERROR** if credentials file was not found\n
+     *          **GJ_NETWORK_ERROR** if service is unavailable or request timed out\n
      *          (see #GJ_ERROR) */
                           inline int LoginNow(const bool& bSession, const std::string& sUserName, const std::string& sUserToken)                          {return __Login(bSession, sUserName, sUserToken, true, GJ_NETWORK_NULL_THIS(int));}
                           inline int LoginNow(const bool& bSession, const std::string& sCredPath)                                                         {return __Login(bSession, sCredPath, true, GJ_NETWORK_NULL_THIS(int));}
@@ -734,6 +736,7 @@ public:
     /*! \name Utility Functions */
     //! @{
     std::string UtilEscapeString(const std::string& sString);
+    void        UtilTrimString(std::string* psInput);
     std::string UtilCharToHex(const char& cChar);
     std::string UtilIntToString(const int& iInt);
     void        UtilCreateFolder(const std::string& sFolder);

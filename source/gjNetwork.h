@@ -55,24 +55,24 @@ private:
     {
     protected:
         /*! \brief Output Interface Structure */
-        template <typename D> struct sOutput
+        template <typename Ds> struct sOutput
         {
             /*! \name Execute Output Callback */
             //! @{
-            virtual void Execute(const D& pProcessedOutput) = 0;
+            virtual void Execute(const Ds& pProcessedOutput) = 0;
             //! @}
         };
 
         /*! \brief Specific Output Structure */
-        template <typename T, typename D> struct sOutputSpecific : public sOutput<D>
+        template <typename T, typename Ds> struct sOutputSpecific : public sOutput<Ds>
         {
-            T* m_pOutputObj;                                //!< object with output callback function
-            void (T::*m_OutputCallback)(const D&, void*);   //!< callback function to receive the data object when finished
-            void* m_pOutputData;                            //!< additional data for the output callback
+            T* m_pOutputObj;                                 //!< object with output callback function
+            void (T::*m_OutputCallback)(const Ds&, void*);   //!< callback function to receive the data object when finished
+            void* m_pOutputData;                             //!< additional data for the output callback
 
             /*! \name Execute Output Callback */
             //! @{
-            void Execute(const D& pProcessedOutput)override {(m_pOutputObj->*(m_OutputCallback))(pProcessedOutput, m_pOutputData);}
+            void Execute(const Ds& pProcessedOutput)override {(m_pOutputObj->*(m_OutputCallback))(pProcessedOutput, m_pOutputData);}
             //! @}
         };
 
@@ -87,7 +87,7 @@ private:
 
     public:
         gjCallTemplate(CURL* pSession, const std::string& sInfo, GJ_NETWORK_PROCESS)noexcept;
-        virtual ~gjCallTemplate() {FOR_EACH(it, m_apOutput) SAFE_DELETE(*it) m_apOutput.clear();}
+        virtual ~gjCallTemplate();
 
         /*! \name Add Output */
         //! @{

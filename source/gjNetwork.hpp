@@ -25,6 +25,19 @@ template <typename P, typename D> gjNetwork::gjCallTemplate<P,D>::gjCallTemplate
 
 
 // ****************************************************************
+/* destructor */
+template <typename P, typename D> gjNetwork::gjCallTemplate<P,D>::~gjCallTemplate()
+{
+    // delete all output structs
+    FOR_EACH(it, m_apOutput) 
+        SAFE_DELETE(*it) 
+        
+    // clear memory
+    m_apOutput.clear();
+}
+
+
+// ****************************************************************
 /* add output struct to the list */
 template <typename P, typename D> template <typename T> void gjNetwork::gjCallTemplate<P,D>::AddOutput(GJ_NETWORK_OUTPUT(D))
 {
@@ -154,10 +167,11 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
         sRequest += "&signature=" + md5(sRequest + m_pAPI->GetGamePrivateKey());
 
         // set all session parameters
-        curl_easy_setopt(pSession, CURLOPT_URL,            sRequest.c_str());
-        curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,  write_to_string);
-        curl_easy_setopt(pSession, CURLOPT_WRITEDATA,      psOutput);
-        curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT, GJ_API_TIMEOUT_CONNECTION);
+        curl_easy_setopt(pSession, CURLOPT_URL,             sRequest.c_str());
+        curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,   write_to_string);
+        curl_easy_setopt(pSession, CURLOPT_WRITEDATA,       psOutput);
+        curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT,  GJ_API_TIMEOUT_CONNECTION);
+        curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_COMPRESSION);
 
         if(bNow)
         {
@@ -229,10 +243,11 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
         if(pFile)
         {
             // set all session parameters
-            curl_easy_setopt(pSession, CURLOPT_URL,            sURL.c_str());
-            curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,  write_to_file);
-            curl_easy_setopt(pSession, CURLOPT_WRITEDATA,      pFile);
-            curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT, GJ_API_TIMEOUT_CONNECTION);
+            curl_easy_setopt(pSession, CURLOPT_URL,             sURL.c_str());
+            curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,   write_to_file);
+            curl_easy_setopt(pSession, CURLOPT_WRITEDATA,       pFile);
+            curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT,  GJ_API_TIMEOUT_CONNECTION);
+            curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_COMPRESSION);
 
             if(bNow)
             {

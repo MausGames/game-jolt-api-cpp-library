@@ -49,8 +49,8 @@ public:
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          **GJ_NO_DATA_FOUND** if no scores where found\n
      *          (see #GJ_ERROR) */
-                          inline int FetchScoresNow(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScores(bOnlyUser, iLimit, papOutput, GJ_NETWORK_NULL_API(gjScoreList));}
-    template <typename T> inline int FetchScoresCall(const bool bOnlyUser, const int& iLimit, GJ_NETWORK_OUTPUT(gjScoreList)) {return this->__FetchScores(bOnlyUser, iLimit, NULL, GJ_NETWORK_OUTPUT_FW);}
+                          inline int FetchScoresNow(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScores(bOnlyUser, iLimit, papOutput, GJ_NETWORK_NULL_API(gjScoreList));}
+    template <typename T> inline int FetchScoresCall(const bool& bOnlyUser, const int& iLimit, GJ_NETWORK_OUTPUT(gjScoreList)) {return this->__FetchScores(bOnlyUser, iLimit, NULL, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Add Score Request */
@@ -121,7 +121,7 @@ private:
 
     /*! \name Superior Request Functions */
     //! @{
-    template <typename T> int __FetchScores(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList));
+    template <typename T> int __FetchScores(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList));
     template <typename T> int __AddScore(const std::string& sScore, const int& iSort, const std::string& sExtraData, const std::string& sGuestName, const bool& bNow, GJ_NETWORK_OUTPUT(gjScorePtr));
     template <typename T> int __AddScoreBase64(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, const std::string& sGuestName, const bool& bNow, GJ_NETWORK_OUTPUT(gjScorePtr));
     //! @}
@@ -212,7 +212,7 @@ bool SortDescending(const gjScore* i, const gjScore* j);
 
 // ****************************************************************
 /* fetch and semi-cache specific score entries of this score table */
-template <typename T> int gjScoreTable::__FetchScores(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList))
+template <typename T> int gjScoreTable::__FetchScores(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList))
 {
     if(!m_pAPI->IsConnected() && bOnlyUser) return GJ_NOT_CONNECTED;
     if(iLimit <= 0) return GJ_INVALID_INPUT;
