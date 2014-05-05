@@ -138,7 +138,7 @@ private:
 /* update data of this trophy */
 template <typename T> int gjTrophy::__UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
 {
-    if(!m_pAPI->IsConnected()) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected()) return GJ_NOT_CONNECTED;
 
     // send get trophies request
     std::string sResponse;
@@ -162,7 +162,7 @@ template <typename T> int gjTrophy::__Achieve(const bool& bNow, GJ_NETWORK_OUTPU
     if(this->IsAchieved()) return GJ_REQUEST_CANCELED;
 
     // achieve offline-cached trophy
-    if(!m_pAPI->IsConnected())
+    if(!m_pAPI->IsUserConnected())
     {
         m_sAchievedDate = GJ_API_TEXT_NOW;
         return GJ_NOT_CONNECTED;

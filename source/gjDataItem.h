@@ -146,7 +146,7 @@ private:
 /* set data of this data store item */
 template <typename T> int gjDataItem::__SetData(const std::string& sData, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
-    if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
 
     // cancel request if data was already sent
     if(sData == m_sData && m_iType) return GJ_REQUEST_CANCELED;
@@ -176,7 +176,7 @@ template <typename T> int gjDataItem::__SetData(const std::string& sData, const 
 /* set Base64 data of this data store item */
 template <typename T> int gjDataItem::__SetDataBase64(void* pData, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
-    if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
     if(!pData || iSize <= 0) return GJ_INVALID_INPUT;
 
     const size_t iNeed = base64_needed(iSize);
@@ -197,7 +197,7 @@ template <typename T> int gjDataItem::__SetDataBase64(void* pData, const size_t&
 /* get data of this data store item */
 template <typename T> int gjDataItem::__GetData(std::string* psOutput, GJ_NETWORK_OUTPUT(std::string))
 {
-    if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
 
     const bool bNow = psOutput ? true : false;
 
@@ -235,7 +235,7 @@ template <typename T> int gjDataItem::__GetData(std::string* psOutput, GJ_NETWOR
 /* get Base64 data of this data store item */
 template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjVoidPtr))
 {
-    if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
     if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT;
 
     // save last target
@@ -276,7 +276,7 @@ template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_
 /* clear/remove this data store item */
 template <typename T> int gjDataItem::__Remove(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
-    if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
 
     // access user or global data store item
     const std::string sUserData = m_iType ?

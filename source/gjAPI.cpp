@@ -77,7 +77,7 @@ gjUser* gjAPI::gjInterUser::GetUser(const std::string& sName)
 /* access main user object directly (may block) */
 gjUser* gjAPI::gjInterUser::GetMainUser()
 {
-    if(!m_pAPI->IsConnected()) return m_apUser[0];
+    if(!m_pAPI->IsUserConnected()) return m_apUser[0];
     return this->GetUser(m_pAPI->GetUserName());
 }
 
@@ -203,7 +203,7 @@ gjAPI::gjInterTrophy::~gjInterTrophy()
 /* access trophy objects directly (may block) */
 gjTrophy* gjAPI::gjInterTrophy::GetTrophy(const int& iID)
 {
-    if(!m_pAPI->IsConnected() && m_iCache == 0) return m_apTrophy[0];
+    if(!m_pAPI->IsUserConnected() && m_iCache == 0) return m_apTrophy[0];
     if(m_apTrophy.size() <= 1)
     {
         // wait for prefetching
@@ -774,7 +774,7 @@ void gjAPI::Update()
     // update network object
     m_pNetwork->Update();
 
-    if(!this->IsConnected()) return;
+    if(!this->IsUserConnected()) return;
 
     if(m_iNextPing)
     {
@@ -793,7 +793,7 @@ void gjAPI::Update()
 /* logout with specific user */
 int gjAPI::Logout()
 {
-    if(!this->IsConnected()) return GJ_NOT_CONNECTED;
+    if(!this->IsUserConnected()) return GJ_NOT_CONNECTED;
 
     // clear user specific data
     m_pInterTrophy->ClearCache(false);
@@ -852,6 +852,7 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
     if(!aData.empty()) paaOutput->push_back(aData);
     if(paaOutput->empty())
     {
+        paaOutput->push_back(aData);
         this->ErrorLogAdd("API Error: string parsing failed");
         return GJ_INVALID_INPUT;
     }
@@ -1063,7 +1064,7 @@ void gjAPI::ErrorLogAdd(const std::string& sMsg)
 /* open the user session */
 int gjAPI::__OpenSession()
 {
-    if(!this->IsConnected()) return GJ_NOT_CONNECTED;
+    if(!this->IsUserConnected()) return GJ_NOT_CONNECTED;
 
     // send non-blocking open request
     if(m_pNetwork->SendRequest("/sessions/open/"
@@ -1084,7 +1085,7 @@ int gjAPI::__OpenSession()
 /* ping the user session */
 int gjAPI::__PingSession(const bool& bActive)
 {
-    if(!this->IsConnected()) return GJ_NOT_CONNECTED;
+    if(!this->IsUserConnected()) return GJ_NOT_CONNECTED;
 
     // use active status
     const std::string sActive = bActive ? "active" : "idle";
@@ -1105,7 +1106,7 @@ int gjAPI::__PingSession(const bool& bActive)
 /* close the user session */
 int gjAPI::__CloseSession()
 {
-    if(!this->IsConnected()) return GJ_NOT_CONNECTED;
+    if(!this->IsUserConnected()) return GJ_NOT_CONNECTED;
 
     // send non-blocking close request
     if(m_pNetwork->SendRequest("/sessions/close/"

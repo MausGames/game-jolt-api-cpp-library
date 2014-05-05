@@ -214,7 +214,7 @@ bool SortDescending(const gjScore* i, const gjScore* j);
 /* fetch and semi-cache specific score entries of this score table */
 template <typename T> int gjScoreTable::__FetchScores(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList))
 {
-    if(!m_pAPI->IsConnected() && bOnlyUser) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && bOnlyUser) return GJ_NOT_CONNECTED;
     if(iLimit <= 0) return GJ_INVALID_INPUT;
 
     const bool bNow = papOutput ? true : false;
@@ -257,7 +257,7 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
     if(sScore == "" || iSort == 0) return GJ_INVALID_INPUT;
 
     const bool bGuest = (sGuestName != "") ? true : false;
-    if(!m_pAPI->IsConnected() && !bGuest) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && !bGuest) return GJ_NOT_CONNECTED;
 
     if(m_iSortDir && !bGuest)
     {

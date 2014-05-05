@@ -97,7 +97,7 @@
  *
  *
  *     // set session status to "idle"
- *     API.SetSession(false);
+ *     API.SetSessionActive(false);
  *
  *
  *     // logout with the current main user
@@ -372,7 +372,7 @@
  * Base64 decoder (modified) by FreeCode-FreeCode (<a href="http://freecode-freecode.blogspot.co.at/2008/02/base64c.html" target="_blank">http://freecode-freecode.blogspot.co.at/2008/02/base64c.html</a>)
  *
  * \subsection credits_license   3.2. Software License
- * Copyright (c) 2013 Martin Mauersics
+ * Copyright (c) 2013-2014 Martin Mauersics
  *
  * This software is provided 'as-is', without any express or implied\n
  * warranty. In no event will the authors be held liable for any damages\n

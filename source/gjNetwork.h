@@ -199,7 +199,7 @@ public:
 
     /*! \name Get Attributes */
     //! @{
-    inline size_t GetNumSessions()const {return m_iNumSessions;}   //!< \copybrief m_iNumSessions
+    inline size_t GetNumSessions()const {return m_apCall.size();}   //!< \copybrief m_iNumSessions
     /*! */ //! @}
 
 

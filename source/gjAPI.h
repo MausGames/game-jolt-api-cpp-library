@@ -65,8 +65,9 @@
 #define GJ_API_RESERVE_SCORE       64
 #define GJ_API_RESERVE_FILE        32
 #define GJ_API_TIMEOUT_CONNECTION  3
-#define GJ_API_TIMEOUT_REQUEST     5
-#define GJ_API_COMPRESSION         "gzip, deflate"
+#define GJ_API_TIMEOUT_REQUEST     10
+#define GJ_API_NET_COMPRESSION     "" // empty for all available compressions (identity, deflate, gzip)
+#define GJ_API_NET_KEEPALIVE       true
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
@@ -694,6 +695,7 @@ public:
     inline gjInterDataStore* InterDataStoreGlobal()const {return m_pInterDataStoreGlobal;}
     inline gjInterDataStore* InterDataStoreUser()const   {return m_pInterDataStoreUser;}
     inline gjInterFile*      InterFile()const            {return m_pInterFile;}
+    inline gjNetwork*        AccessNetwork()const        {return m_pNetwork;}
     //! @}
 
     /*! \name Send Custom Request */
@@ -752,7 +754,7 @@ public:
 
     /*! \name Set Attributes */
     //! @{
-    inline void SetSession(const bool& bActive) {m_bActive = bActive;}   //!< \copybrief m_bActive
+    inline void SetSessionActive(const bool& bActive) {m_bActive = bActive;}   //!< \copybrief m_bActive
     /*! */ //! @}
 
     /*! \name Get Attributes */
@@ -772,8 +774,8 @@ public:
 
     /*! \name Check Status */
     //! @{
-    inline const bool& IsActive()const    {return m_bActive;}      //!< \copybrief m_bActive
-    inline const bool& IsConnected()const {return m_bConnected;}   //!< \copybrief m_bConnected
+    inline const bool& IsSessionActive()const {return m_bActive;}      //!< \copybrief m_bActive
+    inline const bool& IsUserConnected()const {return m_bConnected;}   //!< \copybrief m_bConnected
     //! @}
 
 #if !defined(DOXYGEN_SHOULD_SKIP_THIS)
@@ -873,12 +875,12 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const std::string& sNa
 /* fetch and cache all trophies */
 template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList))
 {
-    if(!m_pAPI->IsConnected() && m_iCache == 0) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iCache == 0) return GJ_NOT_CONNECTED;
 
     const bool bNow = papOutput ? true : false;
 
     // handle offline-cached trophies
-    if(m_pAPI->IsConnected() && m_iCache != 2)
+    if(m_pAPI->IsUserConnected() && m_iCache != 2)
         m_iCache = 0;
 
     // wait for prefetching
@@ -950,7 +952,7 @@ template <typename T> int gjAPI::gjInterScore::__FetchScoreTables(gjScoreTableMa
 /* fetch and semi-cache all data store items */
 template <typename T> int gjAPI::gjInterDataStore::__FetchDataItems(gjDataItemMap* papOutput, GJ_NETWORK_OUTPUT(gjDataItemMap))
 {
-    if(!m_pAPI->IsConnected() && m_iType) return GJ_NOT_CONNECTED;
+    if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
 
     const bool bNow = papOutput ? true : false;
 
@@ -1025,7 +1027,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
 /* login with specific user */
 template <typename T> int gjAPI::__Login(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, const bool& bNow, GJ_NETWORK_OUTPUT(int))
 {
-    if(this->IsConnected()) return GJ_INVALID_CALL;
+    if(this->IsUserConnected()) return GJ_INVALID_CALL;
 
     // check for missing credentials
     if(sUserName == "" || sUserToken == "") 

@@ -30,7 +30,7 @@ gjTrophy::gjTrophy(const gjData& aTrophyData, gjAPI* pAPI)noexcept
 
     // set the achieved date
     const std::string sAchievedDate = SAFE_MAP_GET(aTrophyData, "achieved");
-    m_sAchievedDate = (sAchievedDate == "false" || sAchievedDate == "" || !m_pAPI->IsConnected()) ? "" : sAchievedDate;
+    m_sAchievedDate = (sAchievedDate == "false" || sAchievedDate == "" || !m_pAPI->IsUserConnected()) ? "" : sAchievedDate;
 }
 
 gjTrophy::gjTrophy(const gjTrophy& that)noexcept

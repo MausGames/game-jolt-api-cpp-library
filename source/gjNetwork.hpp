@@ -56,13 +56,14 @@ template <typename P, typename D> template <typename T> void gjNetwork::gjCallTe
 /* finish a request session */
 template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(const bool& bOK)
 {
-    if(bOK)
+    //if(bOK)
     {
         D pProcessedOutput;
 
-        // call the callbacks
+        // process the response string
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(*m_psResponse, this->m_pProcessData, &pProcessedOutput))
         {
+            // call all callbacks
             FOR_EACH(it, this->m_apOutput)
                 (*it)->Execute(pProcessedOutput);
         }
@@ -83,13 +84,14 @@ template <typename P, typename D> void gjNetwork::gjCallDownload<P,D>::Finish(co
     // close file handle
     std::fclose(m_pFile);
 
-    if(bOK)
+    //if(bOK)
     {
         D pProcessedOutput;
 
-        // call the callbacks
+        // process the response string
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(m_sPath, this->m_pProcessData, &pProcessedOutput))
         {
+            // call all callbacks
             FOR_EACH(it, this->m_apOutput)
                 (*it)->Execute(pProcessedOutput);
         }
@@ -171,7 +173,8 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
         curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,   write_to_string);
         curl_easy_setopt(pSession, CURLOPT_WRITEDATA,       psOutput);
         curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT,  GJ_API_TIMEOUT_CONNECTION);
-        curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_COMPRESSION);
+        curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_NET_COMPRESSION);
+        curl_easy_setopt(pSession, CURLOPT_TCP_KEEPALIVE,   GJ_API_NET_KEEPALIVE ? 1 : 0);
 
         if(bNow)
         {
@@ -247,7 +250,8 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
             curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,   write_to_file);
             curl_easy_setopt(pSession, CURLOPT_WRITEDATA,       pFile);
             curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT,  GJ_API_TIMEOUT_CONNECTION);
-            curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_COMPRESSION);
+            curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_NET_COMPRESSION);
+            curl_easy_setopt(pSession, CURLOPT_TCP_KEEPALIVE,   GJ_API_NET_KEEPALIVE ? 1 : 0);
 
             if(bNow)
             {
