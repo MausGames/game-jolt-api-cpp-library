@@ -71,8 +71,7 @@
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
-#define GJ_API_OFFCACHE_TROPHY     false
-#define GJ_API_OFFCACHE_FILE       false // not used
+#define GJ_API_OFFCACHE_TROPHY     false // does not work on Android
 #define GJ_API_OFFCACHE_NAME       "gjapi_cache.dat"
 /* --- configuration --- */
 
@@ -165,8 +164,8 @@
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : std::string(""))
 
 #define ARRAY_SIZE(a)           (sizeof(a) / sizeof(a[0]))
-#define FOR_EACH(i,c)           for(auto i = c.begin(),  __e = c.end();  i != __e; ++i)
-#define FOR_EACH_REV(i,c)       for(auto i = c.rbegin(), __e = c.rend(); i != __e; ++i)
+#define FOR_EACH(i,c)           for(auto i = (c).begin(),  __e = (c).end();  i != __e; ++i)
+#define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), __e = (c).rend(); i != __e; ++i)
 
 #define DISABLE_COPY(c)      \
     c(const c&) delete_func; \

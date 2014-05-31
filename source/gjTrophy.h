@@ -91,7 +91,6 @@ public:
     inline const std::string& GetImageURLTrue()const    {return m_sImageURL;}          //!< \copybrief m_sImageURL
     inline const std::string& GetAchievedDate()const    {return m_sAchievedDate;}      //!< \copybrief m_sAchievedDate
     inline const int&         GetSort()const            {return m_iSort;}              //!< \copybrief m_iSort
-    inline const bool&        GetSecret()const          {return m_bSecret;}            //!< \copybrief m_bSecret
     /*! */ //! @}
 
     /*! \name Get Secret Modified Attributes */
@@ -102,7 +101,8 @@ public:
 
     /*! \name Check Status */
     //! @{
-    inline bool IsAchieved()const {return m_sAchievedDate.empty() ? false : true;}
+    inline       bool  IsAchieved()const {return m_sAchievedDate.empty() ? false : true;}
+    inline const bool& IsSecret()const   {return m_bSecret;}   //!< \copybrief m_bSecret
     //! @}
 
 

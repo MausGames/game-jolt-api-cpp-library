@@ -402,7 +402,7 @@ void gjAPI::gjInterTrophy::__SaveOffCache(const std::string& sData)
     {
         // write data and close cache file
         std::fputs("[TROPHY]\n", pFile);
-        std::fprintf(pFile, "%s", sData.c_str());
+        std::fputs(sData.c_str(), pFile);
         std::fclose(pFile);
     }
 }
@@ -639,7 +639,7 @@ int gjAPI::gjInterDataStore::__Process(const std::string& sData, void* pAdd, gjD
     FOR_EACH(it, aaReturn)
     {
         gjDataItem* pNewDataItem = new gjDataItem(*it, m_iType, m_pAPI);
-        const std::string sKey = pNewDataItem->GetKey();
+        const std::string& sKey = pNewDataItem->GetKey();
 
         if(m_apDataItem.count(sKey))
         {
@@ -920,8 +920,8 @@ std::string gjAPI::UtilEscapeString(const std::string& sString)
         if
         (
             (48 <= sString[i] && sString[i] <=  57) || // 0-9
-            (65 <= sString[i] && sString[i] <=  90) || // abc...xyz
-            (97 <= sString[i] && sString[i] <= 122) || // ABC...XYZ
+            (65 <= sString[i] && sString[i] <=  90) || // ABC...XYZ
+            (97 <= sString[i] && sString[i] <= 122) || // abc...xyz
             (
                 sString[i] == '~' || sString[i] == '.'  ||
                 sString[i] == '-' || sString[i] == '_'

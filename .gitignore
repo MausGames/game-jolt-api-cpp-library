@@ -1,5 +1,6 @@
 *.exe
 index.html
+backup/
 docs/index.html
 docs/html/
 examples/visualstudio/GameJoltAPI/Debug/

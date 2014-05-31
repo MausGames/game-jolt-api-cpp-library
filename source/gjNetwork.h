@@ -57,6 +57,8 @@ private:
         /*! \brief Output Interface Structure */
         template <typename Ds> struct sOutput
         {
+            virtual ~sOutput() {}
+            
             /*! \name Execute Output Callback */
             //! @{
             virtual void Execute(const Ds& pProcessedOutput) = 0;
