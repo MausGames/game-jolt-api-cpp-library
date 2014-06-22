@@ -188,7 +188,7 @@ gjScore::gjScore(const gjData& sScoreData, gjScoreTable* pScoreTable, gjAPI* pAP
     const std::string sGuest = SAFE_MAP_GET(sScoreData, "guest");
     const bool bGuest = (sGuest == "") ? false : true;
 
-    // set user name and ID
+    // set user ID and name
     m_iUserID   = bGuest ?     -1 : atoi(SAFE_MAP_GET(sScoreData, "user_id").c_str());
     m_sUserName = bGuest ? sGuest : SAFE_MAP_GET(sScoreData, "user");
 }

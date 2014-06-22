@@ -91,7 +91,7 @@
     #define _GJ_CLANG_ (__clang_major__*10000 + __clang_minor__*100 + __clang_patchlevel__*1)
 #endif
 
-// platform
+// operating system
 #if defined(_WIN32)
     #define _GJ_WINDOWS_ 1
 #endif
@@ -159,13 +159,13 @@
 #define GJ_NETWORK_NULL_THIS(d) this,   &gjAPI::Null<d>, NULL
 #define GJ_NETWORK_NULL_API(d)  m_pAPI, &gjAPI::Null<d>, NULL
 
-#define SAFE_DELETE(p)          {if(p) {delete   (p); (p)=NULL;}}
-#define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p)=NULL;}}
+#define SAFE_DELETE(p)          {if(p) {delete   (p); (p) = NULL;}}
+#define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p) = NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : std::string(""))
 
-#define ARRAY_SIZE(a)           (sizeof(a) / sizeof(a[0]))
-#define FOR_EACH(i,c)           for(auto i = (c).begin(),  __e = (c).end();  i != __e; ++i)
-#define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), __e = (c).rend(); i != __e; ++i)
+#define ARRAY_SIZE(a)           (sizeof(a) / sizeof((a)[0]))
+#define FOR_EACH(i,c)           for(auto i = (c).begin(),  i ## __e = (c).end();  i != i ## __e; ++i)
+#define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), i ## __e = (c).rend(); i != i ## __e; ++i)
 
 #define DISABLE_COPY(c)      \
     c(const c&) delete_func; \
@@ -372,11 +372,11 @@ private:
          *  You can sort the returned list with #SetSort.
          *  \pre    Login required
          *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
-         *  \param  iAchieved Status of the returned trophies (see #GJ_TROPHY_TYPE)
+         *  \param  iAchieved Status of the requested trophies (see #GJ_TROPHY_TYPE)
          *  \return **GJ_OK** on success\n
          *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
          *          **GJ_NOT_CONNECTED** if connection/login is missing\n
-         *          **GJ_NO_DATA_FOUND** if no trophies where found\n
+         *          **GJ_NO_DATA_FOUND** if no trophies were found\n
          *          (see #GJ_ERROR) */
                               inline int FetchTrophiesNow(const long& iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
         template <typename T> inline int FetchTrophiesCall(const long& iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
@@ -456,7 +456,7 @@ private:
          *  \note   \b -Now blocks, \b -Call uses non-blocking callbacks
          *  \return **GJ_OK** on success\n
          *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
-         *          **GJ_NO_DATA_FOUND** if no score tables where found\n
+         *          **GJ_NO_DATA_FOUND** if no score tables were found\n
          *          (see #GJ_ERROR) */
                               inline int FetchScoreTablesNow(gjScoreTableMap* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScoreTables(papOutput, GJ_NETWORK_NULL_API(gjScoreTableMap));}
         template <typename T> inline int FetchScoreTablesCall(GJ_NETWORK_OUTPUT(gjScoreTableMap)) {return this->__FetchScoreTables(NULL, GJ_NETWORK_OUTPUT_FW);}
@@ -521,7 +521,7 @@ private:
          *  \return **GJ_OK** on success\n
          *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
          *          **GJ_NOT_CONNECTED** if connection/login is missing\n
-         *          **GJ_NO_DATA_FOUND** if no data items where found\n
+         *          **GJ_NO_DATA_FOUND** if no data items were found\n
          *          (see #GJ_ERROR) */
                               inline int FetchDataItemsNow(gjDataItemMap* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchDataItems(papOutput, GJ_NETWORK_NULL_API(gjDataItemMap));}
         template <typename T> inline int FetchDataItemsCall(GJ_NETWORK_OUTPUT(gjDataItemMap)) {return this->__FetchDataItems(NULL, GJ_NETWORK_OUTPUT_FW);}

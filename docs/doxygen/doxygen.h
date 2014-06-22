@@ -377,7 +377,7 @@
  * This software is provided 'as-is', without any express or implied\n
  * warranty. In no event will the authors be held liable for any damages\n
  * arising from the use of this software.\n
- *
+ * \n
  * Permission is granted to anyone to use this software for any purpose,\n
  * including commercial applications, and to alter it and redistribute it\n
  * freely, subject to the following restrictions:\n

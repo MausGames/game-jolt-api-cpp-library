@@ -585,7 +585,7 @@ gjDataItem* gjAPI::gjInterDataStore::GetDataItem(const std::string& sKey)
     {
         gjData asDataItemData;
         asDataItemData["key"] = sKey;
-        m_apDataItem[sKey] = new gjDataItem(asDataItemData,m_iType, m_pAPI);
+        m_apDataItem[sKey] = new gjDataItem(asDataItemData, m_iType, m_pAPI);
     }
 
     return m_apDataItem.count(sKey) ? m_apDataItem[sKey] : NULL;
@@ -1138,7 +1138,7 @@ int gjAPI::__LoginCallback(const std::string& sData, void* pAdd, int* pbOutput)
         m_sProcUserName  = "";
         m_sProcUserToken = "";
 
-        // define error type
+        // determine error type
         const int iError = std::strcmp(SAFE_MAP_GET(aaReturn[0], "success").c_str(), "false") ? GJ_NETWORK_ERROR : GJ_REQUEST_FAILED;
 
         if(pbOutput) (*pbOutput) = iError;

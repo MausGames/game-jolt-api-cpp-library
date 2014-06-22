@@ -18,4 +18,4 @@ Documentation for the library can be found [here][4].
 [1]: http://gamejolt.com
 [2]: http://gamejolt.com/developers/achievements-new/
 [3]: http://gamejolt.com/api/doc/game/
-[4]: http://www.maus-games.at/files/gamejolt/html/
+[4]: http://www.maus-games.at/files/gamejolt/cpp/html/

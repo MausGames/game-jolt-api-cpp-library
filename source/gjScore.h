@@ -47,7 +47,7 @@ public:
      *  \return **GJ_OK** on success\n
      *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
-     *          **GJ_NO_DATA_FOUND** if no scores where found\n
+     *          **GJ_NO_DATA_FOUND** if no scores were found\n
      *          (see #GJ_ERROR) */
                           inline int FetchScoresNow(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScores(bOnlyUser, iLimit, papOutput, GJ_NETWORK_NULL_API(gjScoreList));}
     template <typename T> inline int FetchScoresCall(const bool& bOnlyUser, const int& iLimit, GJ_NETWORK_OUTPUT(gjScoreList)) {return this->__FetchScores(bOnlyUser, iLimit, NULL, GJ_NETWORK_OUTPUT_FW);}
