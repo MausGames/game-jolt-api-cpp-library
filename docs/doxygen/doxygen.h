@@ -1,6 +1,6 @@
 /*! \mainpage Main Page
  *
- * <img src="../gamejolt_cpp.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;"><br clear="all"><br clear="all"><br clear="all"><br clear="all">
+ * <img src="../gamejolt_cpp.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;" /><br clear="all"><br clear="all"><br clear="all"><br clear="all">
  *
  * 1. \link introduction Introduction \endlink\n
  * 1.1. \link introduction_setup Setup \endlink\n
@@ -357,14 +357,14 @@
  * \endcode
  *
  * \subsection features_cross   2.6. Cross-Platform Support
- * <img src="../os_windows.png" align="left" alt="Windows Logo"> <img src="../os_osx.png" align="left" alt="OSX Logo"> <img src="../os_linux.png" align="left" alt="Linux Logo"> <img src="../os_android.png" align="left" alt="Android Logo"><br clear="all"><br clear="all">
+ * <img src="../os_windows.png" align="left" alt="Windows Logo" /> <img src="../os_osx.png" align="left" alt="OSX Logo" /> <img src="../os_linux.png" align="left" alt="Linux Logo" /> <img src="../os_android.png" align="left" alt="Android Logo" /><br clear="all"><br clear="all">
  * This library is developed and tested with Windows, Linux, OSX and Android. The cURL library for Windows, Linux 64-bit and Android is enclosed to the project files.\n
  * Thanks to <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a> for checking and confirming OSX support.
  *
  * \section credits   3. Credits
  * <b>Author:</b> Martin Mauersics\n
  * <b>Confirmed OSX support:</b> <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>\n
- * <b>Special Thanks to:</b> <a href="http://gamejolt.com/" target="_blank">David "CROS" DeCarmine</a>, <a href="http://joonamelartin.fi/" target="_blank">Joona "erakko" Melartin</a>, <a href="http://forceofhab.it/" target="_blank">Ashley Gwinnell</a>\n
+ * <b>Special Thanks to:</b> <a href="http://davidjolt.com/" target="_blank">David "CROS" DeCarmine</a>, <a href="http://joonamelartin.fi/" target="_blank">Joona "erakko" Melartin</a>, <a href="http://forceofhab.it/" target="_blank">Ashley Gwinnell</a>\n
  *
  * \subsection credits_libraries   3.1. Additional Libraries
  * cURL Library (<a href="http://curl.haxx.se/" target="_blank">http://curl.haxx.se/</a>)\n
@@ -376,8 +376,8 @@
  *
  * This software is provided 'as-is', without any express or implied\n
  * warranty. In no event will the authors be held liable for any damages\n
- * arising from the use of this software.\n
- * \n
+ * arising from the use of this software.
+ *
  * Permission is granted to anyone to use this software for any purpose,\n
  * including commercial applications, and to alter it and redistribute it\n
  * freely, subject to the following restrictions:\n
