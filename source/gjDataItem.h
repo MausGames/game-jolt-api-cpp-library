@@ -163,8 +163,8 @@ template <typename T> int gjDataItem::__SetData(const std::string& sData, const 
     // send set data store request
     std::string sResponse;
     if(m_pAPI->SendRequest("/data-store/set/"
-                           "?game_id=" + m_pAPI->GetProcGameID()          +
-                           "&key="     + m_pAPI->UtilEscapeString(m_sKey) +
+                           "?game_id=" + m_pAPI->GetProcGameID()         +
+                           "&key="     + gjAPI::UtilEscapeString(m_sKey) +
                            sUserData + "&POST" + sData, bNow ? &sResponse : NULL, this, &gjDataItem::__SetDataCallback, &m_sVerify, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__SetDataCallback(sResponse, &m_sVerify, NULL);
@@ -221,9 +221,9 @@ template <typename T> int gjDataItem::__GetData(std::string* psOutput, GJ_NETWOR
     // send get data store request
     std::string sResponse;
     if(m_pAPI->SendRequest("/data-store/"
-                           "?game_id=" + m_pAPI->GetProcGameID()          +
-                           "&key="     + m_pAPI->UtilEscapeString(m_sKey) +
-                           "&format="  + "dump"                           +
+                           "?game_id=" + m_pAPI->GetProcGameID()         +
+                           "&key="     + gjAPI::UtilEscapeString(m_sKey) +
+                           "&format="  + "dump"                          +
                            sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__GetDataCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__GetDataCallback(sResponse, NULL, psOutput);
@@ -262,9 +262,9 @@ template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_
     // send get data store request
     std::string sResponse;
     if(m_pAPI->SendRequest("/data-store/"
-                           "?game_id=" + m_pAPI->GetProcGameID()          +
-                           "&key="     + m_pAPI->UtilEscapeString(m_sKey) +
-                           "&format="  + "dump"                           +
+                           "?game_id=" + m_pAPI->GetProcGameID()         +
+                           "&key="     + gjAPI::UtilEscapeString(m_sKey) +
+                           "&format="  + "dump"                          +
                            sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__GetDataBase64Callback, (void*)iSize, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__GetDataBase64Callback(sResponse, (void*)iSize, NULL);
@@ -287,8 +287,8 @@ template <typename T> int gjDataItem::__Remove(const bool& bNow, GJ_NETWORK_OUTP
     // send remove data store request
     std::string sResponse;
     if(m_pAPI->SendRequest("/data-store/remove/"
-                           "?game_id=" + m_pAPI->GetProcGameID()          +
-                           "&key="     + m_pAPI->UtilEscapeString(m_sKey) +
+                           "?game_id=" + m_pAPI->GetProcGameID()         +
+                           "&key="     + gjAPI::UtilEscapeString(m_sKey) +
                            sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__RemoveCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__RemoveCallback(sResponse, NULL, NULL);

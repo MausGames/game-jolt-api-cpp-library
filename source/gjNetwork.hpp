@@ -60,6 +60,12 @@ template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(con
     {
         D pProcessedOutput;
 
+#if defined(_GJ_DEBUG_)
+
+            // show current activity
+            gjAPI::ErrorLogAdd("SendRequest.Finish: <" + this->m_sInfo + ">\n(\n" + *m_psResponse +")");
+
+#endif
         // process the response string
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(*m_psResponse, this->m_pProcessData, &pProcessedOutput))
         {
@@ -88,6 +94,12 @@ template <typename P, typename D> void gjNetwork::gjCallDownload<P,D>::Finish(co
     {
         D pProcessedOutput;
 
+#if defined(_GJ_DEBUG_)
+
+            // show current activity
+            gjAPI::ErrorLogAdd("DownloadFile.Finish: <" + this->m_sInfo + ">");
+
+#endif
         // process the response string
         if(!(this->m_pProcessObj->*this->m_ProcessCallback)(m_sPath, this->m_pProcessData, &pProcessedOutput))
         {
@@ -107,6 +119,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
 
     const int iPostPos = sURL.find("&POST");
     const bool bPost   = (iPostPos >= 0) ? true : false;
+    const bool bHttp   = (int(sURL.substr(0, 8).find("://")) >= 0) ? true : false;
 
     const bool bNow         = psOutput ? true : false;
     const std::string sInfo = bPost ? sURL.substr(0, iPostPos) : sURL;
@@ -154,20 +167,26 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
                          CURLFORM_END);
 
             // create a POST request
-            sRequest = GJ_API_URL + sURL.substr(0, iPostPos);
+            sRequest = (bHttp ? "" : GJ_API_URL) + sURL.substr(0, iPostPos);
             curl_easy_setopt(pSession, CURLOPT_POST,     1);
             curl_easy_setopt(pSession, CURLOPT_HTTPPOST, pPostList);
         }
         else
         {
             // create a GET request
-            sRequest = GJ_API_URL + sURL;
+            sRequest = (bHttp ? "" : GJ_API_URL) + sURL;
             curl_easy_setopt(pSession, CURLOPT_TIMEOUT, GJ_API_TIMEOUT_REQUEST);
         }
 
         // add MD5 signature
         sRequest += "&signature=" + md5(sRequest + m_pAPI->GetGamePrivateKey());
 
+#if defined(_GJ_DEBUG_)
+
+        // show current activity
+        gjAPI::ErrorLogAdd("SendRequest.Execute: <" + sRequest + ">");
+
+#endif
         // set all session parameters
         curl_easy_setopt(pSession, CURLOPT_URL,             sRequest.c_str());
         curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,   write_to_string);
@@ -188,8 +207,8 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
             // check for errors
             if(res != CURLE_OK)
             {
-                m_pAPI->ErrorLogAdd("Network Error: sending direct request failed <" + sInfo + ">");
-                m_pAPI->ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(res)));
+                gjAPI::ErrorLogAdd("Network Error: sending direct request failed <" + sInfo + ">");
+                gjAPI::ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(res)));
                 return GJ_REQUEST_FAILED;
             }
         }
@@ -207,7 +226,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
     }
     else
     {
-        m_pAPI->ErrorLogAdd("Network Error: cannot establish curl session");
+        gjAPI::ErrorLogAdd("Network Error: cannot establish curl session");
         return GJ_NETWORK_ERROR;
     }
 
@@ -245,6 +264,12 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
         std::FILE* pFile = std::fopen(sToFile.c_str(), "wb");
         if(pFile)
         {
+#if defined(_GJ_DEBUG_)
+
+            // show current activity
+            gjAPI::ErrorLogAdd("DownloadFile.Execute: <" + sURL + ">");
+
+#endif
             // set all session parameters
             curl_easy_setopt(pSession, CURLOPT_URL,             sURL.c_str());
             curl_easy_setopt(pSession, CURLOPT_WRITEFUNCTION,   write_to_file);
@@ -265,8 +290,8 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
                 // check for errors
                 if(res != CURLE_OK)
                 {
-                    m_pAPI->ErrorLogAdd("Network Error: direct file download failed <" + sInfo + ">");
-                    m_pAPI->ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(res)));
+                    gjAPI::ErrorLogAdd("Network Error: direct file download failed <" + sInfo + ">");
+                    gjAPI::ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(res)));
                     return GJ_REQUEST_FAILED;
                 }
 
@@ -286,14 +311,14 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
         }
         else
         {
-            m_pAPI->ErrorLogAdd("File Error: cannot write file <" + sToFile + ">");
+            gjAPI::ErrorLogAdd("File Error: cannot write file <" + sToFile + ">");
             curl_easy_cleanup(pSession);
             return GJ_FILE_ERROR;
         }
     }
     else
     {
-        m_pAPI->ErrorLogAdd("Network Error: cannot establish curl session");
+        gjAPI::ErrorLogAdd("Network Error: cannot establish curl session");
         return GJ_NETWORK_ERROR;
     }
 

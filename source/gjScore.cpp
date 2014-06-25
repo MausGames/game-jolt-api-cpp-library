@@ -93,7 +93,7 @@ int gjScoreTable::__Process(const std::string& sData, void* pAdd, gjScoreList* p
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse scores");
+        gjAPI::ErrorLogAdd("API Error: could not parse scores");
         return GJ_REQUEST_FAILED;
     }
 

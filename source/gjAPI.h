@@ -71,8 +71,8 @@
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
-#define GJ_API_OFFCACHE_TROPHY     false // does not work on Android
-#define GJ_API_OFFCACHE_NAME       "gjapi_cache.dat"
+#define GJ_API_OFFCACHE_TROPHY     true // does not work on Android
+#define GJ_API_OFFCACHE_NAME       "data/gjapi_cache.dat"
 /* --- configuration --- */
 
 
@@ -636,7 +636,7 @@ private:
     std::string m_sProcUserName;                 //!< already processed/escaped user name
     std::string m_sProcUserToken;                //!< already processed/escaped user token
 
-    std::vector<std::string> m_asLog;            //!< error log
+    static std::vector<std::string> s_asLog;     //!< error log
 
 
 public:
@@ -708,7 +708,8 @@ public:
      *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
      *          **GJ_NETWORK_ERROR** if session cannot be established\n
      *          (see #GJ_ERROR) */
-                                                  inline int SendRequestNow(const std::string& sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this,& gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string));}
+                                                  inline int SendRequestNow(const std::string& sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string));}
+    template <typename T,             typename D> inline int SendRequestCall(const std::string& sURL, GJ_NETWORK_OUTPUT(D))                                        {return m_pNetwork->SendRequest(sURL, NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_OUTPUT_FW);}
     template <typename T, typename P, typename D> inline int SendRequestCall(const std::string& sURL, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))                    {return m_pNetwork->SendRequest(sURL, NULL, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     template <typename T, typename P, typename D> inline int SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D)) {return m_pNetwork->SendRequest(sURL, psOutput, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     //! @}
@@ -736,19 +737,19 @@ public:
 
     /*! \name Utility Functions */
     //! @{
-    std::string UtilEscapeString(const std::string& sString);
-    void        UtilTrimString(std::string* psInput);
-    std::string UtilCharToHex(const char& cChar);
-    std::string UtilIntToString(const int& iInt);
-    void        UtilCreateFolder(const std::string& sFolder);
-    std::string UtilTimestamp(const time_t iTime = std::time(NULL));
+    static std::string UtilEscapeString(const std::string& sString);
+    static void        UtilTrimString(std::string* psInput);
+    static std::string UtilCharToHex(const char& cChar);
+    static std::string UtilIntToString(const int& iInt);
+    static void        UtilCreateFolder(const std::string& sFolder);
+    static std::string UtilTimestamp(const time_t iTime = std::time(NULL));
     //! @}
 
     /*! \name Error Log */
     //! @{
-                 void                      ErrorLogReset();
-                 void                      ErrorLogAdd(const std::string& sMsg);
-    inline const std::vector<std::string>& ErrorLogGet()const {return m_asLog;}
+    static              void                      ErrorLogReset();
+    static              void                      ErrorLogAdd(const std::string& sMsg);
+    static inline const std::vector<std::string>& ErrorLogGet(){return s_asLog;}
     //! @}
 
     /*! \name Set Attributes */
@@ -833,7 +834,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const int& iID, gjUser
     std::string sResponse;
     if(m_pNetwork->SendRequest("/users/"
                                "?game_id=" + m_pAPI->GetProcGameID() +
-                               "&user_id=" + m_pAPI->UtilIntToString(iID),
+                               "&user_id=" + gjAPI::UtilIntToString(iID),
                                bNow ? &sResponse : NULL, this, &gjAPI::gjInterUser::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__Process(sResponse, NULL, ppOutput);
@@ -862,7 +863,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const std::string& sNa
     std::string sResponse;
     if(m_pNetwork->SendRequest("/users/"
                                "?game_id="  + m_pAPI->GetProcGameID() +
-                               "&username=" + m_pAPI->UtilEscapeString(sName),
+                               "&username=" + gjAPI::UtilEscapeString(sName),
                                bNow ? &sResponse : NULL, this, &gjAPI::gjInterUser::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__Process(sResponse, NULL, ppOutput);
@@ -1012,7 +1013,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
     }
 
     // create folder
-    m_pAPI->UtilCreateFolder(sToFolder);
+    gjAPI::UtilCreateFolder(sToFolder);
 
     // download file
     if(m_pNetwork->DownloadFile(sURL, sToFile, psOutput, this, &gjAPI::gjInterFile::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
@@ -1038,8 +1039,8 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
     // set main user data
     m_sUserName      = sUserName;
     m_sUserToken     = sUserToken;
-    m_sProcUserName  = this->UtilEscapeString(m_sUserName);
-    m_sProcUserToken = this->UtilEscapeString(m_sUserToken);
+    m_sProcUserName  = gjAPI::UtilEscapeString(m_sUserName);
+    m_sProcUserToken = gjAPI::UtilEscapeString(m_sUserToken);
     
     // convert session parameter
     void* pSession = (void*)long(bSession ? 1 : 0);

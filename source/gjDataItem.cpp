@@ -30,7 +30,7 @@ int gjDataItem::__SetDataCallback(const std::string& sData, void* pAdd, gjDataIt
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse data store item");
+        gjAPI::ErrorLogAdd("API Error: could not parse data store item");
         return GJ_REQUEST_FAILED;
     }
 
@@ -55,7 +55,7 @@ int gjDataItem::__GetDataCallback(const std::string& sData, void* pAdd, std::str
     std::string sReturn;
     if(m_pAPI->ParseRequestDump(sData, &sReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse data store item");
+        gjAPI::ErrorLogAdd("API Error: could not parse data store item");
         return GJ_REQUEST_FAILED;
     }
 
@@ -92,7 +92,7 @@ int gjDataItem::__RemoveCallback(const std::string& sData, void* pAdd, gjDataIte
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse data store item");
+        gjAPI::ErrorLogAdd("API Error: could not parse data store item");
         return GJ_REQUEST_FAILED;
     }
 

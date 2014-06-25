@@ -111,7 +111,7 @@ template <typename T> int gjUser::__UpdateData(const bool& bNow, GJ_NETWORK_OUTP
     std::string sResponse;
     if(m_pAPI->SendRequest("/users/"
                            "?game_id=" + m_pAPI->GetProcGameID() +
-                           "&user_id=" + m_pAPI->UtilIntToString(m_iID),
+                           "&user_id=" + gjAPI::UtilIntToString(m_iID),
                            bNow ? &sResponse : NULL, this, &gjUser::__UpdateDataCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__UpdateDataCallback(sResponse, NULL, NULL);

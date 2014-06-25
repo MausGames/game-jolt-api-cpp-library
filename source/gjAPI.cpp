@@ -12,6 +12,8 @@
 #include <iostream>
 #include <algorithm>
 
+std::vector<std::string> gjAPI::s_asLog;
+
 
 // ****************************************************************
 /* constructor */
@@ -137,7 +139,7 @@ int gjAPI::gjInterUser::__Process(const std::string& sData, void* pAdd, gjUserPt
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse user");
+        gjAPI::ErrorLogAdd("API Error: could not parse user");
         if(ppOutput) (*ppOutput) = m_apUser[0];
         return GJ_REQUEST_FAILED;
     }
@@ -358,7 +360,7 @@ int gjAPI::gjInterTrophy::__Process(const std::string& sData, void* pAdd, gjTrop
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse trophies");
+        gjAPI::ErrorLogAdd("API Error: could not parse trophies");
         return GJ_REQUEST_FAILED;
     }
 
@@ -540,7 +542,7 @@ int gjAPI::gjInterScore::__Process(const std::string& sData, void* pAdd, gjScore
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse score tables");
+        gjAPI::ErrorLogAdd("API Error: could not parse score tables");
         return GJ_REQUEST_FAILED;
     }
 
@@ -631,7 +633,7 @@ int gjAPI::gjInterDataStore::__Process(const std::string& sData, void* pAdd, gjD
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse data store items");
+        gjAPI::ErrorLogAdd("API Error: could not parse data store items");
         return GJ_REQUEST_FAILED;
     }
 
@@ -722,8 +724,11 @@ gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept
 , m_sProcUserName   ("")
 , m_sProcUserToken  ("")
 {
+    // init error log
+    gjAPI::ErrorLogReset();
+
     // pre-process the game ID
-    m_sProcGameID = this->UtilIntToString(m_iGameID);
+    m_sProcGameID = gjAPI::UtilIntToString(m_iGameID);
 
     // create network object
     m_pNetwork = new gjNetwork(this);
@@ -738,9 +743,6 @@ gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept
 
     // prefetch score tables
     if(GJ_API_PREFETCH) m_pInterScore->FetchScoreTablesCall(GJ_NETWORK_NULL_THIS(gjScoreTableMap));
-
-    // init error log
-    this->ErrorLogReset();
 }
 
 
@@ -761,9 +763,6 @@ gjAPI::~gjAPI()
     SAFE_DELETE(m_pInterDataStoreGlobal)
     SAFE_DELETE(m_pInterDataStoreUser)
     SAFE_DELETE(m_pInterFile)
-
-    // exit error log
-    this->ErrorLogReset();
 }
 
 
@@ -829,7 +828,7 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
     while(std::getline(sStream, sToken))
     {
         // remove redundant characters
-        this->UtilTrimString(&sToken);
+        gjAPI::UtilTrimString(&sToken);
         if(sToken.empty()) continue;
 
         // separate key and value
@@ -853,15 +852,15 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
     if(paaOutput->empty())
     {
         paaOutput->push_back(aData);
-        this->ErrorLogAdd("API Error: string parsing failed");
+        gjAPI::ErrorLogAdd("API Error: string parsing failed");
         return GJ_INVALID_INPUT;
     }
 
     // check for failed request
     if(paaOutput->front()["success"] != "true")
     {
-        this->ErrorLogAdd("API Error: request was unsuccessful");
-        this->ErrorLogAdd("API Error: " + paaOutput->front()["message"]);
+        gjAPI::ErrorLogAdd("API Error: request was unsuccessful");
+        gjAPI::ErrorLogAdd("API Error: " + paaOutput->front()["message"]);
         return GJ_REQUEST_FAILED;
     }
 
@@ -884,8 +883,8 @@ int gjAPI::ParseRequestDump(const std::string& sInput, std::string* psOutput)
     // check for failed request
     if(sStatus != "SUCCESS")
     {
-        this->ErrorLogAdd("API Error: request was unsuccessful");
-        this->ErrorLogAdd("API Error: " + (*psOutput));
+        gjAPI::ErrorLogAdd("API Error: request was unsuccessful");
+        gjAPI::ErrorLogAdd("API Error: " + (*psOutput));
         return GJ_REQUEST_FAILED;
     }
 
@@ -934,7 +933,7 @@ std::string gjAPI::UtilEscapeString(const std::string& sString)
         else
         {
             // convert character to hexadecimal value
-            sOutput += "%" + this->UtilCharToHex(sString[i]);
+            sOutput += "%" + gjAPI::UtilCharToHex(sString[i]);
         }
     }
 
@@ -1024,12 +1023,9 @@ void gjAPI::ErrorLogReset()
     if(GJ_API_LOGFILE)
     {
         // remove error log file if empty
-        if(m_asLog.empty())
+        if(s_asLog.empty())
             std::remove(GJ_API_LOGFILE_NAME);
     }
-
-    // clear all log entries
-    m_asLog.clear();
 }
 
 
@@ -1037,10 +1033,10 @@ void gjAPI::ErrorLogReset()
 /* add error log entry */
 void gjAPI::ErrorLogAdd(const std::string& sMsg)
 {
-    const std::string sTimeMsg = "[" + this->UtilTimestamp() + "] " + sMsg;
+    const std::string sTimeMsg = "[" + gjAPI::UtilTimestamp() + "] " + sMsg;
 
     // add message
-    m_asLog.push_back(sTimeMsg);
+    s_asLog.push_back(sTimeMsg);
 
     if(GJ_API_LOGFILE)
     {
@@ -1054,8 +1050,10 @@ void gjAPI::ErrorLogAdd(const std::string& sMsg)
     }
 
 #if defined(_GJ_DEBUG_)
+
     // print message to terminal
     std::cerr << "(!GJ) " << sTimeMsg << std::endl;
+
 #endif
 }
 
@@ -1130,7 +1128,7 @@ int gjAPI::__LoginCallback(const std::string& sData, void* pAdd, int* pbOutput)
     gjDataList aaReturn;
     if(this->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        this->ErrorLogAdd("API Error: could not authenticate user <" + m_sUserName + ">");
+        gjAPI::ErrorLogAdd("API Error: could not authenticate user <" + m_sUserName + ">");
 
         // clear main user data
         m_sUserName      = "";

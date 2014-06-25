@@ -69,7 +69,7 @@ int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse user");
+        gjAPI::ErrorLogAdd("API Error: could not parse user");
         return GJ_REQUEST_FAILED;
     }
 

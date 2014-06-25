@@ -146,7 +146,7 @@ template <typename T> int gjTrophy::__UpdateData(const bool& bNow, GJ_NETWORK_OU
                            "?game_id="    + m_pAPI->GetProcGameID()    +
                            "&username="   + m_pAPI->GetProcUserName()  +
                            "&user_token=" + m_pAPI->GetProcUserToken() +
-                           "&trophy_id="  + m_pAPI->UtilIntToString(m_iID),
+                           "&trophy_id="  + gjAPI::UtilIntToString(m_iID),
                            bNow ? &sResponse : NULL, this, &gjTrophy::__UpdateDataCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__UpdateDataCallback(sResponse, NULL, NULL);
@@ -174,7 +174,7 @@ template <typename T> int gjTrophy::__Achieve(const bool& bNow, GJ_NETWORK_OUTPU
                            "?game_id="    + m_pAPI->GetProcGameID()    +
                            "&username="   + m_pAPI->GetProcUserName()  +
                            "&user_token=" + m_pAPI->GetProcUserToken() +
-                           "&trophy_id="  + m_pAPI->UtilIntToString(m_iID),
+                           "&trophy_id="  + gjAPI::UtilIntToString(m_iID),
                            bNow ? &sResponse : NULL, this, &gjTrophy::__AchieveCallback, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__AchieveCallback(sResponse, NULL, NULL);

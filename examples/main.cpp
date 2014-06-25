@@ -143,6 +143,9 @@ public:
 
         gjAPI* pAPI = ((gjAPI*)pData);
 
+        // fetch IP
+        pAPI->SendRequestCall("http://www.curlmyip.com/", this, &TestLogin::GetIP, NULL);
+
         // test trophies
         pAPI->InterTrophy()->FetchTrophiesCall(0, &testTrophyObject, &TestTrophy::InitTrophies, NULL);
 
@@ -156,6 +159,11 @@ public:
 
         pAPI->InterDataStoreGlobal()->GetDataItem("test_item")->SetDataBase64Call(aiTestData, TEST_DATA_ITEM_SIZE, &testDataItemObject, &TestDataItem::SetData, NULL);
         SAFE_DELETE_ARRAY(aiTestData)
+    }
+
+    void GetIP(const std::string& sIP, void* pData)
+    {
+         std::cout << "[Login]  Your IP is: " << sIP << std::endl;
     }
 };
 

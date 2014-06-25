@@ -32,7 +32,7 @@ gjNetwork::~gjNetwork()
     this->Wait(2);
     while(!m_apCall.empty())
     {
-        m_pAPI->ErrorLogAdd("Network Error: session had to be killed <" + m_apCall[0]->GetInfo() + ">");
+        gjAPI::ErrorLogAdd("Network Error: session had to be killed <" + m_apCall[0]->GetInfo() + ">");
         this->__KillCall(m_apCall[0]);
     }
 
@@ -74,8 +74,8 @@ bool gjNetwork::Update()
                     // check for errors
                     if(!bOK)
                     {
-                        m_pAPI->ErrorLogAdd("Network Error: sending non-blocking request failed <" + pCall->GetInfo() + ">");
-                        m_pAPI->ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(pMsg->data.result)));
+                        gjAPI::ErrorLogAdd("Network Error: sending non-blocking request failed <" + pCall->GetInfo() + ">");
+                        gjAPI::ErrorLogAdd("Network Error: " + std::string(curl_easy_strerror(pMsg->data.result)));
                     }
 
                     pCall->Finish(bOK);

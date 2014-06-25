@@ -240,9 +240,9 @@ template <typename T> int gjScoreTable::__FetchScores(const bool& bOnlyUser, con
     // send get score request
     std::string sResponse;
     if(m_pAPI->SendRequest("/scores/"
-                           "?game_id="  + m_pAPI->GetProcGameID()         +
-                           "&table_id=" + m_pAPI->UtilIntToString(m_iID)  +
-                           "&limit="    + m_pAPI->UtilIntToString(iLimit) +
+                           "?game_id="  + m_pAPI->GetProcGameID()        +
+                           "&table_id=" + gjAPI::UtilIntToString(m_iID)  +
+                           "&limit="    + gjAPI::UtilIntToString(iLimit) +
                            sUserData, bNow ? &sResponse : NULL, this, &gjScoreTable::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__Process(sResponse, NULL, papOutput);
@@ -295,11 +295,11 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
         const int iError = m_pAPI->InterUser()->FetchUserNow(0, &pMainUser);
         if(iError) return iError;
 
-        asScoreData["user_id"] = m_pAPI->UtilIntToString(pMainUser->GetID());
+        asScoreData["user_id"] = gjAPI::UtilIntToString(pMainUser->GetID());
         asScoreData["user"]    = pMainUser->GetName();
     }
     asScoreData["score"]      = sScore;
-    asScoreData["sort"]       = m_pAPI->UtilIntToString(iSort);
+    asScoreData["sort"]       = gjAPI::UtilIntToString(iSort);
     asScoreData["extra_data"] = sExtraData;
     asScoreData["stored"]     = GJ_API_TEXT_NOW;
     asScoreData["guest"]      = sGuestName;
@@ -310,18 +310,18 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
 
     // use user data or guest name
     const std::string sUserData = bGuest ?
-                                  "&guest="      + m_pAPI->UtilEscapeString(sGuestName) : 
-                                  "&username="   + m_pAPI->GetProcUserName()            +
+                                  "&guest="      + gjAPI::UtilEscapeString(sGuestName) : 
+                                  "&username="   + m_pAPI->GetProcUserName()           +
                                   "&user_token=" + m_pAPI->GetProcUserToken();
 
     // send add score request
     std::string sResponse;
     if(m_pAPI->SendRequest("/scores/add/"
-                           "?game_id="    + m_pAPI->GetProcGameID()              +
-                           "&table_id="   + m_pAPI->UtilIntToString(m_iID)       +
-                           "&score="      + m_pAPI->UtilEscapeString(sScore)     +
-                           "&sort="       + m_pAPI->UtilIntToString(iSort)       +
-                           "&extra_data=" + m_pAPI->UtilEscapeString(sExtraData) +
+                           "?game_id="    + m_pAPI->GetProcGameID()             +
+                           "&table_id="   + gjAPI::UtilIntToString(m_iID)       +
+                           "&score="      + gjAPI::UtilEscapeString(sScore)     +
+                           "&sort="       + gjAPI::UtilIntToString(iSort)       +
+                           "&extra_data=" + gjAPI::UtilEscapeString(sExtraData) +
                            sUserData, bNow ? &sResponse : NULL, this, &gjScoreTable::__AddScoreCallback, pVerify, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
     if(bNow) return this->__AddScoreCallback(sResponse, pVerify, NULL);

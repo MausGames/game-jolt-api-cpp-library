@@ -74,7 +74,7 @@ int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTroph
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse trophy");
+        gjAPI::ErrorLogAdd("API Error: could not parse trophy");
         return GJ_REQUEST_FAILED;
     }
 
@@ -101,7 +101,7 @@ int gjTrophy::__AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPt
     gjDataList aaReturn;
     if(m_pAPI->ParseRequestKeypair(sData, &aaReturn) != GJ_OK)
     {
-        m_pAPI->ErrorLogAdd("API Error: could not parse trophy");
+        gjAPI::ErrorLogAdd("API Error: could not parse trophy");
         return GJ_REQUEST_FAILED;
     }
 
