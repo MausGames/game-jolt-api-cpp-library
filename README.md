@@ -13,9 +13,11 @@ And if your game is written in C++, then **this library is able to connect your 
 > - integrated Base64url encoding to easily transfer binary data (e.g. to the data store) 
 > - integrated file downloader (for avatars, trophy images and anything else)
 
-Documentation for the library can be found [here][4].
+#
+
+**Documentation:**  
+<http://www.maus-games.at/files/gamejolt/cpp/>
 
 [1]: http://gamejolt.com
 [2]: http://gamejolt.com/developers/achievements-new/
 [3]: http://gamejolt.com/api/doc/game/
-[4]: http://www.maus-games.at/files/gamejolt/cpp/html/
