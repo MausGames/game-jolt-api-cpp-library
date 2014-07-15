@@ -72,8 +72,8 @@
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
-#define GJ_API_OFFCACHE_TROPHY     true // does not work on Android
-#define GJ_API_OFFCACHE_NAME       "data/gjapi_cache.dat"
+#define GJ_API_OFFCACHE_TROPHY     false // does not work on Android
+#define GJ_API_OFFCACHE_NAME       "gjapi_cache.dat"
 /* --- configuration --- */
 
 
