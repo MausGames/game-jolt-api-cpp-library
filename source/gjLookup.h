@@ -11,8 +11,8 @@
 #define _GJ_GUARD_LOOKUP_H_
 
 typedef unsigned int gjUint;
-#ifndef SDL_assert
-    #define SDL_assert(x) 
+#ifndef ASSERT
+    #define ASSERT(x) 
 #endif
 
 
@@ -68,7 +68,7 @@ public:
     //! @{
     void erase(const T& Entry)noexcept;
     void erase(const char* pcKey)noexcept;
-    inline void erase(const gjUint& iIndex)noexcept            {SDL_assert(iIndex < m_aList.size()); m_aList.erase(m_aList.begin()+iIndex);}
+    inline void erase(const gjUint& iIndex)noexcept            {ASSERT(iIndex < m_aList.size()) m_aList.erase(m_aList.begin()+iIndex);}
     inline void erase(const gjConstIterator& Iterator)noexcept {m_aList.erase(Iterator);}
     inline void clear()noexcept                                {m_aList.clear();}
     //! @}
@@ -148,7 +148,7 @@ template <typename T> const T& gjLookup<T>::at(const char* pcKey)const noexcept
 {
     // retrieve and check iterator by specific key
     auto it = this->__retrieve(pcKey);
-    SDL_assert(this->__check(it));
+    ASSERT(this->__check(it))
 
     return it->second;
 }

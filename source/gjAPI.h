@@ -12,8 +12,9 @@
 //| Game Jolt API C++ Library v1.0 (http://gamejolt.com)                                 |//
 //*--------------------------------------------------------------------------------------*//
 //| Author: Martin Mauersics                                                             |//
-//| Confirmed OSX support: Bruno Assarisse                                               |//
-//| Special Thanks to: David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell  |//
+//| Special Thanks to:                                                                   |//
+//| David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell, Bruno Assarisse,   |//
+//| Jani "JNyknn" Nykänen, Jorge Martínez "Sasurai" Vargas                               |//
 //*--------------------------------------------------------------------------------------*//
 //| Copyright (c) 2013-2014 Martin Mauersics                                             |//
 //|                                                                                      |//
@@ -78,10 +79,10 @@
 
 // compiler
 #if defined(_MSC_VER)
-    #define _GJ_MSVC_ (_MSC_VER)
+    #define _GJ_MSVC_  (_MSC_VER)
 #endif
 #if defined(__GNUC__)
-    #define _GJ_GCC_ (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
+    #define _GJ_GCC_   (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
 #endif
 #if defined(__MINGW32__)
     #include <_mingw.h>
@@ -93,24 +94,21 @@
 
 // operating system
 #if defined(_WIN32)
-    #define _GJ_WINDOWS_ 1
+    #define _GJ_WINDOWS_ (1)
 #endif
 #if defined(__linux__)
-    #define _GJ_LINUX_ 1
+    #define _GJ_LINUX_   (1)
 #endif
 #if defined(__APPLE__)
-    #define _GJ_OSX_ 1
+    #define _GJ_OSX_     (1)
 #endif
 #if defined(__ANDROID__)
-    #define _GJ_ANDROID_ 1
+    #define _GJ_ANDROID_ (1)
 #endif
 
 // debug mode
 #if defined(_DEBUG) || defined(DEBUG) || (defined(_GJ_GCC_) && !defined(__OPTIMIZE__))
-    #define _GJ_DEBUG_ 1
-    static const bool g_bGJDebug = true;
-#else
-    static const bool g_bGJDebug = false;
+    #define _GJ_DEBUG_ (1)
 #endif
 
 // missing functionality
@@ -162,14 +160,16 @@
 #define SAFE_DELETE(p)          {if(p) {delete   (p); (p) = NULL;}}
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p) = NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : std::string(""))
-
 #define ARRAY_SIZE(a)           (sizeof(a) / sizeof((a)[0]))
+
 #define FOR_EACH(i,c)           for(auto i = (c).begin(),  i ## __e = (c).end();  i != i ## __e; ++i)
 #define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), i ## __e = (c).rend(); i != i ## __e; ++i)
 
-#define DISABLE_COPY(c)      \
-    c(const c&) delete_func; \
-    c& operator = (const c&) delete_func;
+#if !defined(DISABLE_COPY)
+    #define DISABLE_COPY(c)     \
+        c(const c&)delete_func; \
+        c& operator = (const c&)delete_func;
+#endif
 
 // #define _HAS_EXCEPTIONS 0
 #define _CRT_SECURE_NO_WARNINGS

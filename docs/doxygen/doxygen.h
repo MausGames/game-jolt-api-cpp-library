@@ -164,12 +164,12 @@
  *
  *     // sort trophies
  *     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
- *     API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(iSort[0]));
+ *     API.InterTrophy()->SetSort(iSort, ARRAY_SIZE(iSort));
  *
  *
  *     // define secret trophies
  *     const int iSecret[] = {2546, 2547};
- *     API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(iSecret[0]));
+ *     API.InterTrophy()->SetSecret(iSecret, ARRAY_SIZE(iSecret));
  * }
  * \endcode
  *
@@ -314,7 +314,7 @@
  * {
  *     // download a texture now and use it with my object (may block if file is not cached)
  *     std::string sFilePath;
- *     API.InterFile()->DownloadFileNow("URL", "ToFolder/ToSubFolder", "FileNameOverwrite", sFilePath);
+ *     API.InterFile()->DownloadFileNow("URL", "ToFolder/ToSubFolder", "FileNameOverwrite", &sFilePath);
  *     myObj.LoadTexture(sFilePath, NULL);
  *
  *
@@ -358,13 +358,17 @@
  *
  * \subsection features_cross   2.6. Cross-Platform Support
  * <img src="../os_windows.png" align="left" alt="Windows Logo" /> <img src="../os_osx.png" align="left" alt="OSX Logo" /> <img src="../os_linux.png" align="left" alt="Linux Logo" /> <img src="../os_android.png" align="left" alt="Android Logo" /><br clear="all"><br clear="all">
- * This library is developed and tested with Windows, Linux, OSX and Android. The cURL library for Windows, Linux 64-bit and Android is enclosed to the project files.\n
- * Thanks to <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a> for checking and confirming OSX support.
+ * This library is developed and tested with Windows, Linux, OSX and Android.\n
+ * The cURL library for Windows, Linux 64-bit and Android is enclosed to the project files.\n
  *
  * \section credits   3. Credits
  * <b>Author:</b> Martin Mauersics\n
- * <b>Confirmed OSX support:</b> <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>\n
- * <b>Special Thanks to:</b> <a href="http://davidjolt.com/" target="_blank">David "CROS" DeCarmine</a>, <a href="http://joonamelartin.fi/" target="_blank">Joona "erakko" Melartin</a>, <a href="http://forceofhab.it/" target="_blank">Ashley Gwinnell</a>\n
+ * <b>Special Thanks to:</b> <a href="http://davidjolt.com/" target="_blank">David "CROS" DeCarmine</a>, 
+ *                           <a href="http://joonamelartin.fi/" target="_blank">Joona "erakko" Melartin</a>,
+ *                           <a href="http://forceofhab.it/" target="_blank">Ashley Gwinnell</a>,
+ *                           <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>,
+ *                           <a href="http://gamejolt.com/profile/jnyknn/15335/" target="_blank">Jani "JNyknn" Nykänen</a>,
+ *                           <a href="http://gamejolt.com/profile/sasurai/117365/" target="_blank">Jorge Martínez "Sasurai" Vargas</a>\n
  *
  * \subsection credits_libraries   3.1. Additional Libraries
  * cURL Library (<a href="http://curl.haxx.se/" target="_blank">http://curl.haxx.se/</a>)\n
@@ -421,7 +425,7 @@
  *      <li>fixed cache-file creation without data
  *      <li>added MinGW and Clang support
  *      <li>added Code::Blocks and NetBeans example project
- *      <li>confirmed OSX support (by <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>)
+ *      <li>added OSX support
  * </ul>
  * v0.8a (2013-07-22)
  * ------------------
