@@ -11,8 +11,8 @@
 //*--------------------------------------------------------------------------------------*//
 //| Game Jolt API C++ Library v1.0 (http://gamejolt.com)                                 |//
 //*--------------------------------------------------------------------------------------*//
-//| Author: Martin Mauersics                                                             |//
 //| Special Thanks to:                                                                   |//
+//|                                                                                      |//
 //| David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell, Bruno Assarisse,   |//
 //| Jani "JNyknn" Nykänen, Jorge Martínez "Sasurai" Vargas                               |//
 //*--------------------------------------------------------------------------------------*//
