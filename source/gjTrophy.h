@@ -122,7 +122,7 @@ private:
 
     /*! \name Callback Functions */
     //! @{
-    int __UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput);
+    int __UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput);
     int __AchieveCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput);
     //! @}
 

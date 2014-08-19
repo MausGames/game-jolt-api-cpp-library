@@ -68,7 +68,7 @@ gjTrophy& gjTrophy::operator = (const gjTrophy& that)noexcept
 
 // ****************************************************************
 /* callback for updating the data */
-int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* pOutput)
+int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTrophyPtr* ppOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -88,7 +88,7 @@ int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTroph
     m_iSort   = iSort;
     m_bSecret = bSecret;
 
-    if(pOutput) (*pOutput) = this;
+    if(ppOutput) (*ppOutput) = this;
     return GJ_OK;
 }
 

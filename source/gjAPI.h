@@ -171,7 +171,7 @@
         c& operator = (const c&)delete_func;
 #endif
 
-// #define _HAS_EXCEPTIONS 0
+// #define _HAS_EXCEPTIONS (0)
 #define _CRT_SECURE_NO_WARNINGS
 #define _ALLOW_KEYWORD_MACROS
 
@@ -212,7 +212,7 @@ typedef gjScore*                           gjScorePtr;
 typedef std::map<std::string, gjDataItem*> gjDataItemMap;
 typedef gjDataItem*                        gjDataItemPtr;
 
-enum GJ_ERROR
+enum GJ_ERROR : unsigned char
 {
     GJ_OK               = 0x00,   //!< everything is fine
     GJ_INVALID_CALL     = 0x01,   //!< function cannot be called
@@ -225,14 +225,14 @@ enum GJ_ERROR
     GJ_FILE_ERROR       = 0x80    //!< error on opening, writing or finding a file
 };
 
-enum GJ_SORT_DIRECTION
+enum GJ_SORT_DIRECTION : int
 {
     GJ_SORT_UNDEF =  0,   //!< undefined sorting
     GJ_SORT_DESC  =  1,   //!< descending sorting (3, 2, 1)
     GJ_SORT_ASC   = -1    //!< ascending sorting (1, 2, 3)
 };
 
-enum GJ_TROPHY_TYPE
+enum GJ_TROPHY_TYPE : int
 {
     GJ_TROPHY_ALL          =  0,   //!< all trophies
     GJ_TROPHY_ACHIEVED     =  1,   //!< only achieved trophies

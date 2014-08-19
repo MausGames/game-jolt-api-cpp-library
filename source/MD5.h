@@ -35,7 +35,7 @@ documentation and/or software.
 #define _MD5_H_
 
 
-// #define _HAS_EXCEPTIONS 0
+// #define _HAS_EXCEPTIONS (0)
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <cstring>
