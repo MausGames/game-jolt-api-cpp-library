@@ -172,7 +172,8 @@ public:
 int main()
 {
     // data from the test-game
-    gjAPI API(15490, "0dbe90d7e46fbcaed459d434e5f835da");
+    gjAPI API;
+    API.Init(15490, "0dbe90d7e46fbcaed459d434e5f835da");
 
     // set trophy attributes
     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};

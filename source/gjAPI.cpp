@@ -713,7 +713,7 @@ int gjAPI::gjInterFile::__Process(const std::string& sData, void* pAdd, std::str
 
 // ****************************************************************
 /* constructor */
-gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept
+gjAPI::gjAPI(const int iGameID, const std::string sGamePrivateKey)noexcept
 : m_iGameID         (iGameID)
 , m_sGamePrivateKey (sGamePrivateKey)
 , m_sUserName       ("")
@@ -742,7 +742,7 @@ gjAPI::gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept
     m_pInterFile            = new gjInterFile(this, m_pNetwork);
 
     // prefetch score tables
-    if(GJ_API_PREFETCH) m_pInterScore->FetchScoreTablesCall(GJ_NETWORK_NULL_THIS(gjScoreTableMap));
+    if(GJ_API_PREFETCH && iGameID) m_pInterScore->FetchScoreTablesCall(GJ_NETWORK_NULL_THIS(gjScoreTableMap));
 }
 
 
@@ -763,6 +763,22 @@ gjAPI::~gjAPI()
     SAFE_DELETE(m_pInterDataStoreGlobal)
     SAFE_DELETE(m_pInterDataStoreUser)
     SAFE_DELETE(m_pInterFile)
+}
+
+
+// ****************************************************************
+/* explicitely initialize the object */
+void gjAPI::Init(const int& iGameID, const std::string& sGamePrivateKey)
+{
+    // save game data
+    m_iGameID         = iGameID;
+    m_sGamePrivateKey = sGamePrivateKey;
+
+    // pre-process the game ID
+    m_sProcGameID = gjAPI::UtilIntToString(m_iGameID);
+
+    // prefetch score tables
+    if(GJ_API_PREFETCH && iGameID) m_pInterScore->FetchScoreTablesCall(GJ_NETWORK_NULL_THIS(gjScoreTableMap));
 }
 
 

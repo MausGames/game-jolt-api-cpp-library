@@ -640,8 +640,15 @@ private:
 
 
 public:
-    gjAPI(const int& iGameID, const std::string& sGamePrivateKey)noexcept;
+    gjAPI(const int iGameID = 0, const std::string sGamePrivateKey = "")noexcept;
     ~gjAPI();
+
+    /*! \name Init */
+    //! @{
+    /*! Explicitely initialize the object after construction.
+     *  \note Needs to be called after empty construction, and only once */
+    void Init(const int& iGameID, const std::string& sGamePrivateKey);
+    //! @}
 
     /*! \name Update */
     //! @{

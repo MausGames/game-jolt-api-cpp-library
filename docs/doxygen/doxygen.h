@@ -67,7 +67,8 @@
  * int main()
  * {
  *     // create API-object and get basic access to Game Jolt
- *     gjAPI API(12345, "abcdefghijklmnopqrstuvwxyz012345");
+ *     gjAPI API;
+ *     API.Init(12345, "abcdefghijklmnopqrstuvwxyz012345");
  *
  *     while(true)
  *     {
