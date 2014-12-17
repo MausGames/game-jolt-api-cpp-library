@@ -16,7 +16,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\libraries\windows\libcurl.a" />
+					<Add library="..\..\libraries\windows\x86\libcurl.a" />
 				</Linker>
 			</Target>
 			<Target title="Debug_Linux_gcc">
@@ -29,7 +29,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\libraries\linux\libcurl.so" />
+					<Add library="..\..\libraries\linux\x64\libcurl.so" />
 				</Linker>
 			</Target>
 			<Target title="Release_Windows_mingw">
@@ -45,7 +45,7 @@
 					<Add option="-s" />
 					<Add option="-static-libgcc" />
 					<Add option="-static-libstdc++" />
-					<Add library="..\..\libraries\windows\libcurl.a" />
+					<Add library="..\..\libraries\windows\x86\libcurl.a" />
 				</Linker>
 			</Target>
 			<Target title="Release_Linux_gcc">
@@ -59,7 +59,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="..\..\libraries\linux\libcurl.so" />
+					<Add library="..\..\libraries\linux\x64\libcurl.so" />
 				</Linker>
 			</Target>
 		</Build>

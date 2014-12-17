@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -67,7 +67,7 @@
         <linkerTool>
           <output>../GJ_API_example_mingw_debug.exe</output>
           <linkerAddLib>
-            <pElem>../../libraries/windows</pElem>
+            <pElem>../../libraries/windows/x86</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>libcurl</linkerLibLibItem>
@@ -134,7 +134,7 @@
         <linkerTool>
           <output>../GJ_API_example_gcc_debug</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux</pElem>
+            <pElem>../../libraries/linux/x64</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>curl</linkerLibLibItem>
@@ -201,7 +201,7 @@
         <linkerTool>
           <output>../GJ_API_example_clang_debug</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux</pElem>
+            <pElem>../../libraries/linux/x64</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>curl</linkerLibLibItem>
@@ -276,7 +276,7 @@
         <linkerTool>
           <output>../GJ_API_example_mingw.exe</output>
           <linkerAddLib>
-            <pElem>../../libraries/windows</pElem>
+            <pElem>../../libraries/windows/x86</pElem>
           </linkerAddLib>
           <stripSymbols>true</stripSymbols>
           <linkerLibItems>
@@ -353,7 +353,7 @@
         <linkerTool>
           <output>../GJ_API_example_gcc</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux</pElem>
+            <pElem>../../libraries/linux/x64</pElem>
           </linkerAddLib>
           <stripSymbols>true</stripSymbols>
           <linkerLibItems>
@@ -428,7 +428,7 @@
         <linkerTool>
           <output>../GJ_API_example_clang</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux</pElem>
+            <pElem>../../libraries/linux/x64</pElem>
           </linkerAddLib>
           <stripSymbols>true</stripSymbols>
           <linkerLibItems>

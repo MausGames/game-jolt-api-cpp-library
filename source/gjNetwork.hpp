@@ -117,9 +117,9 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
 {
     if(sURL == "") return GJ_INVALID_INPUT;
 
-    const int iPostPos = sURL.find("&POST");
-    const bool bPost   = (iPostPos >= 0) ? true : false;
-    const bool bHttp   = (int(sURL.substr(0, 8).find("://")) >= 0) ? true : false;
+    const size_t iPostPos = sURL.find("&POST");
+    const bool bPost      = (iPostPos != std::string::npos) ? true : false;
+    const bool bHttp      = (int(sURL.substr(0, 8).find("://")) >= 0) ? true : false;
 
     const bool bNow         = psOutput ? true : false;
     const std::string sInfo = bPost ? sURL.substr(0, iPostPos) : sURL;

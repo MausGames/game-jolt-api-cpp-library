@@ -42,11 +42,11 @@
  *
  * \subsection introduction_setup   1.1. Setup
  *
- * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> and contains all necessary files for Windows, Linux 64-bit and Android. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
+ * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> and contains all necessary files for Windows x86/x64, Linux x64 and Android. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.
  *
- * All source files are distributed raw. You simply need to add them to your project build, compile them with C++11 support, and link with the cURL library.\n
- * Alternatively you can include the gjInline.h file, instead of adding all code files to your project build.\n
+ * Currently there are no build scripts implemented, all source files are distributed raw. You simply need to add them to your project build (source folder), compile them with C++11 support,\n
+ * and link with the cURL library (libraries folder, incl. include). Alternatively you can include the gjInline.h file.\n
  * <b>Supported compilers:</b> GCC/MinGW 4.7+, MSVC 10.0+, Clang 3.3+
  *
  * \subsection introduction_update   1.2. Update Notes
@@ -360,7 +360,7 @@
  * \subsection features_cross   2.6. Cross-Platform Support
  * <img src="../os_windows.png" align="left" alt="Windows Logo" /> <img src="../os_osx.png" align="left" alt="OSX Logo" /> <img src="../os_linux.png" align="left" alt="Linux Logo" /> <img src="../os_android.png" align="left" alt="Android Logo" /><br clear="all"><br clear="all">
  * This library is developed and tested with Windows, Linux, OSX and Android.\n
- * The cURL library for Windows, Linux 64-bit and Android is enclosed to the project files.\n
+ * The cURL library for Windows x86/x64, Linux x64 and Android is enclosed to the project files.\n
  *
  * \section credits   3. Credits
  * <b>Author:</b> Martin Mauersics\n
@@ -405,6 +405,7 @@
  *
  * <ul>
  *      <li>added Android support
+ *      <li>added Windows x64 (MSVC) support
  * </ul>
  * v1.0 (2014-02-22)
  * ------------------

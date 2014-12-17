@@ -848,7 +848,7 @@ int gjAPI::ParseRequestKeypair(const std::string& sInput, gjDataList* paaOutput)
         if(sToken.empty()) continue;
 
         // separate key and value
-        const int iPos           = sToken.find(':');
+        const size_t iPos        = sToken.find(':');
         const std::string sKey   = sToken.substr(0, iPos);
         const std::string sValue = sToken.substr(iPos + 2, sToken.length() - iPos - 3);
 
@@ -961,11 +961,11 @@ std::string gjAPI::UtilEscapeString(const std::string& sString)
 /* trim a standard string on both sides */
 void gjAPI::UtilTrimString(std::string* psInput)
 {
-    const int iFirst = psInput->find_first_not_of(" \n\r\t");
-    if(iFirst >= 0) psInput->erase(0, iFirst);
+    const size_t iFirst = psInput->find_first_not_of(" \n\r\t");
+    if(iFirst != std::string::npos) psInput->erase(0, iFirst);
 
-    const int iLast = psInput->find_last_not_of(" \n\r\t");
-    if(iLast >= 0) psInput->erase(iLast+1);
+    const size_t iLast = psInput->find_last_not_of(" \n\r\t");
+    if(iLast != std::string::npos) psInput->erase(iLast+1);
 }
 
 
@@ -998,22 +998,20 @@ std::string gjAPI::UtilIntToString(const int& iInt)
 /* create a folder hierarchy */
 void gjAPI::UtilCreateFolder(const std::string& sFolder)
 {
-    int iPos = 0;
+    size_t iPos = 0;
 
-    do
+    // loop through path
+    while((iPos = sFolder.find_first_of("/\\", iPos+2)) != std::string::npos)
     {
-        // get next subfolder
-        iPos = sFolder.find_first_of("/\\", iPos+2);
         const std::string sSubFolder = sFolder.substr(0, iPos);
 
         // create subfolder
 #if defined(_GJ_WINDOWS_)
-        CreateDirectoryA(sSubFolder.c_str(), NULL);
+        CreateDirectory(sSubFolder.c_str(), NULL);
 #else
         mkdir(sSubFolder.c_str(), S_IRWXU);
 #endif
     }
-    while(iPos >= 0);
 }
 
 
