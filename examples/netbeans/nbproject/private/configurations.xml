@@ -2,7 +2,7 @@
 <configurationDescriptor version="95">
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug_Windows_mingw" type="1">
+    <conf name="Debug_Windows_x86_mingw" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>3</platform>
@@ -35,7 +35,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Debug_Linux_gcc" type="1">
+    <conf name="Debug_Linux_x64_gcc" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>3</platform>
@@ -68,7 +68,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Debug_Linux_clang" type="1">
+    <conf name="Debug_Linux_x64_clang" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>3</platform>
@@ -101,7 +101,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Release_Windows_mingw" type="1">
+    <conf name="Release_Windows_x86_mingw" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>3</platform>
@@ -134,7 +134,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Release_Linux_gcc" type="1">
+    <conf name="Release_Linux_x64_gcc" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>3</platform>
@@ -167,7 +167,7 @@
         </environment>
       </runprofile>
     </conf>
-    <conf name="Release_Linux_clang" type="1">
+    <conf name="Release_Linux_x64_clang" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <platform>3</platform>

@@ -16,7 +16,7 @@
 //| David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell, Bruno Assarisse,   |//
 //| Jani "JNyknn" Nykänen, Jorge Martínez "Sasurai" Vargas                               |//
 //*--------------------------------------------------------------------------------------*//
-//| Copyright (c) 2013-2014 Martin Mauersics                                             |//
+//| Copyright (c) 2013-2015 Martin Mauersics                                             |//
 //|                                                                                      |//
 //| This software is provided 'as-is', without any express or implied                    |//
 //| warranty. In no event will the authors be held liable for any damages                |//
@@ -166,8 +166,8 @@
 #define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), i ## __e = (c).rend(); i != i ## __e; ++i)
 
 #if !defined(DISABLE_COPY)
-    #define DISABLE_COPY(c)     \
-        c(const c&)delete_func; \
+    #define DISABLE_COPY(c)                  \
+        c             (const c&)delete_func; \
         c& operator = (const c&)delete_func;
 #endif
 

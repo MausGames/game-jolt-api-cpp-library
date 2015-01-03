@@ -13,7 +13,7 @@ V_GJ_LIB_PATH  := ../../../../libraries
 ## don't forget to load the library <curl> in your Java file
 
 LOCAL_MODULE := libcurl
-LOCAL_SRC_FILES := $(V_GJ_LIB_PATH)/android/$(TARGET_ARCH_ABI)/libcurl.so
+LOCAL_SRC_FILES := $(V_GJ_LIB_PATH)/bin/android/$(TARGET_ARCH_ABI)/libcurl.so
 include $(PREBUILT_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 

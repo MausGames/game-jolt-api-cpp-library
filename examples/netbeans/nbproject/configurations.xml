@@ -46,7 +46,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug_Windows_mingw" type="1">
+    <conf name="Debug_Windows_x86_mingw" type="1">
       <toolsSet>
         <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -67,7 +67,7 @@
         <linkerTool>
           <output>../GJ_API_example_mingw_debug.exe</output>
           <linkerAddLib>
-            <pElem>../../libraries/windows/x86</pElem>
+            <pElem>../../libraries/bin/windows/x86</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>libcurl</linkerLibLibItem>
@@ -113,7 +113,7 @@
       <item path="../main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Debug_Linux_gcc" type="1">
+    <conf name="Debug_Linux_x64_gcc" type="1">
       <toolsSet>
         <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -134,7 +134,7 @@
         <linkerTool>
           <output>../GJ_API_example_gcc_debug</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux/x64</pElem>
+            <pElem>../../libraries/bin/linux/x64</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>curl</linkerLibLibItem>
@@ -180,7 +180,7 @@
       <item path="../main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Debug_Linux_clang" type="1">
+    <conf name="Debug_Linux_x64_clang" type="1">
       <toolsSet>
         <compilerSet>CLang|CLang</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -201,7 +201,7 @@
         <linkerTool>
           <output>../GJ_API_example_clang_debug</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux/x64</pElem>
+            <pElem>../../libraries/bin/linux/x64</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>curl</linkerLibLibItem>
@@ -247,7 +247,7 @@
       <item path="../main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Release_Windows_mingw" type="1">
+    <conf name="Release_Windows_x86_mingw" type="1">
       <toolsSet>
         <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -276,7 +276,7 @@
         <linkerTool>
           <output>../GJ_API_example_mingw.exe</output>
           <linkerAddLib>
-            <pElem>../../libraries/windows/x86</pElem>
+            <pElem>../../libraries/bin/windows/x86</pElem>
           </linkerAddLib>
           <stripSymbols>true</stripSymbols>
           <linkerLibItems>
@@ -324,7 +324,7 @@
       <item path="../main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Release_Linux_gcc" type="1">
+    <conf name="Release_Linux_x64_gcc" type="1">
       <toolsSet>
         <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -353,7 +353,7 @@
         <linkerTool>
           <output>../GJ_API_example_gcc</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux/x64</pElem>
+            <pElem>../../libraries/bin/linux/x64</pElem>
           </linkerAddLib>
           <stripSymbols>true</stripSymbols>
           <linkerLibItems>
@@ -400,7 +400,7 @@
       <item path="../main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Release_Linux_clang" type="1">
+    <conf name="Release_Linux_x64_clang" type="1">
       <toolsSet>
         <compilerSet>CLang|CLang</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -428,7 +428,7 @@
         <linkerTool>
           <output>../GJ_API_example_clang</output>
           <linkerAddLib>
-            <pElem>../../libraries/linux/x64</pElem>
+            <pElem>../../libraries/bin/linux/x64</pElem>
           </linkerAddLib>
           <stripSymbols>true</stripSymbols>
           <linkerLibItems>

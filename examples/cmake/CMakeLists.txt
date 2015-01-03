@@ -32,11 +32,11 @@ add_executable(
 if(WIN32)
     target_link_libraries(
       GJ_API_example
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/windows/x86/libcurl.a"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/bin/windows/x86/libcurl.a"
     )
 else()
     target_link_libraries(
       GJ_API_example
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/linux/x64/libcurl.so"
+      "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/bin/linux/x64/libcurl.so"
     )
 endif()

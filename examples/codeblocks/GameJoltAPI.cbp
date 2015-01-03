@@ -6,7 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug_Windows_mingw">
+			<Target title="Debug_Windows_x86_mingw">
 				<Option output="../GJ_API_example_mingw_debug" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="obj/Debug/" />
@@ -16,10 +16,10 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\libraries\windows\x86\libcurl.a" />
+					<Add library="..\..\libraries\bin\windows\x86\libcurl.a" />
 				</Linker>
 			</Target>
-			<Target title="Debug_Linux_gcc">
+			<Target title="Debug_Linux_x64_gcc">
 				<Option output="../GJ_API_example_gcc_debug" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="obj/Debug/" />
@@ -29,10 +29,10 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\libraries\linux\x64\libcurl.so" />
+					<Add library="..\..\libraries\bin\linux\x64\libcurl.so" />
 				</Linker>
 			</Target>
-			<Target title="Release_Windows_mingw">
+			<Target title="Release_Windows_x86_mingw">
 				<Option output="../GJ_API_example_mingw" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="obj/Release/" />
@@ -45,10 +45,10 @@
 					<Add option="-s" />
 					<Add option="-static-libgcc" />
 					<Add option="-static-libstdc++" />
-					<Add library="..\..\libraries\windows\x86\libcurl.a" />
+					<Add library="..\..\libraries\bin\windows\x86\libcurl.a" />
 				</Linker>
 			</Target>
-			<Target title="Release_Linux_gcc">
+			<Target title="Release_Linux_x64_gcc">
 				<Option output="../GJ_API_example_gcc" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="obj/Release/" />
@@ -59,7 +59,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="..\..\libraries\linux\x64\libcurl.so" />
+					<Add library="..\..\libraries\bin\linux\x64\libcurl.so" />
 				</Linker>
 			</Target>
 		</Build>
