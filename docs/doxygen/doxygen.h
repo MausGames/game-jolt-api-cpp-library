@@ -370,6 +370,7 @@
  *                           <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>,
  *                           <a href="http://gamejolt.com/profile/jnyknn/15335/" target="_blank">Jani "JNyknn" Nykänen</a>,
  *                           <a href="http://gamejolt.com/profile/sasurai/117365/" target="_blank">Jorge Martínez "Sasurai" Vargas</a>\n
+ * This is a 3rd party software which is not directly affiliated with Game Jolt or Lucent Web Creative, LLC.
  *
  * \subsection credits_libraries   3.1. Additional Libraries
  * cURL Library (<a href="http://curl.haxx.se/" target="_blank">http://curl.haxx.se/</a>)\n
@@ -377,7 +378,7 @@
  * Base64 decoder (modified) by FreeCode-FreeCode (<a href="http://freecode-freecode.blogspot.co.at/2008/02/base64c.html" target="_blank">http://freecode-freecode.blogspot.co.at/2008/02/base64c.html</a>)
  *
  * \subsection credits_license   3.2. Software License
- * Copyright (c) 2013-2014 Martin Mauersics
+ * Copyright (c) 2013-2015 Martin Mauersics
  *
  * This software is provided 'as-is', without any express or implied\n
  * warranty. In no event will the authors be held liable for any damages\n
