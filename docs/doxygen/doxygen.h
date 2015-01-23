@@ -70,6 +70,16 @@
  *     gjAPI API;
  *     API.Init(12345, "abcdefghijklmnopqrstuvwxyz012345");
  *
+ *
+ *     // quickly use some functions
+ *     if(API.LoginNow(true, "<UserName>", "<UserToken>") == GJ_OK)
+ *     {
+ *         API.InterTrophy()->GetTrophy(1234)->AchieveCall();
+ *         API.InterScore()->GetScoreTable(0)->AddScoreCall("123 Points", 123, "<ExtraData>", "<GuestNameOrEmptyString>");
+ *     }
+ *
+ *
+ *     // main loop
  *     while(true)
  *     {
  *         // update the API-object !

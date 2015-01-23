@@ -139,7 +139,7 @@ public:
     {
         // check for succesfull login
         if(iStatus != GJ_OK) std::cout << "[Login] Login failed" << std::endl;
-                        else std::cout << "[Login] Login succesfull" << std::endl;
+                        else std::cout << "[Login] Login successful" << std::endl;
 
         gjAPI* pAPI = ((gjAPI*)pData);
 
@@ -175,15 +175,24 @@ int main()
     gjAPI API;
     API.Init(15490, "0dbe90d7e46fbcaed459d434e5f835da");
 
+    // simple examples
+    /*
+        if(API.LoginNow(true, "<UserName>", "<UserToken>"))
+        {
+            API.InterTrophy()->GetTrophy(1234)->AchieveCall();
+            API.InterScore()->GetScoreTable(0)->AddScoreCall("123 Points", 123, "<ExtraData>", "<GuestNameOrEmptyString>");
+        }
+    */
+
     // set trophy attributes
     const int iSort[] = {2542, 2545, 2546, 2543, 2547, 2544};
-    API.InterTrophy()->SetSort(iSort, sizeof(iSort)/sizeof(iSort[0]));
+    API.InterTrophy()->SetSort(iSort, ARRAY_SIZE(iSort));
 
     const int iSecret[] = {2546, 2547};
-    API.InterTrophy()->SetSecret(iSecret, sizeof(iSecret)/sizeof(iSecret[0]));
+    API.InterTrophy()->SetSecret(iSecret, ARRAY_SIZE(iSecret));
 
     const int iHidden[] = {3105};
-    API.InterTrophy()->SetHidden(iHidden, sizeof(iHidden)/sizeof(iHidden[0]));
+    API.InterTrophy()->SetHidden(iHidden, ARRAY_SIZE(iHidden));
 
     // login with user
     TestLogin testLoginObject;

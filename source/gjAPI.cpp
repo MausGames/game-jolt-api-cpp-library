@@ -767,7 +767,7 @@ gjAPI::~gjAPI()
 
 
 // ****************************************************************
-/* explicitely initialize the object */
+/* explicitly initialize the object */
 void gjAPI::Init(const int& iGameID, const std::string& sGamePrivateKey)
 {
     // save game data
