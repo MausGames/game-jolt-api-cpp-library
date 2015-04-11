@@ -85,8 +85,8 @@
     #define _GJ_GCC_   (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
 #endif
 #if defined(__MINGW32__)
-    #include <_mingw.h>
-    #define _GJ_MINGW_ (__MINGW_MAJOR_VERSION*10000 + __MINGW_MINOR_VERSION*100 + __MINGW_PATCHLEVEL*1)
+    #define _CORE_MINGW_ (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
+    #undef  _CORE_GCC_
 #endif
 #if defined(__clang__)
     #define _GJ_CLANG_ (__clang_major__*10000 + __clang_minor__*100 + __clang_patchlevel__*1)
@@ -136,6 +136,22 @@
     #endif
 #endif
 
+// base libraries
+// #define _HAS_EXCEPTIONS (0)
+#define _CRT_SECURE_NO_WARNINGS
+#define _ALLOW_KEYWORD_MACROS
+
+#if !defined(_GJ_WINDOWS_)
+    #include <sys/stat.h>
+#endif
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <string>
+#include <map>
+#include <vector>
+
 /*! \param pOutputObj     output receiving object of **class T**
  *  \param OutputCallback callback function from **class T** with a specific return **type x**
  *  \param pOutputData    additional data which will be forwarded to the callback function
@@ -160,10 +176,14 @@
 #define SAFE_DELETE(p)          {if(p) {delete   (p); (p) = NULL;}}
 #define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p) = NULL;}}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : std::string(""))
-#define ARRAY_SIZE(a)           (sizeof(a) / sizeof((a)[0]))
 
 #define FOR_EACH(i,c)           for(auto i = (c).begin(),  i ## __e = (c).end();  i != i ## __e; ++i)
 #define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), i ## __e = (c).rend(); i != i ## __e; ++i)
+
+#if !defined(ARRAY_SIZE)
+    template <typename T, std::size_t iSize> char (&__ARRAY_SIZE(T (&)[iSize]))[iSize];
+    #define ARRAY_SIZE(a) (sizeof(__ARRAY_SIZE(a)))
+#endif
 
 #if !defined(DISABLE_COPY)
     #define DISABLE_COPY(c)                  \
@@ -171,27 +191,12 @@
         c& operator = (const c&)delete_func;
 #endif
 
-// #define _HAS_EXCEPTIONS (0)
-#define _CRT_SECURE_NO_WARNINGS
-#define _ALLOW_KEYWORD_MACROS
-
-#if !defined(_GJ_WINDOWS_)
-    #include <sys/stat.h>
-#endif
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <ctime>
-#include <string>
-#include <map>
-#include <vector>
+#undef GetUserName
 
 #include "MD5.h"
 #include "Base64.h"
 #include "gjLookup.h"
 #include "curl/curl.h"
-
-#undef GetUserName
 
 class gjAPI;
 class gjUser;
@@ -807,7 +812,7 @@ private:
     //! @}
 
     /*! \name Superior Request Functions */
-    //! @{ 
+    //! @{
     template <typename T> int __Login(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, const bool& bNow, GJ_NETWORK_OUTPUT(int));
     template <typename T> int __Login(const bool& bSession, const std::string& sCredPath, const bool& bNow, GJ_NETWORK_OUTPUT(int));
     //! @}
@@ -1037,7 +1042,7 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
     if(this->IsUserConnected()) return GJ_INVALID_CALL;
 
     // check for missing credentials
-    if(sUserName == "" || sUserToken == "") 
+    if(sUserName == "" || sUserToken == "")
     {
         if(!bNow) (pOutputObj->*OutputCallback)(GJ_INVALID_INPUT, pOutputData);
         return GJ_INVALID_INPUT;
@@ -1048,7 +1053,7 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
     m_sUserToken     = sUserToken;
     m_sProcUserName  = gjAPI::UtilEscapeString(m_sUserName);
     m_sProcUserToken = gjAPI::UtilEscapeString(m_sUserToken);
-    
+
     // convert session parameter
     void* pSession = (void*)long(bSession ? 1 : 0);
 

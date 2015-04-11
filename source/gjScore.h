@@ -310,7 +310,7 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
 
     // use user data or guest name
     const std::string sUserData = bGuest ?
-                                  "&guest="      + gjAPI::UtilEscapeString(sGuestName) : 
+                                  "&guest="      + gjAPI::UtilEscapeString(sGuestName) :
                                   "&username="   + m_pAPI->GetProcUserName()           +
                                   "&user_token=" + m_pAPI->GetProcUserToken();
 

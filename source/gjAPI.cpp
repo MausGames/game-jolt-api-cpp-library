@@ -1007,7 +1007,7 @@ void gjAPI::UtilCreateFolder(const std::string& sFolder)
 
         // create subfolder
 #if defined(_GJ_WINDOWS_)
-        CreateDirectory(sSubFolder.c_str(), NULL);
+        CreateDirectoryA(sSubFolder.c_str(), NULL);
 #else
         mkdir(sSubFolder.c_str(), S_IRWXU);
 #endif

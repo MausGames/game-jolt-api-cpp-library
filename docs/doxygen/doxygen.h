@@ -303,7 +303,7 @@
  * Also some of the data is prefetched when creating the API-object or when logging in.
  *
  * <b>Cached are:</b> all users, all trophies, all score tables, user score entries, user data store items, downloaded files\n
- * <b>Not cached are:</b> all score entries, global data store items
+ * <b>Not cached are:</b> non-user score entries, global data store items
  *
  * <b>Prefetched on creation are:</b> all score tables\n
  * <b>Prefetched on login are:</b> main user, all trophies, user data store items (only keys)\n
@@ -350,8 +350,8 @@
  * void Function(gjAPI& API)
  * {
  *     // send binary data to a global data store item now (blocks)
- *     float afData_1[10] = {0,1,2,3,4,5,6,7,8,9};
- *     API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataBase64Now(afData_1, sizeof(afData_1));
+ *     int aiData_1[10] = {0,1,2,3,4,5,6,7,8,9};
+ *     API.InterDataStoreGlobal()->GetDataItem("DataItemKey_1")->SetDataBase64Now(aiData_1, sizeof(aiData_1));
  *
  *
  *     // fetch the first user score entry of a score table (may block if first score entry is not cached)
@@ -361,8 +361,8 @@
  *         gjScore* pScore = apScoreList[0];
  *
  *         // get binary extra data of this score entry (does not block, only getter)
- *         float afData_2[10];
- *         pScore->GetExtraDataBase64(afData_2, sizeof(afData_2));
+ *         int aiData_2[10];
+ *         pScore->GetExtraDataBase64(aiData_2, sizeof(aiData_2));
  *     }
  * }
  * \endcode
