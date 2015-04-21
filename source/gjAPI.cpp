@@ -383,11 +383,11 @@ int gjAPI::gjInterTrophy::__Process(const std::string& sData, void* pAdd, gjTrop
     }
 
     // apply attributes
-    this->SetSort(NULL, 0);
+    this->SetSort  (NULL, 0);
     this->SetSecret(NULL, 0);
     this->SetHidden(NULL, 0);
 
-    return (this->__CheckCache((long)pAdd, papOutput) == GJ_OK) ? GJ_OK : GJ_NO_DATA_FOUND;
+    return (this->__CheckCache(P_TO_I(pAdd), papOutput) == GJ_OK) ? GJ_OK : GJ_NO_DATA_FOUND;
 }
 
 

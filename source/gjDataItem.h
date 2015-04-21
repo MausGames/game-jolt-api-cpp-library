@@ -265,9 +265,9 @@ template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_
                            "?game_id=" + m_pAPI->GetProcGameID()         +
                            "&key="     + gjAPI::UtilEscapeString(m_sKey) +
                            "&format="  + "dump"                          +
-                           sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__GetDataBase64Callback, (void*)iSize, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
+                           sUserData, bNow ? &sResponse : NULL, this, &gjDataItem::__GetDataBase64Callback, I_TO_P(iSize), GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
-    if(bNow) return this->__GetDataBase64Callback(sResponse, (void*)iSize, NULL);
+    if(bNow) return this->__GetDataBase64Callback(sResponse, I_TO_P(iSize), NULL);
     return GJ_OK;
 }
 

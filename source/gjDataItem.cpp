@@ -77,7 +77,7 @@ int gjDataItem::__GetDataBase64Callback(const std::string& sData, void* pAdd, gj
     if(iError) return iError;
 
     // convert Base64 string to binary data
-    base64_decode(sReturn.c_str(), (unsigned char*)m_pTarget, (long)pAdd);
+    base64_decode(sReturn.c_str(), (unsigned char*)m_pTarget, P_TO_I(pAdd));
 
     if(ppOutput) (*ppOutput) = (void*)m_pTarget;
     return GJ_OK;

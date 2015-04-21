@@ -146,6 +146,7 @@
 #endif
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 #include <ctime>
 #include <string>
@@ -189,6 +190,11 @@
     #define DISABLE_COPY(c)                  \
         c             (const c&)delete_func; \
         c& operator = (const c&)delete_func;
+#endif
+
+#if !defined(P_TO_I)
+    #define P_TO_I(x) ((std::intptr_t)(void*)(x))   //!< pointer to int
+    #define I_TO_P(x) ((void*)(std::intptr_t)(x))   //!< int to pointer
 #endif
 
 #undef GetUserName
@@ -920,9 +926,9 @@ template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long& iAch
                                "?game_id="    + m_pAPI->GetProcGameID()   +
                                "&username="   + m_pAPI->GetProcUserName() +
                                "&user_token=" + m_pAPI->GetProcUserToken(),
-                               bNow ? &sResponse : NULL, this, &gjAPI::gjInterTrophy::__Process, (void*)iAchieved, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
+                               bNow ? &sResponse : NULL, this, &gjAPI::gjInterTrophy::__Process, I_TO_P(iAchieved), GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
 
-    if(bNow) return this->__Process(sResponse, (void*)iAchieved, papOutput);
+    if(bNow) return this->__Process(sResponse, I_TO_P(iAchieved), papOutput);
     return GJ_OK;
 }
 
@@ -1055,7 +1061,7 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
     m_sProcUserToken = gjAPI::UtilEscapeString(m_sUserToken);
 
     // convert session parameter
-    void* pSession = (void*)long(bSession ? 1 : 0);
+    void* pSession = I_TO_P(bSession ? 1 : 0);
 
     // authenticate user
     std::string sResponse;
