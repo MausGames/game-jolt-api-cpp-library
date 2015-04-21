@@ -193,8 +193,8 @@
 #endif
 
 #if !defined(P_TO_I)
-    #define P_TO_I(x) ((std::intptr_t)(void*)(x))   //!< pointer to int
-    #define I_TO_P(x) ((void*)(std::intptr_t)(x))   //!< int to pointer
+    #define P_TO_I(x) ((int)(std::intptr_t)(void*)(x))   //!< pointer to int
+    #define I_TO_P(x) ((void*)(std::intptr_t)(int)(x))   //!< int to pointer
 #endif
 
 #undef GetUserName
