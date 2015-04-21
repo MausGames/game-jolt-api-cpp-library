@@ -182,7 +182,7 @@
 #define FOR_EACH_REV(i,c)       for(auto i = (c).rbegin(), i ## __e = (c).rend(); i != i ## __e; ++i)
 
 #if !defined(ARRAY_SIZE)
-    template <typename T, std::size_t iSize> char (&__ARRAY_SIZE(T (&)[iSize]))[iSize];
+    template <typename T, size_t iSize> char (&__ARRAY_SIZE(T (&)[iSize]))[iSize];
     #define ARRAY_SIZE(a) (sizeof(__ARRAY_SIZE(a)))
 #endif
 
@@ -389,8 +389,8 @@ private:
          *          **GJ_NOT_CONNECTED** if connection/login is missing\n
          *          **GJ_NO_DATA_FOUND** if no trophies were found\n
          *          (see #GJ_ERROR) */
-                              inline int FetchTrophiesNow(const long& iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
-        template <typename T> inline int FetchTrophiesCall(const long& iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
+                              inline int FetchTrophiesNow(const int& iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
+        template <typename T> inline int FetchTrophiesCall(const int& iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
         /*! \name Clear Cache */
@@ -415,7 +415,7 @@ private:
     private:
         /*! \name Superior Request Functions */
         //! @{
-        template <typename T> int __FetchTrophies(const long& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));
+        template <typename T> int __FetchTrophies(const int& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));
         //! @}
 
         /*! \name Management Functions */
@@ -891,7 +891,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const std::string& sNa
 
 // ****************************************************************
 /* fetch and cache all trophies */
-template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const long& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList))
+template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const int& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList))
 {
     if(!m_pAPI->IsUserConnected() && m_iCache == 0) return GJ_NOT_CONNECTED;
 
