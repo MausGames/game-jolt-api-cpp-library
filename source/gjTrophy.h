@@ -101,8 +101,8 @@ public:
 
     /*! \name Check Status */
     //! @{
-    inline       bool  IsAchieved()const {return m_sAchievedDate.empty() ? false : true;}
-    inline const bool& IsSecret()const   {return m_bSecret;}   //!< \copybrief m_bSecret
+    inline       bool  IsAchieved()const {return m_sAchievedDate.empty() ? false : true;}   //!< -
+    inline const bool& IsSecret()const   {return m_bSecret;}                                //!< \copybrief m_bSecret
     //! @}
 
 

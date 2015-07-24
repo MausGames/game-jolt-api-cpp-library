@@ -4,7 +4,8 @@
  *
  * 1. \link introduction Introduction \endlink\n
  * 1.1. \link introduction_setup Setup \endlink\n
- * 1.2. \link introduction_update Update Notes \endlink\n
+ * 1.2. \link introduction_listing File Listing \endlink\n
+ * 1.3. \link introduction_update Update Notes \endlink\n
  * 2. \link features Features \endlink\n
  * 2.1. \link features_access Game Jolt API Access \endlink\n
  * <ul>
@@ -49,7 +50,27 @@
  * and link with the cURL library (libraries folder, incl. include). Alternatively you can include the gjInline.h file.\n
  * <b>Supported compilers:</b> GCC/MinGW 4.7+, MSVC 10.0+, Clang 3.3+
  *
- * \subsection introduction_update   1.2. Update Notes
+ * \subsection introduction_listing   1.2. File Listing
+ *
+ * - /<b>docs</b>/                    - documentation files (doxygen)
+ *
+ * - /<b>examples</b>/
+ *   - /examples/<b>android</b>/      - required configuration properties for Android development
+ *   - /examples/<b>cmake</b>/        - very basic CMake example <b>showing all relevant paths in a clean way</b> (Windows x86, Linux x64)
+ *   - /examples/<b>codeblocks</b>/   - simple Code::Blocks example project (Windows x86, Linux x64)
+ *   - /examples/<b>netbeans</b>/     - simple NetBeans example project (Windows x86, Linux x64)
+ *   - /examples/<b>visualstudio</b>/ - simple Visual Studio 2010+ example project (Windows x86, Linux x64)
+ *   - /examples/<b>libcurl.dll</b>   - pre-compiled cURL library for <b>Windows x86</b> (x64 version available in <b>/libraries/bin/windows/x64/</b>)
+ *   - /examples/<b>main.cpp</b>      - example source file
+ *
+ * - /<b>libraries</b>/
+ *   - /libraries/<b>bin</b>/         - pre-compiled cURL libraries (Windows x86/x64 incl. DLLs, Linux x64 incl. TAR-archive, Android)
+ *   - /libraries/<b>include</b>/     - cURL include files
+ *   - /libraries/<b>licenses</b>/    - license folder
+ *
+ * - /<b>source</b>/                  - all Game Jolt library source and header files
+ *
+ * \subsection introduction_update   1.3. Update Notes
  *
  * Current Update Notes are available <a href="update_notes.html" >here</a>.
  *
