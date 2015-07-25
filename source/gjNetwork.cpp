@@ -7,6 +7,7 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
+#include "gjCodeBefore.h"
 
 
 // ****************************************************************
@@ -56,7 +57,7 @@ bool gjNetwork::Update()
 
     // manage active cURL sessions
     CURLMsg* pMsg;
-    while((pMsg = curl_multi_info_read(m_pMultiHandle, &m_iNumSessions)))
+    while((pMsg = curl_multi_info_read(m_pMultiHandle, &m_iNumSessions)) != NULL)
     {
         // cURL session finished
         if(pMsg->msg == CURLMSG_DONE)

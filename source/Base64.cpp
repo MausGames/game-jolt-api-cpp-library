@@ -176,7 +176,7 @@ size_t base64_decode(const char *source, unsigned char *target, size_t targetlen
     /* concatenate '===' to the source to handle unpadded base64 data */
     src = (char *)malloc(strlen(source)+5);
     if (src == NULL)
-        return -1;
+        return size_t(-1);
     strcpy(src, source);
     strcat(src, "====");
     tmpptr = src;
@@ -201,7 +201,7 @@ size_t base64_decode(const char *source, unsigned char *target, size_t targetlen
         if (targetlen < tmplen)
         {
             free(src);
-            return -1;
+            return size_t(-1);
         }
 
         /* put the partial result in the result buffer */

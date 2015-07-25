@@ -58,7 +58,7 @@ private:
         template <typename Ds> struct sOutput
         {
             virtual ~sOutput() {}
-            
+
             /*! \name Execute Output Callback */
             //! @{
             virtual void Execute(const Ds& pProcessedOutput) = 0;
@@ -219,7 +219,7 @@ private:
 // ****************************************************************
 /*! Writing Callbacks */
 size_t write_to_string(char* ptr, size_t size, size_t count, std::string* stream);
-size_t write_to_file(void* ptr, size_t size, size_t count, FILE* stream);
+size_t write_to_file  (void* ptr, size_t size, size_t count, FILE*        stream);
 
 
 // template implementation can be found in gjNetwork.hpp

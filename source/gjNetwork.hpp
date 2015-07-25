@@ -29,9 +29,9 @@ template <typename P, typename D> gjNetwork::gjCallTemplate<P,D>::gjCallTemplate
 template <typename P, typename D> gjNetwork::gjCallTemplate<P,D>::~gjCallTemplate()
 {
     // delete all output structs
-    FOR_EACH(it, m_apOutput) 
-        SAFE_DELETE(*it) 
-        
+    FOR_EACH(it, m_apOutput)
+        SAFE_DELETE(*it)
+
     // clear memory
     m_apOutput.clear();
 }
@@ -62,8 +62,8 @@ template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(con
 
 #if defined(_GJ_DEBUG_)
 
-            // show current activity
-            gjAPI::ErrorLogAdd("SendRequest.Finish: <" + this->m_sInfo + ">\n(\n" + *m_psResponse +")");
+        // show current activity
+        gjAPI::ErrorLogAdd("SendRequest.Finish: <" + this->m_sInfo + ">\n(\n" + *m_psResponse +")");
 
 #endif
         // process the response string
@@ -96,8 +96,8 @@ template <typename P, typename D> void gjNetwork::gjCallDownload<P,D>::Finish(co
 
 #if defined(_GJ_DEBUG_)
 
-            // show current activity
-            gjAPI::ErrorLogAdd("DownloadFile.Finish: <" + this->m_sInfo + ">");
+        // show current activity
+        gjAPI::ErrorLogAdd("DownloadFile.Finish: <" + this->m_sInfo + ">");
 
 #endif
         // process the response string
@@ -179,7 +179,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
         }
 
         // add MD5 signature
-        sRequest += "&signature=" + md5(sRequest + m_pAPI->GetGamePrivateKey());
+        if(!bHttp) sRequest += "&signature=" + md5(sRequest + m_pAPI->GetGamePrivateKey());
 
 #if defined(_GJ_DEBUG_)
 
@@ -194,6 +194,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
         curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT,  GJ_API_TIMEOUT_CONNECTION);
         curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_NET_COMPRESSION);
         curl_easy_setopt(pSession, CURLOPT_TCP_KEEPALIVE,   GJ_API_NET_KEEPALIVE ? 1 : 0);
+        curl_easy_setopt(pSession, CURLOPT_USERAGENT,       GJ_API_NET_AGENT);
 
         if(bNow)
         {
@@ -277,6 +278,7 @@ template <typename T, typename P, typename D> int gjNetwork::DownloadFile(const 
             curl_easy_setopt(pSession, CURLOPT_CONNECTTIMEOUT,  GJ_API_TIMEOUT_CONNECTION);
             curl_easy_setopt(pSession, CURLOPT_ACCEPT_ENCODING, GJ_API_NET_COMPRESSION);
             curl_easy_setopt(pSession, CURLOPT_TCP_KEEPALIVE,   GJ_API_NET_KEEPALIVE ? 1 : 0);
+            curl_easy_setopt(pSession, CURLOPT_USERAGENT,       GJ_API_NET_AGENT);
 
             if(bNow)
             {

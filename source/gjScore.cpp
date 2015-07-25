@@ -7,6 +7,7 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
+#include "gjCodeBefore.h"
 
 #include <algorithm>
 gjScoreTable* gjScoreTable::s_pPrimary = NULL;
@@ -111,9 +112,9 @@ int gjScoreTable::__Process(const std::string& sData, void* pAdd, gjScoreList* p
         }
 
         // check if specific score entry is already available
-        FOR_EACH(it, m_apScore)
+        FOR_EACH(et, m_apScore)
         {
-            gjScore* pOldScore = (*it);
+            gjScore* pOldScore = (*et);
 
             if(pOldScore->GetUserName() == pNewScore->GetUserName() &&
                pOldScore->GetSort()     == pNewScore->GetSort())

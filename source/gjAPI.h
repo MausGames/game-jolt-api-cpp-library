@@ -69,6 +69,7 @@
 #define GJ_API_TIMEOUT_REQUEST     10
 #define GJ_API_NET_COMPRESSION     "" // empty for all available compressions (identity, deflate, gzip)
 #define GJ_API_NET_KEEPALIVE       true
+#define GJ_API_NET_AGENT           "Game Jolt API Cpp Library/1.0"
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
@@ -111,6 +112,23 @@
     #define _GJ_DEBUG_ (1)
 #endif
 
+// base libraries
+// #define _HAS_EXCEPTIONS (0)
+#define _CRT_SECURE_NO_WARNINGS
+#define _ALLOW_KEYWORD_MACROS
+
+#if !defined(_GJ_WINDOWS_)
+    #include <sys/stat.h>
+#endif
+#include <cstdio>
+#include <cstdlib>
+#include <cstdint>
+#include <cstring>
+#include <ctime>
+#include <string>
+#include <map>
+#include <vector>
+
 // missing functionality
 #if defined(_GJ_MSVC_)
     #if (_GJ_MSVC_) < 1800
@@ -136,22 +154,8 @@
     #endif
 #endif
 
-// base libraries
-// #define _HAS_EXCEPTIONS (0)
-#define _CRT_SECURE_NO_WARNINGS
-#define _ALLOW_KEYWORD_MACROS
-
-#if !defined(_GJ_WINDOWS_)
-    #include <sys/stat.h>
-#endif
-#include <cstdio>
-#include <cstdlib>
-#include <cstdint>
-#include <cstring>
-#include <ctime>
-#include <string>
-#include <map>
-#include <vector>
+#undef  NULL
+#define NULL nullptr
 
 /*! \param pOutputObj     output receiving object of **class T**
  *  \param OutputCallback callback function from **class T** with a specific return **type x**
@@ -165,8 +169,8 @@
  *      API.InterUser()->FetchUserCall("CROS", &myObj, &myClass::ReceiveUser, NULL);
  *  }
  *  \endcode */
-#define GJ_NETWORK_OUTPUT(x)    T* pOutputObj,  void (T::*OutputCallback)(const x&, void*),               void* pOutputData
-#define GJ_NETWORK_PROCESS      P* pProcessObj, int (P::*ProcessCallback)(const std::string&, void*, D*), void* pProcessData
+#define GJ_NETWORK_OUTPUT(x)    T* pOutputObj,  void (T::*OutputCallback) (const x&, void*),               void* pOutputData
+#define GJ_NETWORK_PROCESS      P* pProcessObj, int  (P::*ProcessCallback)(const std::string&, void*, D*), void* pProcessData
 
 #define GJ_NETWORK_OUTPUT_FW    pOutputObj,  OutputCallback,  pOutputData
 #define GJ_NETWORK_PROCESS_FW   pProcessObj, ProcessCallback, pProcessData
@@ -250,6 +254,7 @@ enum GJ_TROPHY_TYPE : int
     GJ_TROPHY_NOT_ACHIEVED = -1    //!< only unachieved trophies
 };
 
+#include "gjCodeBefore.h"
 #include "gjNetwork.h"   // other header files are post-included
 
 
@@ -726,8 +731,8 @@ public:
      *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
      *          **GJ_NETWORK_ERROR** if session cannot be established\n
      *          (see #GJ_ERROR) */
-                                                  inline int SendRequestNow(const std::string& sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string));}
-    template <typename T,             typename D> inline int SendRequestCall(const std::string& sURL, GJ_NETWORK_OUTPUT(D))                                        {return m_pNetwork->SendRequest(sURL, NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_OUTPUT_FW);}
+                                                  inline int SendRequestNow(const std::string& sURL, std::string* psOutput)                                        {return m_pNetwork->SendRequest(sURL, psOutput, this, &gjAPI::Null, (void*)NULL, GJ_NETWORK_NULL_THIS(std::string));}
+    template <typename T,             typename D> inline int SendRequestCall(const std::string& sURL, GJ_NETWORK_OUTPUT(D))                                        {return m_pNetwork->SendRequest(sURL, NULL, this, &gjAPI::Null, (void*)NULL, GJ_NETWORK_OUTPUT_FW);}
     template <typename T, typename P, typename D> inline int SendRequestCall(const std::string& sURL, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D))                    {return m_pNetwork->SendRequest(sURL, NULL, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     template <typename T, typename P, typename D> inline int SendRequest(const std::string& sURL, std::string* psOutput, GJ_NETWORK_PROCESS, GJ_NETWORK_OUTPUT(D)) {return m_pNetwork->SendRequest(sURL, psOutput, GJ_NETWORK_PROCESS_FW, GJ_NETWORK_OUTPUT_FW);}
     //! @}
@@ -1031,7 +1036,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
     }
 
     // create folder
-    gjAPI::UtilCreateFolder(sToFolder);
+    gjAPI::UtilCreateFolder(sToFolder + "/");
 
     // download file
     if(m_pNetwork->DownloadFile(sURL, sToFile, psOutput, this, &gjAPI::gjInterFile::__Process, NULL, GJ_NETWORK_OUTPUT_FW)) return GJ_REQUEST_FAILED;
@@ -1107,6 +1112,7 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
 #include "gjTrophy.h"
 #include "gjScore.h"
 #include "gjDataItem.h"
+#include "gjCodeAfter.h"
 
 
 #endif /* _GJ_GUARD_API_H_ */

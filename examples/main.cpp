@@ -144,7 +144,7 @@ public:
         gjAPI* pAPI = ((gjAPI*)pData);
 
         // fetch IP
-        pAPI->SendRequestCall("http://www.curlmyip.com/", this, &TestLogin::GetIP, NULL);
+        pAPI->SendRequestCall("http://ipecho.net/plain", this, &TestLogin::GetIP, NULL);
 
         // test trophies
         pAPI->InterTrophy()->FetchTrophiesCall(0, &testTrophyObject, &TestTrophy::InitTrophies, NULL);

@@ -7,6 +7,7 @@
 //*-------------------------------------------------------------*//
 ///////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
+#include "gjCodeBefore.h"
 
 #include <sstream>
 #include <iostream>
@@ -1083,7 +1084,7 @@ int gjAPI::__OpenSession()
                                "?game_id="    + m_sProcGameID   +
                                "&username="   + m_sProcUserName +
                                "&user_token=" + m_sProcUserToken,
-                               NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
+                               NULL, this, &gjAPI::Null, (void*)NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
 
     // init session attributes
     m_iNextPing = std::time(NULL) + GJ_API_PING_TIME;
@@ -1108,7 +1109,7 @@ int gjAPI::__PingSession(const bool& bActive)
                                "&username="   + m_sProcUserName  +
                                "&user_token=" + m_sProcUserToken +
                                "&status="     + sActive,
-                               NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
+                               NULL, this, &gjAPI::Null, (void*)NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
 
     return GJ_OK;
 }
@@ -1125,7 +1126,7 @@ int gjAPI::__CloseSession()
                                "?game_id="    + m_sProcGameID   +
                                "&username="   + m_sProcUserName +
                                "&user_token=" + m_sProcUserToken,
-                               NULL, this, &gjAPI::Null, NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
+                               NULL, this, &gjAPI::Null, (void*)NULL, GJ_NETWORK_NULL_THIS(std::string))) return GJ_REQUEST_FAILED;
 
     // clear session attributes
     m_iNextPing = 0;
