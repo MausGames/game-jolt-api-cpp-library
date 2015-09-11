@@ -86,8 +86,8 @@
     #define _GJ_GCC_   (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
 #endif
 #if defined(__MINGW32__)
-    #define _CORE_MINGW_ (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
-    #undef  _CORE_GCC_
+    #define _GJ_MINGW_ (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
+    #undef  _GJ_GCC_
 #endif
 #if defined(__clang__)
     #define _GJ_CLANG_ (__clang_major__*10000 + __clang_minor__*100 + __clang_patchlevel__*1)
