@@ -178,8 +178,8 @@
 #define GJ_NETWORK_NULL_THIS(d) this,   &gjAPI::Null<d>, NULL
 #define GJ_NETWORK_NULL_API(d)  m_pAPI, &gjAPI::Null<d>, NULL
 
-#define SAFE_DELETE(p)          {if(p) {delete   (p); (p) = NULL;}}
-#define SAFE_DELETE_ARRAY(p)    {if(p) {delete[] (p); (p) = NULL;}}
+#define SAFE_DELETE(p)          {delete   (p); (p) = NULL;}
+#define SAFE_DELETE_ARRAY(p)    {delete[] (p); (p) = NULL;}
 #define SAFE_MAP_GET(o,s)       ((o).count(s) ? (o).at(s) : std::string(""))
 
 #define FOR_EACH(i,c)           for(auto i = (c).begin(),  i ## __e = (c).end();  i != i ## __e; ++i)
@@ -685,7 +685,7 @@ public:
      *  \param  sUserToken Token for that user
      *  \param  sCredPath  Relative path to the credentials file of the quick play function
      *  \return **GJ_OK** on success\n
-     *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
+     *          **GJ_REQUEST_FAILED** if request was unsuccessful (e.g. credentials not valid)\n
      *          **GJ_INVALID_CALL** if already connected\n
      *          **GJ_INVALID_INPUT** if user name or user token is missing\n
      *          **GJ_FILE_ERROR** if credentials file was not found\n
