@@ -12,7 +12,7 @@
 
 typedef unsigned int gjUint;
 #ifndef ASSERT
-    #define ASSERT(x) 
+    #define ASSERT(x)
 #endif
 
 

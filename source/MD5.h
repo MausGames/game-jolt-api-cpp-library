@@ -37,6 +37,7 @@ documentation and/or software.
 
 // #define _HAS_EXCEPTIONS (0)
 #define _CRT_SECURE_NO_WARNINGS
+#define _ALLOW_RTCc_IN_STL
 
 #include <cstring>
 #include <string>

@@ -4,9 +4,13 @@ docs/index.html
 docs/html/
 examples/visualstudio/GameJoltAPI/Debug/
 examples/visualstudio/GameJoltAPI/Release/
-examples/visualstudio/GameJoltAPI.opensdf
-examples/visualstudio/GameJoltAPI.sdf
-examples/visualstudio/GameJoltAPI.suo
+projects/visualstudio/GameJoltAPI/x64/
+examples/visualstudio/*.VC.opendb
+examples/visualstudio/*.VC.db
+examples/visualstudio/*.opensdf
+examples/visualstudio/*.sdf
+examples/visualstudio/*.suo
+projects/visualstudio/.vs/
 examples/visualstudio/ipch/
 examples/visualstudio/Debug/
 examples/visualstudio/Release/

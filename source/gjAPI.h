@@ -116,6 +116,7 @@
 // #define _HAS_EXCEPTIONS (0)
 #define _CRT_SECURE_NO_WARNINGS
 #define _ALLOW_KEYWORD_MACROS
+#define _ALLOW_RTCc_IN_STL
 
 #if !defined(_GJ_WINDOWS_)
     #include <sys/stat.h>
@@ -128,31 +129,6 @@
 #include <string>
 #include <map>
 #include <vector>
-
-// missing functionality
-#if defined(_GJ_MSVC_)
-    #if (_GJ_MSVC_) < 1800
-        #define delete_func
-    #else
-        #define delete_func = delete
-    #endif
-    #if (_GJ_MSVC_) < 1700
-        #define final
-    #endif
-    #define noexcept       throw()
-    #define constexpr_func inline
-    #define constexpr_var  const
-#else
-    #define delete_func    = delete
-    #define constexpr_func constexpr
-    #define constexpr_var  constexpr
-#endif
-#if defined(_GJ_GCC_)
-    #if (_GJ_GCC_) < 40700
-        #define override
-        #define final
-    #endif
-#endif
 
 #undef  NULL
 #define NULL nullptr
@@ -189,23 +165,22 @@
     template <typename T, size_t iSize> char (&__ARRAY_SIZE(T (&)[iSize]))[iSize];
     #define ARRAY_SIZE(a) (sizeof(__ARRAY_SIZE(a)))
 #endif
-
 #if !defined(DISABLE_COPY)
-    #define DISABLE_COPY(c)                  \
-        c             (const c&)delete_func; \
-        c& operator = (const c&)delete_func;
+    #define DISABLE_COPY(c) c(const c&)delete_func; c& operator = (const c&)delete_func;
 #endif
-
 #if !defined(P_TO_I)
-    #define P_TO_I(x) ((int)(std::intptr_t)(void*)(x))   //!< pointer to int
-    #define I_TO_P(x) ((void*)(std::intptr_t)(int)(x))   //!< int to pointer
+    #define P_TO_I(x) ((int)(std::intptr_t)(void*)(x))
+#endif
+#if !defined(I_TO_P)
+    #define I_TO_P(x) ((void*)(std::intptr_t)(int)(x))
 #endif
 
 #undef GetUserName
 
+#include "gjCodeBefore.h"
+#include "gjLookup.h"
 #include "MD5.h"
 #include "Base64.h"
-#include "gjLookup.h"
 #include "curl/curl.h"
 
 class gjAPI;
@@ -254,7 +229,6 @@ enum GJ_TROPHY_TYPE : int
     GJ_TROPHY_NOT_ACHIEVED = -1    //!< only unachieved trophies
 };
 
-#include "gjCodeBefore.h"
 #include "gjNetwork.h"   // other header files are post-included
 
 
