@@ -9,6 +9,8 @@
 #include "gjAPI.h"
 #include "gjCodeBefore.h"
 
+#include <algorithm>
+
 
 // ****************************************************************
 /* constructor */
@@ -80,8 +82,8 @@ bool gjNetwork::Update()
                     }
 
                     pCall->Finish(bOK);
+                    m_apCall.erase(std::find(m_apCall.begin(), m_apCall.end(), pCall));
                     SAFE_DELETE(pCall)
-                    m_apCall.erase(it);
                     break;
                 }
             }
@@ -138,8 +140,8 @@ void gjNetwork::__KillCall(gjCall* pCall)
 
             // delete callback object
             pCurCall->Finish(false);
+            m_apCall.erase(std::find(m_apCall.begin(), m_apCall.end(), pCall));
             SAFE_DELETE(pCurCall)
-            m_apCall.erase(it);
 
             // close cURL session
             curl_multi_remove_handle(m_pMultiHandle, pSession);

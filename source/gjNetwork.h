@@ -66,7 +66,7 @@ private:
         };
 
         /*! \brief Specific Output Structure */
-        template <typename T, typename Ds> struct sOutputSpecific : public sOutput<Ds>
+        template <typename T, typename Ds> struct sOutputSpecific final : public sOutput<Ds>
         {
             T* m_pOutputObj;                                 //!< object with output callback function
             void (T::*m_OutputCallback)(const Ds&, void*);   //!< callback function to receive the data object when finished
@@ -74,7 +74,7 @@ private:
 
             /*! \name Execute Output Callback */
             //! @{
-            void Execute(const Ds& pProcessedOutput)override {(m_pOutputObj->*(m_OutputCallback))(pProcessedOutput, m_pOutputData);}
+            void Execute(const Ds& pProcessedOutput)final {(m_pOutputObj->*(m_OutputCallback))(pProcessedOutput, m_pOutputData);}
             //! @}
         };
 
@@ -114,7 +114,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        void Finish(const bool& bOK)override;
+        void Finish(const bool& bOK)final;
         //! @}
     };
 
@@ -135,7 +135,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        void Finish(const bool& bOK)override;
+        void Finish(const bool& bOK)final;
         //! @}
     };
 

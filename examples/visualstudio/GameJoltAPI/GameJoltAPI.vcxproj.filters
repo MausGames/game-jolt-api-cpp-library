@@ -69,5 +69,11 @@
     <ClInclude Include="..\..\..\source\gjLookup.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\gjCodeAfter.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gjCodeBefore.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

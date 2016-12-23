@@ -96,7 +96,7 @@
  *     if(API.LoginNow(true, "UserName", "UserToken") == GJ_OK)
  *     {
  *         API.InterTrophy()->GetTrophy(1234)->AchieveCall();
- *         API.InterScore()->GetScoreTable(0)->AddScoreCall("123 Points", 123, "ExtraData", "GuestNameOrEmptyString");
+ *         API.InterScore()->GetScoreTable(0)->AddScoreCall("123 Points", 123, "ExtraData");
  *     }
  *
  *
@@ -215,7 +215,7 @@
  * void Function(gjAPI& API, myClass& myObj)
  * {
  *     // direct access a score table object and add guest score (may block if score table is not cached)
- *     API.InterScore()->GetScoreTable(567)->AddScoreCall("123 Points", 123, "", "GuestName");
+ *     API.InterScore()->GetScoreTable(567)->AddGuestScoreCall("123 Points", 123, "", "GuestName");
  *
  *
  *     // fetch all score tables now (may block if score tables are not cached)

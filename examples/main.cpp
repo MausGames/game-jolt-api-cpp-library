@@ -180,7 +180,7 @@ int main()
         if(API.LoginNow(true, "<UserName>", "<UserToken>"))
         {
             API.InterTrophy()->GetTrophy(1234)->AchieveCall();
-            API.InterScore()->GetScoreTable(0)->AddScoreCall("123 Points", 123, "<ExtraData>", "<GuestNameOrEmptyString>");
+            API.InterScore()->GetScoreTable(0)->AddScoreCall("123 Points", 123, "<ExtraData>");
         }
     */
 

@@ -62,7 +62,7 @@ int gjScoreTable::__CheckCache(const bool bOnlyUser, const int& iLimit, gjScoreL
 
     // fetch cached main user
     gjUserPtr pMainUser;
-    if(m_pAPI->InterUser()->CheckCache(m_pAPI->GetUserName(), &pMainUser) != GJ_OK) 
+    if(m_pAPI->InterUser()->CheckCache(m_pAPI->GetUserName(), &pMainUser) != GJ_OK)
         return GJ_REQUEST_CANCELED;
 
     if(papOutput)
