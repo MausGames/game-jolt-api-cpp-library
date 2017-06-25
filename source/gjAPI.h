@@ -65,8 +65,8 @@
 #define GJ_API_RESERVE_TROPHY      32
 #define GJ_API_RESERVE_SCORE       64
 #define GJ_API_RESERVE_FILE        32
-#define GJ_API_TIMEOUT_CONNECTION  3
-#define GJ_API_TIMEOUT_REQUEST     10
+#define GJ_API_TIMEOUT_CONNECTION  5
+#define GJ_API_TIMEOUT_REQUEST     15
 #define GJ_API_NET_COMPRESSION     "" // empty for all available compressions (identity, deflate, gzip)
 #define GJ_API_NET_KEEPALIVE       true
 #define GJ_API_NET_AGENT           "Game Jolt API Cpp Library/1.0"
@@ -736,6 +736,7 @@ public:
     //! @{
     static std::string UtilEscapeString(const std::string& sString);
     static void        UtilTrimString(std::string* psInput);
+    static bool        UtilCompStringsCaseInsensitive(const std::string& sFirst, const std::string& sSecond);
     static std::string UtilCharToHex(const char& cChar);
     static std::string UtilIntToString(const int& iInt);
     static void        UtilCreateFolder(const std::string& sFolder);

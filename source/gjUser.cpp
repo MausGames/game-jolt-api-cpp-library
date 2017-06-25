@@ -76,7 +76,7 @@ int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr
 
     // copy new user over old user
     gjUser NewUser(aaReturn[0], m_pAPI);
-    *this = NewUser;
+    (*this) = NewUser;
 
     if(pOutput) (*pOutput) = this;
     return GJ_OK;

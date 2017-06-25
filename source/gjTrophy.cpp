@@ -84,7 +84,7 @@ int gjTrophy::__UpdateDataCallback(const std::string& sData, void* pAdd, gjTroph
 
     // copy new trophy over old trophy
     gjTrophy NewTrophy(aaReturn[0], m_pAPI);
-    *this = NewTrophy;
+    (*this) = NewTrophy;
 
     m_iSort   = iSort;
     m_bSecret = bSecret;

@@ -10,6 +10,7 @@
 #include "gjCodeBefore.h"
 
 #include <algorithm>
+
 gjScoreTable* gjScoreTable::s_pPrimary = NULL;
 
 

@@ -14,6 +14,8 @@
         <itemPath>../../source/MD5.h</itemPath>
         <itemPath>../../source/gjAPI.cpp</itemPath>
         <itemPath>../../source/gjAPI.h</itemPath>
+        <itemPath>../../source/gjCodeAfter.h</itemPath>
+        <itemPath>../../source/gjCodeBefore.h</itemPath>
         <itemPath>../../source/gjDataItem.cpp</itemPath>
         <itemPath>../../source/gjDataItem.h</itemPath>
         <itemPath>../../source/gjLookup.h</itemPath>
@@ -86,6 +88,10 @@
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/gjCodeAfter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeBefore.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
@@ -153,6 +159,10 @@
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/gjCodeAfter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeBefore.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
@@ -219,6 +229,10 @@
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeAfter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeBefore.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -297,6 +311,10 @@
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/gjCodeAfter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeBefore.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
@@ -373,6 +391,10 @@
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../../source/gjCodeAfter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeBefore.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.h" ex="false" tool="3" flavor2="0">
@@ -447,6 +469,10 @@
       <item path="../../source/gjAPI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../../source/gjAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeAfter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../source/gjCodeBefore.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../source/gjDataItem.cpp" ex="false" tool="1" flavor2="0">
       </item>

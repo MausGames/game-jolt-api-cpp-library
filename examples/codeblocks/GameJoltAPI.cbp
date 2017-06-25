@@ -75,6 +75,8 @@
 		<Unit filename="../../source/MD5.h" />
 		<Unit filename="../../source/gjAPI.cpp" />
 		<Unit filename="../../source/gjAPI.h" />
+        <Unit filename="../../source/gjCodeAfter.h" />
+        <Unit filename="../../source/gjCodeBefore.h" />
 		<Unit filename="../../source/gjDataItem.cpp" />
 		<Unit filename="../../source/gjDataItem.h" />
 		<Unit filename="../../source/gjLookup.h" />

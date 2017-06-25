@@ -13,7 +13,7 @@
 #include <iostream>
 #include <algorithm>
 
-std::vector<std::string> gjAPI::s_asLog;
+std::vector<std::string> gjAPI::s_asLog = {};
 
 
 // ****************************************************************
@@ -122,7 +122,7 @@ int gjAPI::gjInterUser::__CheckCache(const std::string& sName, gjUserPtr* ppOutp
     // retrieve cached user
     FOR_EACH(it, m_apUser)
     {
-        if(it->second->GetName() == sName)
+        if(gjAPI::UtilCompStringsCaseInsensitive(it->second->GetName(), sName))
         {
             if(ppOutput) (*ppOutput) = it->second;
             return GJ_OK;
@@ -971,6 +971,23 @@ void gjAPI::UtilTrimString(std::string* psInput)
 
 
 // ****************************************************************
+/* compare two strings case-insensitive */
+bool gjAPI::UtilCompStringsCaseInsensitive(const std::string& sFirst, const std::string& sSecond)
+{
+    if(sFirst.length() != sSecond.length())
+        return false;
+
+    for(size_t i = 0u, ie = sFirst.length(); i < ie; ++i)
+    {
+        if(tolower(sFirst[i]) != tolower(sSecond[i]))
+            return false;
+    }
+
+    return true;
+}
+
+
+// ****************************************************************
 /* convert a character into his hexadecimal value */
 std::string gjAPI::UtilCharToHex(const char& cChar)
 {
@@ -1056,11 +1073,11 @@ void gjAPI::ErrorLogAdd(const std::string& sMsg)
     if(GJ_API_LOGFILE)
     {
         // add message to error log file
-        std::FILE* pFile = std::fopen(GJ_API_LOGFILE_NAME, "a");
+        static std::FILE* pFile = std::fopen(GJ_API_LOGFILE_NAME, "wt");   // automatically closed on process termination
         if(pFile)
         {
             std::fprintf(pFile, "%s\n", sTimeMsg.c_str());
-            std::fclose(pFile);
+            std::fflush(pFile);
         }
     }
 
