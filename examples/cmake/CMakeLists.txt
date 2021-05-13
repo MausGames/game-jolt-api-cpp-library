@@ -37,6 +37,6 @@ if(WIN32)
 else()
     target_link_libraries(
       GJ_API_example
-      "${CMAKE_CURRENT_SOURCE_DIR}/../../libraries/bin/linux/x64/libcurl.so"
+      -l:libcurl.so.4
     )
 endif()

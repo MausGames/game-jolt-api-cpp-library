@@ -1,46 +1,36 @@
-////////////////////////////////////////////////////////////////////////////////////////////
-//*--------------------------------------------------------------------------------------*//
-//|   ______    ______    __    __    ______          __    ______    __        ______   |//
-//|  /\  ___\  /\  __ \  /\ "-./  \  /\  ___\        /\ \  /\  __ \  /\ \      /\__  _\  |//
-//|  \ \ \__ \ \ \  __ \ \ \ \-./\ \ \ \  __\       _\_\ \ \ \ \/\ \ \ \ \____ \/_/\ \/  |//
-//|   \ \_____\ \ \_\ \_\ \ \_\ \ \_\ \ \_____\    /\_____\ \ \_____\ \ \_____\   \ \_\  |//
-//|    \/_____/  \/_/\/_/  \/_/  \/_/  \/_____/    \/_____/  \/_____/  \/_____/    \/_/  |//
-//|                                                                                      |//
-//*--------------------------------------------------------------------------------------*//
-////////////////////////////////////////////////////////////////////////////////////////////
-//*--------------------------------------------------------------------------------------*//
-//| Game Jolt API C++ Library v1.0 (http://gamejolt.com)                                 |//
-//*--------------------------------------------------------------------------------------*//
-//| Special Thanks to:                                                                   |//
-//|                                                                                      |//
-//| David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell, Bruno Assarisse,   |//
-//| Jani "JNyknn" Nykänen, Jorge Martínez "Sasurai" Vargas                               |//
-//*--------------------------------------------------------------------------------------*//
-//| Copyright (c) 2013-2015 Martin Mauersics                                             |//
-//|                                                                                      |//
-//| This software is provided 'as-is', without any express or implied                    |//
-//| warranty. In no event will the authors be held liable for any damages                |//
-//| arising from the use of this software.                                               |//
-//|                                                                                      |//
-//| Permission is granted to anyone to use this software for any purpose,                |//
-//| including commercial applications, and to alter it and redistribute it               |//
-//| freely, subject to the following restrictions:                                       |//
-//|                                                                                      |//
-//|   1. The origin of this software must not be misrepresented; you must not            |//
-//|   claim that you wrote the original software. If you use this software               |//
-//|   in a product, an acknowledgment in the product documentation would be              |//
-//|   appreciated but is not required.                                                   |//
-//|                                                                                      |//
-//|   2. Altered source versions must be plainly marked as such, and must not be         |//
-//|   misrepresented as being the original software.                                     |//
-//|                                                                                      |//
-//|   3. This notice may not be removed or altered from any source                       |//
-//|   distribution.                                                                      |//
-//|                                                                                      |//
-//|   4. This software may only be used within the terms of Game Jolt.                   |//
-//|   (http://gamejolt.com/terms/)                                                       |//
-//*--------------------------------------------------------------------------------------*//
-////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+//*-------------------------------------------------------------------------*//
+//| Game Jolt API C++ Library v1.2.0 (https://gamejolt.com)                 |//
+//*-------------------------------------------------------------------------*//
+//| Special Thanks to:                                                      |//
+//|                                                                         |//
+//| David "CROS" DeCarmine, Joona "erakko" Melartin, Ashley Gwinnell,       |//
+//| Bruno Assarisse, Jani "JNyknn" Nykänen, Jorge Martínez "Sasurai" Vargas |//
+//*-------------------------------------------------------------------------*//
+//| This is free and unencumbered software released into the public domain. |//
+//|                                                                         |//
+//| Anyone is free to copy, modify, publish, use, compile, sell, or         |//
+//| distribute this software, either in source code form or as a compiled   |//
+//| binary, for any purpose, commercial or non-commercial, and by any       |//
+//| means.                                                                  |//
+//|                                                                         |//
+//| In jurisdictions that recognize copyright laws, the author or authors   |//
+//| of this software dedicate any and all copyright interest in the         |//
+//| software to the public domain. We make this dedication for the benefit  |//
+//| of the public at large and to the detriment of our heirs and            |//
+//| successors. We intend this dedication to be an overt act of             |//
+//| relinquishment in perpetuity of all present and future rights to this   |//
+//| software under copyright law.                                           |//
+//|                                                                         |//
+//| THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,         |//
+//| EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF      |//
+//| MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  |//
+//| IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR       |//
+//| OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,   |//
+//| ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR   |//
+//| OTHER DEALINGS IN THE SOFTWARE.                                         |//
+//*-------------------------------------------------------------------------*//
+///////////////////////////////////////////////////////////////////////////////
 //! \file
 #pragma once
 #ifndef _GJ_GUARD_API_H_
@@ -48,78 +38,59 @@
 
 
 /* --- configuration --- */
-#define GJ_API_URL                 "http://gamejolt.com/api/game/v1"
-#define GJ_API_AVATAR_DEFAULT      "http://gamejolt.com/img/no-avatar-1.png"
+#define GJ_API_URL                 "https://api.gamejolt.com/api/game/v1_2"
+#define GJ_API_AVATAR_DEFAULT      "https://gamejolt.com/img/no-avatar-1.png"
+#define GJ_API_TROPHY_DEFAULT_1    "https://gamejolt.com/img/trophy-bronze-1.jpg"
+#define GJ_API_TROPHY_DEFAULT_2    "https://gamejolt.com/img/trophy-silver-1.jpg"
+#define GJ_API_TROPHY_DEFAULT_3    "https://gamejolt.com/img/trophy-gold-1.jpg"
+#define GJ_API_TROPHY_DEFAULT_4    "https://gamejolt.com/img/trophy-platinum-1.jpg"
+#define GJ_API_TROPHY_SECRET_1     "https://gamejolt.com/img/trophy-secret-1.jpg"
+#define GJ_API_TROPHY_SECRET_2     GJ_API_TROPHY_SECRET_1
+#define GJ_API_TROPHY_SECRET_3     GJ_API_TROPHY_SECRET_1
+#define GJ_API_TROPHY_SECRET_4     GJ_API_TROPHY_SECRET_1
 #define GJ_API_AVATAR_FORMAT       ".png"
-#define GJ_API_TROPHY_DEFAULT_1    "http://gamejolt.com/img/trophy-bronze-1.jpg"
-#define GJ_API_TROPHY_DEFAULT_2    "http://gamejolt.com/img/trophy-silver-1.jpg"
-#define GJ_API_TROPHY_DEFAULT_3    "http://gamejolt.com/img/trophy-gold-1.jpg"
-#define GJ_API_TROPHY_DEFAULT_4    "http://gamejolt.com/img/trophy-platinum-1.jpg"
-#define GJ_API_TROPHY_SECRET       "http://gamejolt.com/img/trophy-secret-1.jpg"
 #define GJ_API_PING_TIME           30
 #define GJ_API_CRED                "gjapi-credentials.txt"
 #define GJ_API_TEXT_NOW            "now"
 #define GJ_API_TEXT_SECRET         "???"
-#define GJ_API_RESERVE_CALL        16
-#define GJ_API_RESERVE_CALL_OUTPUT 4
-#define GJ_API_RESERVE_TROPHY      32
-#define GJ_API_RESERVE_SCORE       64
-#define GJ_API_RESERVE_FILE        32
 #define GJ_API_TIMEOUT_CONNECTION  5
 #define GJ_API_TIMEOUT_REQUEST     15
 #define GJ_API_NET_COMPRESSION     "" // empty for all available compressions (identity, deflate, gzip)
 #define GJ_API_NET_KEEPALIVE       true
-#define GJ_API_NET_AGENT           "Game Jolt API Cpp Library/1.0"
+#define GJ_API_NET_AGENT           "Game Jolt API Cpp Library/1.2.0"
 #define GJ_API_LOGFILE             true
 #define GJ_API_LOGFILE_NAME        "gjapi_log.txt"
 #define GJ_API_PREFETCH            true
 #define GJ_API_OFFCACHE_TROPHY     false // does not work on Android
 #define GJ_API_OFFCACHE_NAME       "gjapi_cache.dat"
+#define GJ_API_RESERVE_CALL        16
+#define GJ_API_RESERVE_CALL_OUTPUT 4
+#define GJ_API_RESERVE_TROPHY      32
+#define GJ_API_RESERVE_SCORE       64
+#define GJ_API_RESERVE_FILE        32
 /* --- configuration --- */
 
+const char* const GJ_API_TROPHY_DEFAULT[] =
+{
+    GJ_API_TROPHY_DEFAULT_1,
+    GJ_API_TROPHY_DEFAULT_2,
+    GJ_API_TROPHY_DEFAULT_3,
+    GJ_API_TROPHY_DEFAULT_4, 0
+};
+const char* const GJ_API_TROPHY_SECRET[] =
+{
+    GJ_API_TROPHY_SECRET_1,
+    GJ_API_TROPHY_SECRET_2,
+    GJ_API_TROPHY_SECRET_3,
+    GJ_API_TROPHY_SECRET_4, 0
+};
 
-// compiler
-#if defined(_MSC_VER)
-    #define _GJ_MSVC_  (_MSC_VER)
-#endif
-#if defined(__GNUC__)
-    #define _GJ_GCC_   (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
-#endif
-#if defined(__MINGW32__)
-    #define _GJ_MINGW_ (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__*1)
-    #undef  _GJ_GCC_
-#endif
-#if defined(__clang__)
-    #define _GJ_CLANG_ (__clang_major__*10000 + __clang_minor__*100 + __clang_patchlevel__*1)
-#endif
-
-// operating system
-#if defined(_WIN32)
-    #define _GJ_WINDOWS_ (1)
-#endif
-#if defined(__linux__)
-    #define _GJ_LINUX_   (1)
-#endif
-#if defined(__APPLE__)
-    #define _GJ_OSX_     (1)
-#endif
-#if defined(__ANDROID__)
-    #define _GJ_ANDROID_ (1)
-#endif
-
-// debug mode
-#if defined(_DEBUG) || defined(DEBUG) || (defined(_GJ_GCC_) && !defined(__OPTIMIZE__))
-    #define _GJ_DEBUG_ (1)
-#endif
+#include "gjCodeBefore.h"
 
 // base libraries
-// #define _HAS_EXCEPTIONS (0)
-#define _CRT_SECURE_NO_WARNINGS
-#define _ALLOW_KEYWORD_MACROS
-#define _ALLOW_RTCc_IN_STL
-
 #if !defined(_GJ_WINDOWS_)
     #include <sys/stat.h>
+    #include <sys/time.h>
 #endif
 #include <cstdio>
 #include <cstdlib>
@@ -177,7 +148,6 @@
 
 #undef GetUserName
 
-#include "gjCodeBefore.h"
 #include "gjLookup.h"
 #include "MD5.h"
 #include "Base64.h"
@@ -235,14 +205,14 @@ enum GJ_TROPHY_TYPE : int
 // ****************************************************************
 /*! Main interface class of the library to connect with the Game Jolt API.\n
  *  Manages sessions, users, trophies, scores, data items and downloaded files.\n
- *  http://gamejolt.com/api/doc/game/
+ *  https://gamejolt.com/api/doc/game/
  *  \brief Main Interface */
 class gjAPI final
 {
 private:
     // ****************************************************************
     /*! Sub-Interface class for user operations.\n
-     *  http://gamejolt.com/api/doc/game/users/
+     *  https://gamejolt.com/api/doc/game/users/
      *  \brief User Sub-Interface */
     class gjInterUser final
     {
@@ -265,7 +235,7 @@ private:
          *  \param  iID   Unique ID of an user (0 = current main user, Login required)
          *  \param  sName Unique name of an user
          *  \return Pointer to specific user or empty object (ID == 0) on error */
-        gjUser* GetUser(const int& iID);
+        gjUser* GetUser(const int iID);
         gjUser* GetUser(const std::string& sName);
         gjUser* GetMainUser();
         //! @}
@@ -281,9 +251,9 @@ private:
          *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
          *          **GJ_INVALID_INPUT** if name string is empty\n
          *          (see #GJ_ERROR) */
-                              inline int FetchUserNow(const int& iID, gjUserPtr* ppOutput)                     {if(!ppOutput) return GJ_INVALID_INPUT; return this->__FetchUser(iID, ppOutput, GJ_NETWORK_NULL_API(gjUserPtr));}
+                              inline int FetchUserNow(const int iID, gjUserPtr* ppOutput)                      {if(!ppOutput) return GJ_INVALID_INPUT; return this->__FetchUser(iID, ppOutput, GJ_NETWORK_NULL_API(gjUserPtr));}
                               inline int FetchUserNow(const std::string& sName, gjUserPtr* ppOutput)           {if(!ppOutput) return GJ_INVALID_INPUT; return this->__FetchUser(sName, ppOutput, GJ_NETWORK_NULL_API(gjUserPtr));}
-        template <typename T> inline int FetchUserCall(const int& iID, GJ_NETWORK_OUTPUT(gjUserPtr))           {return this->__FetchUser(iID, NULL, GJ_NETWORK_OUTPUT_FW);}
+        template <typename T> inline int FetchUserCall(const int iID, GJ_NETWORK_OUTPUT(gjUserPtr))            {return this->__FetchUser(iID, NULL, GJ_NETWORK_OUTPUT_FW);}
         template <typename T> inline int FetchUserCall(const std::string& sName, GJ_NETWORK_OUTPUT(gjUserPtr)) {return this->__FetchUser(sName, NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
@@ -296,7 +266,7 @@ private:
          *  \return **GJ_OK** on success\n
          *          **GJ_NO_DATA_FOUND** if user is not cached yet or does not even exist\n
          *          (see #GJ_ERROR) */
-        inline int CheckCache(const int& iID, gjUserPtr* ppOutput)           {return this->__CheckCache(iID, ppOutput);}
+        inline int CheckCache(const int iID, gjUserPtr* ppOutput)            {return this->__CheckCache(iID, ppOutput);}
         inline int CheckCache(const std::string& sName, gjUserPtr* ppOutput) {return this->__CheckCache(sName, ppOutput);}
         //! @}
 
@@ -311,13 +281,13 @@ private:
     private:
         /*! \name Superior Request Functions */
         //! @{
-        template <typename T> int __FetchUser(const int& iID, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr));
+        template <typename T> int __FetchUser(const int iID, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr));
         template <typename T> int __FetchUser(const std::string& sName, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr));
         //! @}
 
         /*! \name Management Functions */
         //! @{
-        int __CheckCache(const int& iID, gjUserPtr* ppOutput);
+        int __CheckCache(const int iID, gjUserPtr* ppOutput);
         int __CheckCache(const std::string& sName, gjUserPtr* ppOutput);
         int __Process(const std::string& sData, void* pAdd, gjUserPtr* ppOutput);
         //! @}
@@ -326,7 +296,7 @@ private:
 
     // ****************************************************************
     /*! Sub-Interface class for trophy operations.\n
-     *  http://gamejolt.com/api/doc/game/trophies/
+     *  https://gamejolt.com/api/doc/game/trophies/
      *  \brief Trophy Sub-Interface */
     class gjInterTrophy final
     {
@@ -353,7 +323,7 @@ private:
          *  \pre    Login required
          *  \param  iID Unique ID of a trophy
          *  \return Pointer to specific trophy or empty object (ID == 0) on error */
-        gjTrophy* GetTrophy(const int& iID);
+        gjTrophy* GetTrophy(const int iID);
         //! @}
 
         /*! \name Fetch Trophies Request */
@@ -368,8 +338,8 @@ private:
          *          **GJ_NOT_CONNECTED** if connection/login is missing\n
          *          **GJ_NO_DATA_FOUND** if no trophies were found\n
          *          (see #GJ_ERROR) */
-                              inline int FetchTrophiesNow(const int& iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
-        template <typename T> inline int FetchTrophiesCall(const int& iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
+                              inline int FetchTrophiesNow(const int iAchieved, gjTrophyList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchTrophies(iAchieved, papOutput, GJ_NETWORK_NULL_API(gjTrophyList));}
+        template <typename T> inline int FetchTrophiesCall(const int iAchieved, GJ_NETWORK_OUTPUT(gjTrophyList)) {return this->__FetchTrophies(iAchieved, NULL, GJ_NETWORK_OUTPUT_FW);}
         //! @}
 
         /*! \name Clear Cache */
@@ -377,7 +347,7 @@ private:
         /*! Delete all cached trophy objects.
          *  \warning All external pointers will be invalid
          *  \param   bFull Delete also the offline-cache */
-        void ClearCache(const bool& bFull);
+        void ClearCache(const bool bFull);
         //! @}
 
         /*! \name Control Trophies */
@@ -385,21 +355,21 @@ private:
         /*! Define the way trophies are handled and returned from the interface.
          *  \param  piIDList Array with trophy IDs
          *  \param  iNum     Number of elements in the array */
-        void SetSort(const int* piIDList, const size_t& iNum);
-        void SetSecret(const int* piIDList, const size_t& iNum);
-        void SetHidden(const int* piIDList, const size_t& iNum);
+        void SetSort(const int* piIDList, const size_t iNum);
+        void SetSecret(const int* piIDList, const size_t iNum);
+        void SetHidden(const int* piIDList, const size_t iNum);
         //! @}
 
 
     private:
         /*! \name Superior Request Functions */
         //! @{
-        template <typename T> int __FetchTrophies(const int& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));
+        template <typename T> int __FetchTrophies(const int iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList));
         //! @}
 
         /*! \name Management Functions */
         //! @{
-        int __CheckCache(const int& iAchieved, gjTrophyList* papOutput);
+        int __CheckCache(const int iAchieved, gjTrophyList* papOutput);
         int __Process(const std::string& sData, void* pAdd, gjTrophyList* papOutput);
         //! @}
 
@@ -413,7 +383,7 @@ private:
 
     // ****************************************************************
     /*! Sub-Interface class for score operations.\n
-     *  http://gamejolt.com/api/doc/game/scores/
+     *  https://gamejolt.com/api/doc/game/scores/
      *  \brief Score Sub-Interface */
     class gjInterScore final
     {
@@ -434,7 +404,7 @@ private:
          *  This function may block to cache all score tables.
          *  \param  iID Unique ID of a score table (0 = primary score table)
          *  \return Pointer to specific score table or empty object (ID == 0) on error */
-               gjScoreTable* GetScoreTable(const int& iID);
+               gjScoreTable* GetScoreTable(const int iID);
         inline gjScoreTable* GetPrimaryTable() {return this->GetScoreTable(0);}
         //! @}
 
@@ -476,7 +446,7 @@ private:
 
     // ****************************************************************
     /*! Sub-Interface class for data store operations.\n
-     *  http://gamejolt.com/api/doc/game/data-store/
+     *  https://gamejolt.com/api/doc/game/data-store/
      *  \brief Data Store Sub-Interface */
     class gjInterDataStore final
     {
@@ -490,7 +460,7 @@ private:
 
 
     public:
-        gjInterDataStore(const int& iType, gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
+        gjInterDataStore(const int iType, gjAPI* pAPI, gjNetwork* pNetwork)noexcept;
         ~gjInterDataStore();
 
         /*! \name Direct Access */
@@ -637,7 +607,7 @@ public:
     //! @{
     /*! Explicitely initialize the object after construction.
      *  \note Needs to be called after empty construction, and only once */
-    void Init(const int& iGameID, const std::string& sGamePrivateKey);
+    void Init(const int iGameID, const std::string& sGamePrivateKey);
     //! @}
 
     /*! \name Update */
@@ -665,12 +635,12 @@ public:
      *          **GJ_FILE_ERROR** if credentials file was not found\n
      *          **GJ_NETWORK_ERROR** if service is unavailable or request timed out\n
      *          (see #GJ_ERROR) */
-                          inline int LoginNow(const bool& bSession, const std::string& sUserName, const std::string& sUserToken)                          {return __Login(bSession, sUserName, sUserToken, true, GJ_NETWORK_NULL_THIS(int));}
-                          inline int LoginNow(const bool& bSession, const std::string& sCredPath)                                                         {return __Login(bSession, sCredPath, true, GJ_NETWORK_NULL_THIS(int));}
-                          inline int LoginNow(const bool& bSession)                                                                                       {return __Login(bSession, GJ_API_CRED, true, GJ_NETWORK_NULL_THIS(int));}
-    template <typename T> inline int LoginCall(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, GJ_NETWORK_OUTPUT(int)) {return __Login(bSession, sUserName, sUserToken, false, GJ_NETWORK_OUTPUT_FW);}
-    template <typename T> inline int LoginCall(const bool& bSession, const std::string& sCredPath, GJ_NETWORK_OUTPUT(int))                                {return __Login(bSession, sCredPath, false, GJ_NETWORK_OUTPUT_FW);}
-    template <typename T> inline int LoginCall(const bool& bSession, GJ_NETWORK_OUTPUT(int))                                                              {return __Login(bSession, GJ_API_CRED, false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int LoginNow(const bool bSession, const std::string& sUserName, const std::string& sUserToken)                          {return __Login(bSession, sUserName, sUserToken, true, GJ_NETWORK_NULL_THIS(int));}
+                          inline int LoginNow(const bool bSession, const std::string& sCredPath)                                                         {return __Login(bSession, sCredPath, true, GJ_NETWORK_NULL_THIS(int));}
+                          inline int LoginNow(const bool bSession)                                                                                       {return __Login(bSession, GJ_API_CRED, true, GJ_NETWORK_NULL_THIS(int));}
+    template <typename T> inline int LoginCall(const bool bSession, const std::string& sUserName, const std::string& sUserToken, GJ_NETWORK_OUTPUT(int)) {return __Login(bSession, sUserName, sUserToken, false, GJ_NETWORK_OUTPUT_FW);}
+    template <typename T> inline int LoginCall(const bool bSession, const std::string& sCredPath, GJ_NETWORK_OUTPUT(int))                                {return __Login(bSession, sCredPath, false, GJ_NETWORK_OUTPUT_FW);}
+    template <typename T> inline int LoginCall(const bool bSession, GJ_NETWORK_OUTPUT(int))                                                              {return __Login(bSession, GJ_API_CRED, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Logout User */
@@ -737,9 +707,10 @@ public:
     static std::string UtilEscapeString(const std::string& sString);
     static void        UtilTrimString(std::string* psInput);
     static bool        UtilCompStringsCaseInsensitive(const std::string& sFirst, const std::string& sSecond);
-    static std::string UtilCharToHex(const char& cChar);
-    static std::string UtilIntToString(const int& iInt);
+    static std::string UtilCharToHex(const char cChar);
+    static std::string UtilIntToString(const int iInt);
     static void        UtilCreateFolder(const std::string& sFolder);
+    static void        UtilSleep(const unsigned int iMs);
     static std::string UtilTimestamp(const time_t iTime = std::time(NULL));
     //! @}
 
@@ -747,12 +718,12 @@ public:
     //! @{
     static              void                      ErrorLogReset();
     static              void                      ErrorLogAdd(const std::string& sMsg);
-    static inline const std::vector<std::string>& ErrorLogGet(){return s_asLog;}
+    static inline const std::vector<std::string>& ErrorLogGet() {return s_asLog;}
     //! @}
 
     /*! \name Set Attributes */
     //! @{
-    inline void SetSessionActive(const bool& bActive) {m_bActive = bActive;}   //!< \copybrief m_bActive
+    inline void SetSessionActive(const bool bActive) {m_bActive = bActive;}   //!< \copybrief m_bActive
     /*! */ //! @}
 
     /*! \name Get Attributes */
@@ -793,14 +764,14 @@ private:
     /*! \name Session Functions */
     //! @{
     int __OpenSession();
-    int __PingSession(const bool& bActive);
+    int __PingSession(const bool bActive);
     int __CloseSession();
     //! @}
 
     /*! \name Superior Request Functions */
     //! @{
-    template <typename T> int __Login(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, const bool& bNow, GJ_NETWORK_OUTPUT(int));
-    template <typename T> int __Login(const bool& bSession, const std::string& sCredPath, const bool& bNow, GJ_NETWORK_OUTPUT(int));
+    template <typename T> int __Login(const bool bSession, const std::string& sUserName, const std::string& sUserToken, const bool bNow, GJ_NETWORK_OUTPUT(int));
+    template <typename T> int __Login(const bool bSession, const std::string& sCredPath, const bool bNow, GJ_NETWORK_OUTPUT(int));
     //! @}
 
     /*! \name Callback Functions */
@@ -812,7 +783,7 @@ private:
 
 // ****************************************************************
 /* fetch and cache a specific user with user ID */
-template <typename T> int gjAPI::gjInterUser::__FetchUser(const int& iID, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr))
+template <typename T> int gjAPI::gjInterUser::__FetchUser(const int iID, gjUserPtr* ppOutput, GJ_NETWORK_OUTPUT(gjUserPtr))
 {
     const bool bNow = ppOutput ? true : false;
 
@@ -871,7 +842,7 @@ template <typename T> int gjAPI::gjInterUser::__FetchUser(const std::string& sNa
 
 // ****************************************************************
 /* fetch and cache all trophies */
-template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const int& iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList))
+template <typename T> int gjAPI::gjInterTrophy::__FetchTrophies(const int iAchieved, gjTrophyList* papOutput, GJ_NETWORK_OUTPUT(gjTrophyList))
 {
     if(!m_pAPI->IsUserConnected() && m_iCache == 0) return GJ_NOT_CONNECTED;
 
@@ -1023,7 +994,7 @@ template <typename T> int gjAPI::gjInterFile::__DownloadFile(const std::string& 
 
 // ****************************************************************
 /* login with specific user */
-template <typename T> int gjAPI::__Login(const bool& bSession, const std::string& sUserName, const std::string& sUserToken, const bool& bNow, GJ_NETWORK_OUTPUT(int))
+template <typename T> int gjAPI::__Login(const bool bSession, const std::string& sUserName, const std::string& sUserToken, const bool bNow, GJ_NETWORK_OUTPUT(int))
 {
     if(this->IsUserConnected()) return GJ_INVALID_CALL;
 
@@ -1055,7 +1026,7 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
     return GJ_OK;
 }
 
-template <typename T> int gjAPI::__Login(const bool& bSession, const std::string& sCredPath, const bool& bNow, GJ_NETWORK_OUTPUT(int))
+template <typename T> int gjAPI::__Login(const bool bSession, const std::string& sCredPath, const bool bNow, GJ_NETWORK_OUTPUT(int))
 {
     // open credentials file
     std::FILE* pFile = std::fopen(sCredPath.c_str(), "rb");
@@ -1082,7 +1053,7 @@ template <typename T> int gjAPI::__Login(const bool& bSession, const std::string
 
 // ****************************************************************
 /* post-include because of generic dependencies */
-#include "gjNetwork.hpp"
+#include "gjNetwork.impl.h"
 #include "gjUser.h"
 #include "gjTrophy.h"
 #include "gjScore.h"

@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_DATAITEM_H_
 #define _GJ_GUARD_DATAITEM_H_
@@ -13,7 +13,7 @@
 
 // ****************************************************************
 /*! Data store item class.\n
- *  http://gamejolt.com/api/doc/game/data-store/
+ *  https://gamejolt.com/api/doc/game/data-store/
  *  \brief Data Store Item Object
  *  \bug Data store items are not UTF-8 compatible (server-side),\n
  *       if you have problems with string data, use Base64 instead */
@@ -32,7 +32,7 @@ private:
 
 
 public:
-    gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI)noexcept;
+    gjDataItem(const gjData& aDataItemData, const int iType, gjAPI* pAPI)noexcept;
 
     /*! \name Set Data Request */
     //! @{
@@ -64,9 +64,9 @@ public:
      *          **GJ_REQUEST_CANCELED** if this is an user item and the same data was already sent\n
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
-                          inline int SetDataBase64Now(void* pData, const size_t& iSize)                                    {return this->__SetDataBase64(pData, iSize, true, GJ_NETWORK_NULL_API(gjDataItemPtr));}
-                          inline int SetDataBase64Call(void* pData, const size_t& iSize)                                   {return this->__SetDataBase64(pData, iSize, false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
-    template <typename T> inline int SetDataBase64Call(void* pData, const size_t& iSize, GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__SetDataBase64(pData, iSize, false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int SetDataBase64Now(void* pData, const size_t iSize)                                    {return this->__SetDataBase64(pData, iSize, true, GJ_NETWORK_NULL_API(gjDataItemPtr));}
+                          inline int SetDataBase64Call(void* pData, const size_t iSize)                                   {return this->__SetDataBase64(pData, iSize, false, GJ_NETWORK_NULL_API(gjDataItemPtr));}
+    template <typename T> inline int SetDataBase64Call(void* pData, const size_t iSize, GJ_NETWORK_OUTPUT(gjDataItemPtr)) {return this->__SetDataBase64(pData, iSize, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Get Data Request */
@@ -94,9 +94,9 @@ public:
      *          **GJ_REQUEST_FAILED** if request was unsuccessful\n
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
-                          inline int GetDataBase64Now(void* pTarget, const size_t& iSize)                                {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, true,  GJ_NETWORK_NULL_API(gjVoidPtr));}
-                          inline int GetDataBase64Call(void* pTarget, const size_t& iSize)                               {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_NULL_API(gjVoidPtr));}
-    template <typename T> inline int GetDataBase64Call(void* pTarget, const size_t& iSize, GJ_NETWORK_OUTPUT(gjVoidPtr)) {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int GetDataBase64Now(void* pTarget, const size_t iSize)                                {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, true,  GJ_NETWORK_NULL_API(gjVoidPtr));}
+                          inline int GetDataBase64Call(void* pTarget, const size_t iSize)                               {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_NULL_API(gjVoidPtr));}
+    template <typename T> inline int GetDataBase64Call(void* pTarget, const size_t iSize, GJ_NETWORK_OUTPUT(gjVoidPtr)) {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; return this->__GetDataBase64(pTarget, iSize, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Remove Request */
@@ -125,11 +125,11 @@ private:
 
     /*! \name Superior Request Functions */
     //! @{
-    template <typename T> int __SetData(const std::string& sData, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
-    template <typename T> int __SetDataBase64(void* pData, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
+    template <typename T> int __SetData(const std::string& sData, const bool bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
+    template <typename T> int __SetDataBase64(void* pData, const size_t iSize, const bool bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
     template <typename T> int __GetData(std::string* psOutput, GJ_NETWORK_OUTPUT(std::string));
-    template <typename T> int __GetDataBase64(void* pTarget, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjVoidPtr));
-    template <typename T> int __Remove(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
+    template <typename T> int __GetDataBase64(void* pTarget, const size_t iSize, const bool bNow, GJ_NETWORK_OUTPUT(gjVoidPtr));
+    template <typename T> int __Remove(const bool bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr));
     //! @}
 
     /*! \name Callback Functions */
@@ -144,7 +144,7 @@ private:
 
 // ****************************************************************
 /* set data of this data store item */
-template <typename T> int gjDataItem::__SetData(const std::string& sData, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
+template <typename T> int gjDataItem::__SetData(const std::string& sData, const bool bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
     if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
 
@@ -174,7 +174,7 @@ template <typename T> int gjDataItem::__SetData(const std::string& sData, const 
 
 // ****************************************************************
 /* set Base64 data of this data store item */
-template <typename T> int gjDataItem::__SetDataBase64(void* pData, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
+template <typename T> int gjDataItem::__SetDataBase64(void* pData, const size_t iSize, const bool bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
     if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
     if(!pData || iSize <= 0) return GJ_INVALID_INPUT;
@@ -233,7 +233,7 @@ template <typename T> int gjDataItem::__GetData(std::string* psOutput, GJ_NETWOR
 
 // ****************************************************************
 /* get Base64 data of this data store item */
-template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_t& iSize, const bool& bNow, GJ_NETWORK_OUTPUT(gjVoidPtr))
+template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_t iSize, const bool bNow, GJ_NETWORK_OUTPUT(gjVoidPtr))
 {
     if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
     if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT;
@@ -274,7 +274,7 @@ template <typename T> int gjDataItem::__GetDataBase64(void* pTarget, const size_
 
 // ****************************************************************
 /* clear/remove this data store item */
-template <typename T> int gjDataItem::__Remove(const bool& bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
+template <typename T> int gjDataItem::__Remove(const bool bNow, GJ_NETWORK_OUTPUT(gjDataItemPtr))
 {
     if(!m_pAPI->IsUserConnected() && m_iType) return GJ_NOT_CONNECTED;
 

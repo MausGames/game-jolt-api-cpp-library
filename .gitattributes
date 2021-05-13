@@ -1,0 +1,60 @@
+* text=auto
+
+*.bat         text eol=crlf
+*.sh          text eol=lf
+*.sln         text eol=crlf
+*.vcxproj     text eol=crlf
+*.vcxproj.*   text eol=crlf
+
+# image
+*.gif         binary
+*.ico         binary
+*.jpg         binary
+*.png         binary
+*.svg         binary
+*.xcf         binary
+
+# audio
+*.mp3         binary
+*.ogg         binary
+*.wav         binary
+
+# video
+*.mkv         binary
+*.mp4         binary
+*.webm        binary
+
+# font
+*.eot         binary
+*.otf         binary
+*.ttf         binary
+*.woff        binary
+*.woff2       binary
+
+# model
+*.blend       binary
+*.md3         binary
+
+# document
+*.docx        binary
+*.odp         binary
+*.ods         binary
+*.odt         binary
+*.pdf         binary
+*.pptx        binary
+*.xlsx        binary
+
+# archive
+*.7z          binary
+*.gz          binary
+*.jar         binary
+*.zip         binary
+
+# executable
+*.a           binary
+*.dll         binary
+*.elf         binary
+*.exe         binary
+*.lib         binary
+*.so          binary
+*.so.*        binary

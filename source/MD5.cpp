@@ -1,6 +1,6 @@
 /* MD5
  converted to C++ class by Frank Thilo (thilo@unix-ag.org)
- for bzflag (http://www.bzflag.org)
+ for bzflag (https://www.bzflag.org)
 
    based on:
 
@@ -30,8 +30,8 @@ documentation and/or software.
 
 */
 
-/* interface header */
-#include "MD5.h"
+#include "gjAPI.h"
+#include "gjCodeBefore.h"
 
 #include <cstdlib>
 #include <cstdio>
@@ -364,3 +364,6 @@ std::string md5(const std::string &str)
 
     return md5.hexdigest();
 }
+
+
+#include "gjCodeAfter.h"

@@ -1,6 +1,6 @@
 /*! \mainpage Main Page
  *
- * <img src="../gamejolt_cpp.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;" /><br clear="all"><br clear="all"><br clear="all"><br clear="all">
+ * <img src="../gamejolt_cpp.png" align="left" title="(c) Game Jolt" alt="Game Jolt Logo" style="border-width: 1px; border-color: black; border-style: solid;" /><br clear="all">
  *
  * 1. \link introduction Introduction \endlink\n
  * 1.1. \link introduction_setup Setup \endlink\n
@@ -33,17 +33,17 @@
  *
  * \section introduction   1. Introduction
  *
- * <a href="http://gamejolt.com" target="_blank">Game Jolt</a> is a host for free independently developed computer games.\n
+ * <a href="https://gamejolt.com">Game Jolt</a> is a host for free independently developed computer games.\n
  *
  * As a gamer you are able to play every game on this site for free, rate them with shiny stars, write awesome comments, get trophies and highscores and talk about stuff on the forum or the chat.\n
  * As a developer you can upload your game, add screenshots, embed videos, write news, receive feedback, eat pizza and do other great things.
  *
  * And if your game is written in C++, then this library is able to connect your game with Game Jolt.\n
- * (for other languages/engines/platforms take a look <a href="http://gamejolt.com/developers/achievements-new/" target="_blank">here</a>)
+ * (for other languages/engines/platforms take a look <a href="https://gamejolt.com/developers/achievements-new/">here</a>)
  *
  * \subsection introduction_setup   1.1. Setup
  *
- * The current library is available from <a href="http://gamejolt.com/games/other/game-jolt-api-c-library/15490/" target="_blank">Game Jolt</a> and contains all necessary files for Windows x86/x64, Linux x64 and Android. For OSX you may need to download the latest <a href="http://curl.haxx.se/" target="_blank">cURL library</a>.\n
+ * The current library is available from <a href="https://gamejolt.com/games/other/game-jolt-api-c-library/15490/">Game Jolt</a> and contains all necessary files for Windows x86/x64, Linux x64 and Android. For OSX you may need to download the latest <a href="https://curl.haxx.se/">cURL library</a>.\n
  * You also need to create an account and upload your game to Game Jolt to retrieve a game ID and a private key.
  *
  * Currently there are no build scripts implemented, all source files are distributed raw. You simply need to add them to your project build (source folder), compile them with C++11 support,\n
@@ -77,7 +77,7 @@
  * \section features   2. Features
  *
  * \subsection features_access   2.1. Game Jolt API Access
- * This library provides full access to the functions of the <a href="http://gamejolt.com/api/doc/game/" target="_blank">Game Jolt API</a>.\n
+ * This library provides full access to the functions of the <a href="https://gamejolt.com/api/doc/game/">Game Jolt API</a>.\n
  * At the beginning you simply need to create an API-object in your game with the ID and private key from the achievements-tab of your game's dashboard.\n
  * After that you have to update the API-object in your main loop. This is very important when sending non-blocking requests.
  * \warning NEVER give your private key to anyone
@@ -112,7 +112,7 @@
  * \endcode
  *
  * \subsubsection features_access_session   Sessions
- * (<a href="http://gamejolt.com/api/doc/game/sessions/" target="_blank">http://gamejolt.com/api/doc/game/sessions/</a>)\n
+ * (<a href="https://gamejolt.com/api/doc/game/sessions/">https://gamejolt.com/api/doc/game/sessions/</a>)\n
  * Currently a session only shows which games everyone plays at the moment on Game Jolt. This feature is still new and will be extended in the near future.\n
  * The library starts the session after logging in with an user and updates it autonomously, but you can set the session status manually to active or idle.\n
  * \note Regardless of the session, a user login is required for full access to the API
@@ -138,7 +138,7 @@
  * \endcode
  *
  * \subsubsection features_access_user   Users
- * (<a href="http://gamejolt.com/api/doc/game/users/" target="_blank">http://gamejolt.com/api/doc/game/users/</a>)\n
+ * (<a href="https://gamejolt.com/api/doc/game/users/">https://gamejolt.com/api/doc/game/users/</a>)\n
  * Users and all their data can be fetched from Game Jolt by either knowing the user name or the user ID.\n
  * There is also an integration in the score class to easily fetch the associated user.
  *
@@ -165,7 +165,7 @@
  * \endcode
  *
  * \subsubsection features_access_trophy   Trophies
- * (<a href="http://gamejolt.com/api/doc/game/trophies/" target="_blank">http://gamejolt.com/api/doc/game/trophies/</a>)\n
+ * (<a href="https://gamejolt.com/api/doc/game/trophies/">https://gamejolt.com/api/doc/game/trophies/</a>)\n
  * Trophies are achievements. You can create them on your game's dashboard, and include the appropriate triggers in your game.\n
  * Currently it's not possible by the API to retrieve trophy data without an user login.\n
  * Also you have to define the sorting, secret trophies (only display after achieved), and hidden trophies (never display) by yourself.\n
@@ -206,7 +206,7 @@
  * \endcode
  *
  * \subsubsection features_access_score   Score Tables and Score Entries
- * (<a href="http://gamejolt.com/api/doc/game/scores/" target="_blank">http://gamejolt.com/api/doc/game/scores/</a>)\n
+ * (<a href="https://gamejolt.com/api/doc/game/scores/">https://gamejolt.com/api/doc/game/scores/</a>)\n
  * You can fetch all or specific score tables from the API and add new score entries to them or fetch existing score entries from them.\n
  * Score tables are also created and managed on the game's dashboard. There are several properties available, to customize their behavior.\n
  * Score entries are assigned to users or guests, and contain a score string, a sort value and optional extra data.
@@ -247,7 +247,7 @@
  * \endcode
  *
  * \subsubsection features_access_datastore   Data Store Items
- * (<a href="http://gamejolt.com/api/doc/game/data-store/" target="_blank">http://gamejolt.com/api/doc/game/data-store/</a>)\n
+ * (<a href="https://gamejolt.com/api/doc/game/data-store/">https://gamejolt.com/api/doc/game/data-store/</a>)\n
  * Data store items are cloud-based objects on the Game Jolt server, which are identified by a key and contain various data.\n
  * Those items are either globally stored or user specific stored (separate for each game) and can be created, modified and deleted.\n
  * This library provides a very easy and fast way to access them and allows to handle string and binary data with Base64 encoding.
@@ -280,7 +280,7 @@
  * \endcode
  *
  * \subsection features_transfer   2.2. Non-Blocking Transfer
- * This library uses the <a href="http://curl.haxx.se/" target="_blank">cURL library</a> for sending an retrieving data, which provides a simple interface to do this without blocking and freezing the application.\n
+ * This library uses the <a href="https://curl.haxx.se/">cURL library</a> for sending an retrieving data, which provides a simple interface to do this without blocking and freezing the application.\n
  * Therefore many request functions have two different sub-functions: <b>-Now</b> and <b>-Call</b>
  *
  * \subsubsection features_transfer_now   Now Request
@@ -336,7 +336,7 @@
  * Offline Caching is deactivated by default, but can be enabled in the gjAPI.h file.
  *
  * \subsection features_file   2.4. File Download
- * It's possible with the <a href="http://curl.haxx.se/" target="_blank">cURL library</a> to download files from any URL to a local folder and use them directly in your game (e.g. textures).\n
+ * It's possible with the <a href="https://curl.haxx.se/">cURL library</a> to download files from any URL to a local folder and use them directly in your game (e.g. textures).\n
  * You simply need the URL of the file, a folder path where you want to save it, and an optional alternative file name.\n
  * The target folder(-hierarchy) is created if it does not exist. Also a direct download for user avatars and trophy thumbnails is already integrated.
  * \warning You need to overwrite the file name if it's not apparent from the URL
@@ -358,7 +358,7 @@
  * \subsection features_base64   2.5. Base64url Integration
  * The library uses Base64url encoding and decoding with an URL and filename safe alphabet.\n
  * This is a method to convert binary data into readable string data, to use them in SQL-queries, URL-requests, or other situations where only text can be processed.\n
- * (more information is available <a href="https://en.wikipedia.org/wiki/Base64" target="_blank">here</a>)
+ * (more information is available <a href="https://en.wikipedia.org/wiki/Base64">here</a>)
  *
  * Dedicated Base64url-functions are available for data store items and the extra data of score entries.
  * \note You can use the base functions for own implementations:\n
@@ -394,53 +394,55 @@
  * The cURL library for Windows x86/x64, Linux x64 and Android is enclosed to the project files.\n
  *
  * \section credits   3. Credits
- * <b>Author:</b> Martin Mauersics\n
- * <b>Special Thanks to:</b> <a href="http://davidjolt.com/" target="_blank">David "CROS" DeCarmine</a>, 
- *                           <a href="http://joonamelartin.fi/" target="_blank">Joona "erakko" Melartin</a>,
- *                           <a href="http://forceofhab.it/" target="_blank">Ashley Gwinnell</a>,
- *                           <a href="http://www.assarisse.com.br/" target="_blank">Bruno Assarisse</a>,
- *                           <a href="http://gamejolt.com/profile/jnyknn/15335/" target="_blank">Jani "JNyknn" Nykänen</a>,
- *                           <a href="http://gamejolt.com/profile/sasurai/117365/" target="_blank">Jorge Martínez "Sasurai" Vargas</a>\n
- * This is a 3rd party software which is not directly affiliated with Game Jolt or Lucent Web Creative, LLC.
+ * <b>Special Thanks to:</b> <a href="https://twitter.com/theytookcros">David "CROS" DeCarmine</a>, 
+ *                           <a href="https://twitter.com/erakkun">Joona "erakkun" Melartin</a>,
+ *                           <a href="https://twitter.com/ashleygwinnell">Ashley Gwinnell</a>,
+ *                           <a href="https://twitter.com/bassarisse">Bruno Assarisse</a>,
+ *                           <a href="https://twitter.com/jani_m_n">Jani "JNyknn" Nykänen</a>,
+ *                           <a href="https://gamejolt.com/profile/sasurai/117365/">Jorge Martínez "Sasurai" Vargas</a>\n
+ * This is 3rd party software which is not directly affiliated with Game Jolt or Lucent Web Creative, LLC.
  *
  * \subsection credits_libraries   3.1. Additional Libraries
- * cURL Library (<a href="http://curl.haxx.se/" target="_blank">http://curl.haxx.se/</a>)\n
- * MD5 generator by Frank Thilo using the "RSA Data Security, Inc. MD5 Message-Digest Algorithm" (<a href="http://bzflag.org/" target="_blank">http://bzflag.org/</a>)\n
- * Base64 decoder (modified) by FreeCode-FreeCode (<a href="http://freecode-freecode.blogspot.co.at/2008/02/base64c.html" target="_blank">http://freecode-freecode.blogspot.co.at/2008/02/base64c.html</a>)
+ * cURL Library (<a href="https://curl.haxx.se/">https://curl.haxx.se/</a>)\n
+ * MD5 generator by Frank Thilo using the "RSA Data Security, Inc. MD5 Message-Digest Algorithm" (<a href="https://bzflag.org/">https://bzflag.org/</a>)\n
+ * Base64 decoder (modified) by FreeCode-FreeCode (<a href="https://freecode-freecode.blogspot.co.at/2008/02/base64c.html">https://freecode-freecode.blogspot.co.at/2008/02/base64c.html</a>)
  *
  * \subsection credits_license   3.2. Software License
- * Copyright (c) 2013-2015 Martin Mauersics
+ * This is free and unencumbered software released into the public domain.
  *
- * This software is provided 'as-is', without any express or implied\n
- * warranty. In no event will the authors be held liable for any damages\n
- * arising from the use of this software.
+ * Anyone is free to copy, modify, publish, use, compile, sell, or\n
+ * distribute this software, either in source code form or as a compiled\n
+ * binary, for any purpose, commercial or non-commercial, and by any\n
+ * means.
  *
- * Permission is granted to anyone to use this software for any purpose,\n
- * including commercial applications, and to alter it and redistribute it\n
- * freely, subject to the following restrictions:\n
+ * In jurisdictions that recognize copyright laws, the author or authors\n
+ * of this software dedicate any and all copyright interest in the\n
+ * software to the public domain. We make this dedication for the benefit\n
+ * of the public at large and to the detriment of our heirs and\n
+ * successors. We intend this dedication to be an overt act of\n
+ * relinquishment in perpetuity of all present and future rights to this\n
+ * software under copyright law.
  *
- *   1. The origin of this software must not be misrepresented; you must not\n
- *   claim that you wrote the original software. If you use this software\n
- *   in a product, an acknowledgment in the product documentation would be\n
- *   appreciated but is not required.\n
- *
- *   2. Altered source versions must be plainly marked as such, and must not be\n
- *   misrepresented as being the original software.\n
- *
- *   3. This notice may not be removed or altered from any source\n
- *   distribution.\n
- *
- *   4. This software may only be used within the <a href="http://gamejolt.com/terms/" target="_blank">terms of Game Jolt</a>.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,\n
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\n
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\n
+ * IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR\n
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,\n
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\n
+ * OTHER DEALINGS IN THE SOFTWARE.
  */
 
 /*! \page update_notes Update Notes
  *
+ * v1.1.0 (2017-06-25)
+ * -------------------
  * <ul>
  *      <li>added Android support
+ *      <li>added SSL support
  *      <li>added Windows x64 (MSVC) support
  * </ul>
- * v1.0 (2014-02-22)
- * ------------------
+ * v1.0.0 (2014-02-22)
+ * -------------------
  * <ul>
  *      <li>implemented asynchronous login functions
  *      <li>implemented gjInline.h as alternate way to include the library
@@ -448,8 +450,8 @@
  *      <li>updated the enclosed cURL libraries
  *      <li>fixed some minor bugs
  * </ul>
- * v0.9a (2013-11-18)
- * ------------------
+ * v0.3.0 (2013-11-18)
+ * -------------------
  * <ul>
  *      <li>implemented trophy sorting
  *      <li>implemented handling of trophy attributes (secret, hidden)
@@ -461,8 +463,8 @@
  *      <li>added Code::Blocks and NetBeans example project
  *      <li>added OSX support
  * </ul>
- * v0.8a (2013-07-22)
- * ------------------
+ * v0.2.0 (2013-07-22)
+ * -------------------
  * <ul>
  *      <li>new feature: \link features_caching_offline Offline Caching \endlink
  *      <li>implemented POST request for larger data uploads
@@ -474,9 +476,8 @@
  *      <li>improved data caching and prefetching
  *      <li>fixed possible memory leaks
  * </ul>
- *
- * v0.7a (2013-06-21)
- * ------------------
+ * v0.1.0 (2013-06-21)
+ * -------------------
  * <ul>
  *      <li>initial release
  * </ul>

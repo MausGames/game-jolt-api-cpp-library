@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_SCORE_H_
 #define _GJ_GUARD_SCORE_H_
@@ -13,7 +13,7 @@
 
 // ****************************************************************
 /*! Score table object class.\n
- *  http://gamejolt.com/api/doc/game/scores/
+ *  https://gamejolt.com/api/doc/game/scores/
  *  \brief Score Table Object */
 class gjScoreTable final
 {
@@ -49,8 +49,8 @@ public:
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          **GJ_NO_DATA_FOUND** if no scores were found\n
      *          (see #GJ_ERROR) */
-                          inline int FetchScoresNow(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScores(bOnlyUser, iLimit, papOutput, GJ_NETWORK_NULL_API(gjScoreList));}
-    template <typename T> inline int FetchScoresCall(const bool& bOnlyUser, const int& iLimit, GJ_NETWORK_OUTPUT(gjScoreList)) {return this->__FetchScores(bOnlyUser, iLimit, NULL, GJ_NETWORK_OUTPUT_FW);}
+                          inline int FetchScoresNow(const bool bOnlyUser, const int iLimit, gjScoreList* papOutput)          {if(!papOutput) return GJ_INVALID_INPUT; return this->__FetchScores(bOnlyUser, iLimit, papOutput, GJ_NETWORK_NULL_API(gjScoreList));}
+    template <typename T> inline int FetchScoresCall(const bool bOnlyUser, const int iLimit, GJ_NETWORK_OUTPUT(gjScoreList)) {return this->__FetchScores(bOnlyUser, iLimit, NULL, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Add Score Request */
@@ -70,12 +70,12 @@ public:
      *          **GJ_INVALID_INPUT** if score string is empty or sort value is zero\n
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
-                          inline int AddScoreNow(const std::string& sScore, const int& iSort, const std::string& sExtraData)                                                                     {return this->__AddScore(sScore, iSort, sExtraData, "", true, GJ_NETWORK_NULL_API(gjScorePtr));}
-                          inline int AddScoreCall(const std::string& sScore, const int& iSort, const std::string& sExtraData)                                                                    {return this->__AddScore(sScore, iSort, sExtraData, "", false, GJ_NETWORK_NULL_API(gjScorePtr));}
-    template <typename T> inline int AddScoreCall(const std::string& sScore, const int& iSort, const std::string& sExtraData, GJ_NETWORK_OUTPUT(gjScorePtr))                                     {return this->__AddScore(sScore, iSort, sExtraData, "", false, GJ_NETWORK_OUTPUT_FW);}
-                          inline int AddGuestScoreNow(const std::string& sScore, const int& iSort, const std::string& sExtraData, const std::string& sGuestName)                                 {return this->__AddScore(sScore, iSort, sExtraData, sGuestName, true, GJ_NETWORK_NULL_API(gjScorePtr));}
-                          inline int AddGuestScoreCall(const std::string& sScore, const int& iSort, const std::string& sExtraData, const std::string& sGuestName)                                {return this->__AddScore(sScore, iSort, sExtraData, sGuestName, false, GJ_NETWORK_NULL_API(gjScorePtr));}
-    template <typename T> inline int AddGuestScoreCall(const std::string& sScore, const int& iSort, const std::string& sExtraData, const std::string& sGuestName, GJ_NETWORK_OUTPUT(gjScorePtr)) {return this->__AddScore(sScore, iSort, sExtraData, sGuestName, false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int AddScoreNow(const std::string& sScore, const int iSort, const std::string& sExtraData)                                                                     {return this->__AddScore(sScore, iSort, sExtraData, "", true, GJ_NETWORK_NULL_API(gjScorePtr));}
+                          inline int AddScoreCall(const std::string& sScore, const int iSort, const std::string& sExtraData)                                                                    {return this->__AddScore(sScore, iSort, sExtraData, "", false, GJ_NETWORK_NULL_API(gjScorePtr));}
+    template <typename T> inline int AddScoreCall(const std::string& sScore, const int iSort, const std::string& sExtraData, GJ_NETWORK_OUTPUT(gjScorePtr))                                     {return this->__AddScore(sScore, iSort, sExtraData, "", false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int AddGuestScoreNow(const std::string& sScore, const int iSort, const std::string& sExtraData, const std::string& sGuestName)                                 {return this->__AddScore(sScore, iSort, sExtraData, sGuestName, true, GJ_NETWORK_NULL_API(gjScorePtr));}
+                          inline int AddGuestScoreCall(const std::string& sScore, const int iSort, const std::string& sExtraData, const std::string& sGuestName)                                {return this->__AddScore(sScore, iSort, sExtraData, sGuestName, false, GJ_NETWORK_NULL_API(gjScorePtr));}
+    template <typename T> inline int AddGuestScoreCall(const std::string& sScore, const int iSort, const std::string& sExtraData, const std::string& sGuestName, GJ_NETWORK_OUTPUT(gjScorePtr)) {return this->__AddScore(sScore, iSort, sExtraData, sGuestName, false, GJ_NETWORK_OUTPUT_FW);}
 
     //! @}
 
@@ -96,12 +96,12 @@ public:
      *          **GJ_INVALID_INPUT** if score string is empty or sort value is zero\n
      *          **GJ_NOT_CONNECTED** if connection/login is missing\n
      *          (see #GJ_ERROR) */
-                          inline int AddScoreBase64Now(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize)                                                                     {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, "", true, GJ_NETWORK_NULL_API(gjScorePtr));}
-                          inline int AddScoreBase64Call(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize)                                                                    {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, "", false, GJ_NETWORK_NULL_API(gjScorePtr));}
-    template <typename T> inline int AddScoreBase64Call(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, GJ_NETWORK_OUTPUT(gjScorePtr))                                     {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, "", false, GJ_NETWORK_OUTPUT_FW);}
-                          inline int AddGuestScoreBase64Now(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, const std::string& sGuestName)                                 {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, sGuestName, true, GJ_NETWORK_NULL_API(gjScorePtr));}
-                          inline int AddGuestScoreBase64Call(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, const std::string& sGuestName)                                {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, sGuestName, false, GJ_NETWORK_NULL_API(gjScorePtr));}
-    template <typename T> inline int AddGuestScoreBase64Call(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, const std::string& sGuestName, GJ_NETWORK_OUTPUT(gjScorePtr)) {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, sGuestName, false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int AddScoreBase64Now(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize)                                                                     {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, "", true, GJ_NETWORK_NULL_API(gjScorePtr));}
+                          inline int AddScoreBase64Call(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize)                                                                    {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, "", false, GJ_NETWORK_NULL_API(gjScorePtr));}
+    template <typename T> inline int AddScoreBase64Call(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize, GJ_NETWORK_OUTPUT(gjScorePtr))                                     {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, "", false, GJ_NETWORK_OUTPUT_FW);}
+                          inline int AddGuestScoreBase64Now(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize, const std::string& sGuestName)                                 {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, sGuestName, true, GJ_NETWORK_NULL_API(gjScorePtr));}
+                          inline int AddGuestScoreBase64Call(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize, const std::string& sGuestName)                                {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, sGuestName, false, GJ_NETWORK_NULL_API(gjScorePtr));}
+    template <typename T> inline int AddGuestScoreBase64Call(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize, const std::string& sGuestName, GJ_NETWORK_OUTPUT(gjScorePtr)) {return this->__AddScoreBase64(sScore, iSort, pExtraData, iExtraSize, sGuestName, false, GJ_NETWORK_OUTPUT_FW);}
     //! @}
 
     /*! \name Get Attributes */
@@ -128,14 +128,14 @@ private:
 
     /*! \name Superior Request Functions */
     //! @{
-    template <typename T> int __FetchScores(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList));
-    template <typename T> int __AddScore(const std::string& sScore, const int& iSort, const std::string& sExtraData, const std::string& sGuestName, const bool& bNow, GJ_NETWORK_OUTPUT(gjScorePtr));
-    template <typename T> int __AddScoreBase64(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, const std::string& sGuestName, const bool& bNow, GJ_NETWORK_OUTPUT(gjScorePtr));
+    template <typename T> int __FetchScores(const bool bOnlyUser, const int iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList));
+    template <typename T> int __AddScore(const std::string& sScore, const int iSort, const std::string& sExtraData, const std::string& sGuestName, const bool bNow, GJ_NETWORK_OUTPUT(gjScorePtr));
+    template <typename T> int __AddScoreBase64(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize, const std::string& sGuestName, const bool bNow, GJ_NETWORK_OUTPUT(gjScorePtr));
     //! @}
 
     /*! \name Management Functions */
     //! @{
-    int __CheckCache(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput);
+    int __CheckCache(const bool bOnlyUser, const int iLimit, gjScoreList* papOutput);
     int __Process(const std::string& sData, void* pAdd, gjScoreList* papOutput);
     //! @}
 
@@ -148,7 +148,7 @@ private:
 
 // ****************************************************************
 /*! Score entry class.\n
- *  http://gamejolt.com/api/doc/game/scores/
+ *  https://gamejolt.com/api/doc/game/scores/
  *  \brief Score Entry Object */
 class gjScore final
 {
@@ -195,7 +195,7 @@ public:
 
     /*! \name Get Base64 Attributes */
     //! @{
-    inline int GetExtraDataBase64(void* pTarget, const size_t& iSize)const {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; base64_decode(m_sExtraData.c_str(), (unsigned char*)pTarget, iSize); return GJ_OK;}   //!< \copybrief m_sExtraData
+    inline int GetExtraDataBase64(void* pTarget, const size_t iSize)const {if(!pTarget || iSize <= 0) return GJ_INVALID_INPUT; base64_decode(m_sExtraData.c_str(), (unsigned char*)pTarget, iSize); return GJ_OK;}   //!< \copybrief m_sExtraData
     /*! */ //! @}
 
     /*! \name Check Status */
@@ -219,7 +219,7 @@ bool SortDescending(const gjScore* i, const gjScore* j);
 
 // ****************************************************************
 /* fetch and semi-cache specific score entries of this score table */
-template <typename T> int gjScoreTable::__FetchScores(const bool& bOnlyUser, const int& iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList))
+template <typename T> int gjScoreTable::__FetchScores(const bool bOnlyUser, const int iLimit, gjScoreList* papOutput, GJ_NETWORK_OUTPUT(gjScoreList))
 {
     if(!m_pAPI->IsUserConnected() && bOnlyUser) return GJ_NOT_CONNECTED;
     if(iLimit <= 0) return GJ_INVALID_INPUT;
@@ -259,7 +259,7 @@ template <typename T> int gjScoreTable::__FetchScores(const bool& bOnlyUser, con
 
 // ****************************************************************
 /* add score entry to this score table */
-template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, const int& iSort, const std::string& sExtraData, const std::string& sGuestName, const bool& bNow, GJ_NETWORK_OUTPUT(gjScorePtr))
+template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, const int iSort, const std::string& sExtraData, const std::string& sGuestName, const bool bNow, GJ_NETWORK_OUTPUT(gjScorePtr))
 {
     if(sScore == "" || iSort == 0) return GJ_INVALID_INPUT;
 
@@ -338,7 +338,7 @@ template <typename T> int gjScoreTable::__AddScore(const std::string& sScore, co
 
 // ****************************************************************
 /* add score entry to this score table with Base64 extra data */
-template <typename T> int gjScoreTable::__AddScoreBase64(const std::string& sScore, const int& iSort, void* pExtraData, const size_t& iExtraSize, const std::string& sGuestName, const bool& bNow, GJ_NETWORK_OUTPUT(gjScorePtr))
+template <typename T> int gjScoreTable::__AddScoreBase64(const std::string& sScore, const int iSort, void* pExtraData, const size_t iExtraSize, const std::string& sGuestName, const bool bNow, GJ_NETWORK_OUTPUT(gjScorePtr))
 {
     if(!pExtraData || iExtraSize <= 0) return GJ_INVALID_INPUT;
 

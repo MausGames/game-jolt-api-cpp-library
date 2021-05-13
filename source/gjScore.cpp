@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
 #include "gjCodeBefore.h"
 
@@ -56,7 +56,7 @@ gjScoreTable::~gjScoreTable()
 
 // ****************************************************************
 /* check for cached score entries */
-int gjScoreTable::__CheckCache(const bool bOnlyUser, const int& iLimit, gjScoreList* papOutput)
+int gjScoreTable::__CheckCache(const bool bOnlyUser, const int iLimit, gjScoreList* papOutput)
 {
     if(!bOnlyUser)  return GJ_INVALID_INPUT;
     if(!m_iSortDir) return GJ_INVALID_CALL;
@@ -200,3 +200,6 @@ gjScore::gjScore(const gjData& sScoreData, gjScoreTable* pScoreTable, gjAPI* pAP
 /* callbacks for sorting the score table */
 bool SortAscending(const gjScore* i, const gjScore* j)  {return (i->GetSort() < j->GetSort());}
 bool SortDescending(const gjScore* i, const gjScore* j) {return (i->GetSort() > j->GetSort());}
+
+
+#include "gjCodeAfter.h"

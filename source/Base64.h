@@ -2,11 +2,6 @@
 #ifndef _BASE64_H_
 #define _BASE64_H_
 
-
-// #define _HAS_EXCEPTIONS (0)
-#define _CRT_SECURE_NO_WARNINGS
-#define _ALLOW_RTCc_IN_STL
-
 #include <cstdlib>
 
 
@@ -57,7 +52,7 @@ int _base64_decode_triple(char quadruple[4], unsigned char *result);
 size_t base64_decode(const char *source, unsigned char *target, size_t targetlen);
 
 /** get memory consumption */
-size_t base64_needed(const size_t &iSize);
+size_t base64_needed(const size_t iSize);
 
 
 #endif

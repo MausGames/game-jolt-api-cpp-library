@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_NETWORK_H_
 #define _GJ_GUARD_NETWORK_H_
@@ -14,7 +14,7 @@
 // ****************************************************************
 /*! Main network interface class.\n
  *  Send requests, fetch data and download files with the cURL library.\n
- *  http://curl.haxx.se/
+ *  https://curl.haxx.se/
  *  \brief Network Interface */
 class gjNetwork final
 {
@@ -35,7 +35,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        virtual void Finish(const bool& bOK) = 0;
+        virtual void Finish(const bool bOK) = 0;
         //! @}
 
         /*! \name Get Attributes */
@@ -114,7 +114,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        void Finish(const bool& bOK)final;
+        void Finish(const bool bOK)final;
         //! @}
     };
 
@@ -135,7 +135,7 @@ private:
 
         /*! \name Finish Session */
         //! @{
-        void Finish(const bool& bOK)final;
+        void Finish(const bool bOK)final;
         //! @}
     };
 
@@ -164,8 +164,8 @@ public:
     /*! \name Wait */
     //! @{
     /*! Finish all active sessions and return.
-     *  \param iMaxWait Max waiting time in seconds (0 = until everything is finished) */
-    void Wait(const unsigned int& iMaxWait);
+     *  \param iMaxWaitSec Max waiting time in seconds (0 = until everything is finished) */
+    void Wait(const unsigned int iMaxWaitSec);
     //! @}
 
     /*! \name Send Request */

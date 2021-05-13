@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_NETWORK_HPP_
 #define _GJ_GUARD_NETWORK_HPP_
@@ -54,7 +54,7 @@ template <typename P, typename D> template <typename T> void gjNetwork::gjCallTe
 
 // ****************************************************************
 /* finish a request session */
-template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(const bool& bOK)
+template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(const bool bOK)
 {
     //if(bOK)
     {
@@ -85,7 +85,7 @@ template <typename P, typename D> void gjNetwork::gjCallRequest<P,D>::Finish(con
 
 // ****************************************************************
 /* finish a download session */
-template <typename P, typename D> void gjNetwork::gjCallDownload<P,D>::Finish(const bool& bOK)
+template <typename P, typename D> void gjNetwork::gjCallDownload<P,D>::Finish(const bool bOK)
 {
     // close file handle
     std::fclose(m_pFile);
@@ -118,8 +118,8 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
     if(sURL == "") return GJ_INVALID_INPUT;
 
     const size_t iPostPos = sURL.find("&POST");
-    const bool bPost      = (iPostPos != std::string::npos) ? true : false;
-    const bool bHttp      = (int(sURL.substr(0, 8).find("://")) >= 0) ? true : false;
+    const bool bPost      = (iPostPos != std::string::npos);
+    const bool bHttp      = (sURL.substr(0, 8).find("://") != std::string::npos);
 
     const bool bNow         = psOutput ? true : false;
     const std::string sInfo = bPost ? sURL.substr(0, iPostPos) : sURL;
@@ -162,7 +162,7 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
         {
             // set POST data
             curl_formadd(&pPostList, &pEndList,
-                         CURLFORM_COPYNAME,     "data",
+                         CURLFORM_PTRNAME,      "data",
                          CURLFORM_COPYCONTENTS, sURL.substr(iPostPos+5).c_str(),
                          CURLFORM_END);
 
@@ -177,6 +177,9 @@ template <typename T, typename P, typename D> int gjNetwork::SendRequest(const s
             sRequest = (bHttp ? "" : GJ_API_URL) + sURL;
             curl_easy_setopt(pSession, CURLOPT_TIMEOUT, GJ_API_TIMEOUT_REQUEST);
         }
+
+        // add old default format (from v1)
+        if(sRequest.find("&format=") == std::string::npos) sRequest += "&format=keypair";
 
         // add MD5 signature
         if(!bHttp) sRequest += "&signature=" + md5(sRequest + m_pAPI->GetGamePrivateKey());

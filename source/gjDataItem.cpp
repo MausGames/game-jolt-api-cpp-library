@@ -1,18 +1,18 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
 #include "gjCodeBefore.h"
 
 
 // ****************************************************************
 /* constructor */
-gjDataItem::gjDataItem(const gjData& aDataItemData, const int& iType, gjAPI* pAPI)noexcept
+gjDataItem::gjDataItem(const gjData& aDataItemData, const int iType, gjAPI* pAPI)noexcept
 : m_sKey     (SAFE_MAP_GET(aDataItemData, "key"))
 , m_sData    ("")
 , m_iType    (iType)
@@ -100,3 +100,6 @@ int gjDataItem::__RemoveCallback(const std::string& sData, void* pAdd, gjDataIte
     if(ppOutput) (*ppOutput) = this;
     return GJ_OK;
 }
+
+
+#include "gjCodeAfter.h"

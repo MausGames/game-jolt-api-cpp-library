@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_USER_H_
 #define _GJ_GUARD_USER_H_
@@ -13,7 +13,7 @@
 
 // ****************************************************************
 /*! User object class.\n
- *  http://gamejolt.com/api/doc/game/users/
+ *  https://gamejolt.com/api/doc/game/users/
  *  \brief User Object */
 class gjUser final
 {
@@ -91,19 +91,19 @@ private:
 
     /*! \name Superior Request Functions */
     //! @{
-    template <typename T> int __UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjUserPtr));
+    template <typename T> int __UpdateData(const bool bNow, GJ_NETWORK_OUTPUT(gjUserPtr));
     //! @}
 
     /*! \name Callback Functions */
     //! @{
-    int __UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* pOutput);
+    int __UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* ppOutput);
     //! @}
 };
 
 
 // ****************************************************************
 /* update data of this user */
-template <typename T> int gjUser::__UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjUserPtr))
+template <typename T> int gjUser::__UpdateData(const bool bNow, GJ_NETWORK_OUTPUT(gjUserPtr))
 {
     if(m_iID <= 0) return GJ_INVALID_CALL;
 

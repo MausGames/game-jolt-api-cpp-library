@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
 #include "gjCodeBefore.h"
 
@@ -36,7 +36,7 @@ gjNetwork::~gjNetwork()
     while(!m_apCall.empty())
     {
         gjAPI::ErrorLogAdd("Network Error: session had to be killed <" + m_apCall[0]->GetInfo() + ">");
-        this->__KillCall(m_apCall[0]);
+        this->__KillCall(m_apCall.back());
     }
 
     // clear memory
@@ -100,13 +100,16 @@ bool gjNetwork::Update()
 
 // ****************************************************************
 /* finish all active sessions and return */
-void gjNetwork::Wait(const unsigned int& iMaxWait)
+void gjNetwork::Wait(const unsigned int iMaxWaitSec)
 {
     // get max waiting time (low precision)
-    const time_t iMaxTime = std::time(NULL) + iMaxWait;
+    const time_t iMaxTime = std::time(NULL) + iMaxWaitSec;
 
     // force network update
-    while((iMaxTime >= std::time(NULL) || !iMaxWait) && this->Update()) {}
+    while((iMaxTime >= std::time(NULL) || !iMaxWaitSec) && this->Update())
+    {
+        gjAPI::UtilSleep(1u);
+    }
 }
 
 
@@ -166,3 +169,6 @@ size_t write_to_file(void* ptr, size_t size, size_t count, FILE* stream)
 {
     return fwrite(ptr, size, count, stream);
 }
+
+
+#include "gjCodeAfter.h"

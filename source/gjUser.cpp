@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #include "gjAPI.h"
 #include "gjCodeBefore.h"
 
@@ -64,7 +64,7 @@ gjUser& gjUser::operator = (const gjUser& that)noexcept
 
 // ****************************************************************
 /* callback for updating the data */
-int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* pOutput)
+int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr* ppOutput)
 {
     // parse output
     gjDataList aaReturn;
@@ -78,6 +78,9 @@ int gjUser::__UpdateDataCallback(const std::string& sData, void* pAdd, gjUserPtr
     gjUser NewUser(aaReturn[0], m_pAPI);
     (*this) = NewUser;
 
-    if(pOutput) (*pOutput) = this;
+    if(ppOutput) (*ppOutput) = this;
     return GJ_OK;
 }
+
+
+#include "gjCodeAfter.h"

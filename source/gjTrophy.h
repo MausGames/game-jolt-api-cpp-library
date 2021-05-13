@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_TROPHY_H_
 #define _GJ_GUARD_TROPHY_H_
@@ -13,7 +13,7 @@
 
 // ****************************************************************
 /*! Trophy object class.\n
- *  http://gamejolt.com/api/doc/game/trophies/
+ *  https://gamejolt.com/api/doc/game/trophies/
  *  \brief Trophy Object */
 class gjTrophy final
 {
@@ -95,8 +95,8 @@ public:
 
     /*! \name Get Secret Modified Attributes */
     //! @{
-    inline const std::string GetDescription()const {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TEXT_SECRET : m_sDescription;}   //!< \copybrief m_sDescription
-    inline const std::string GetImageURL()const    {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TROPHY_SECRET : m_sImageURL;}    //!< \copybrief m_sImageURL
+    inline const std::string GetDescription()const {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TEXT_SECRET : m_sDescription;}                      //!< \copybrief m_sDescription
+    inline const std::string GetImageURL()const    {return (m_bSecret && !this->IsAchieved()) ? GJ_API_TROPHY_SECRET[m_iDifficultyValue] : m_sImageURL;}   //!< \copybrief m_sImageURL
     /*! */ //! @}
 
     /*! \name Check Status */
@@ -116,8 +116,8 @@ private:
 
     /*! \name Superior Request Functions */
     //! @{
-    template <typename T> int __UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
-    template <typename T> int __Achieve(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
+    template <typename T> int __UpdateData(const bool bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
+    template <typename T> int __Achieve(const bool bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr));
     //! @}
 
     /*! \name Callback Functions */
@@ -128,15 +128,15 @@ private:
 
     /*! \name Set Attributes */
     //! @{
-    inline void __SetSort(const int& iSort)      {m_iSort = iSort;}
-    inline void __SetSecret(const bool& bSecret) {m_bSecret = bSecret;}
+    inline void __SetSort(const int iSort)      {m_iSort = iSort;}
+    inline void __SetSecret(const bool bSecret) {m_bSecret = bSecret;}
     //! @}
 };
 
 
 // ****************************************************************
 /* update data of this trophy */
-template <typename T> int gjTrophy::__UpdateData(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
+template <typename T> int gjTrophy::__UpdateData(const bool bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
 {
     if(!m_pAPI->IsUserConnected()) return GJ_NOT_CONNECTED;
 
@@ -156,7 +156,7 @@ template <typename T> int gjTrophy::__UpdateData(const bool& bNow, GJ_NETWORK_OU
 
 // ****************************************************************
 /* achieve this trophy */
-template <typename T> int gjTrophy::__Achieve(const bool& bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
+template <typename T> int gjTrophy::__Achieve(const bool bNow, GJ_NETWORK_OUTPUT(gjTrophyPtr))
 {
     // cancel request if already achieved
     if(this->IsAchieved()) return GJ_REQUEST_CANCELED;

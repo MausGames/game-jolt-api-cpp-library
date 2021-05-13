@@ -16,8 +16,8 @@ And if your game is written in C++, then **this library is able to connect your 
 #
 
 **Documentation:**  
-<http://www.maus-games.at/files/gamejolt/cpp/>
+<https://www.maus-games.at/files/gamejolt/cpp/>
 
-[1]: http://gamejolt.com
-[2]: http://gamejolt.com/developers/achievements-new/
-[3]: http://gamejolt.com/api/doc/game/
+[1]: https://gamejolt.com
+[2]: https://gamejolt.com/developers/achievements-new/
+[3]: https://gamejolt.com/api/doc/game/

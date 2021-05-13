@@ -1,4 +1,5 @@
-#include "Base64.h"
+#include "gjAPI.h"
+#include "gjCodeBefore.h"
 
 #include <cmath>
 #include <cstring>
@@ -216,4 +217,7 @@ size_t base64_decode(const char *source, unsigned char *target, size_t targetlen
 }
 
 /** get memory consumption */
-size_t base64_needed(const size_t &iSize) {return 4*size_t(floorf((float(iSize)+2.0f)/3.0f))+1;}
+size_t base64_needed(const size_t iSize) {return 4u * size_t(floorf((float(iSize) + 2.0f) / 3.0f)) + 1u;}
+
+
+#include "gjCodeAfter.h"

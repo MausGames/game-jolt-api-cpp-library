@@ -1,11 +1,11 @@
-///////////////////////////////////////////////////////////////////
-//*-------------------------------------------------------------*//
-//| Part of the Game Jolt API C++ Library (http://gamejolt.com) |//
-//*-------------------------------------------------------------*//
-//| Released under the zlib License                             |//
-//| More information available in the readme file               |//
-//*-------------------------------------------------------------*//
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+//*--------------------------------------------------------------*//
+//| Part of the Game Jolt API C++ Library (https://gamejolt.com) |//
+//*--------------------------------------------------------------*//
+//| Released into the public domain                              |//
+//| More information available in the readme file                |//
+//*--------------------------------------------------------------*//
+////////////////////////////////////////////////////////////////////
 #pragma once
 #ifndef _GJ_GUARD_LOOKUP_H_
 #define _GJ_GUARD_LOOKUP_H_
@@ -48,7 +48,7 @@ public:
     //! @{
     const T& at(const char* pcKey)const noexcept;
     T& operator [] (const char* pcKey)noexcept;
-    inline T& operator [] (const gjUint& iIndex)noexcept {return m_aList[iIndex].second;}
+    inline T& operator [] (const gjUint iIndex)noexcept {return m_aList[iIndex].second;}
     //! @}
 
     //! check number of existing entries
@@ -60,15 +60,15 @@ public:
 
     //! control memory consumption
     //! @{
-    inline void reserve(const gjUint& iReserve)noexcept {m_aList.reserve(iReserve);}
-    inline gjUint capacity()const noexcept              {return m_aList.capacity();}
+    inline void reserve(const gjUint iReserve)noexcept {m_aList.reserve(iReserve);}
+    inline gjUint capacity()const noexcept             {return m_aList.capacity();}
     //! @}
 
     //! remove existing entries
     //! @{
     void erase(const T& Entry)noexcept;
     void erase(const char* pcKey)noexcept;
-    inline void erase(const gjUint& iIndex)noexcept            {ASSERT(iIndex < m_aList.size()) m_aList.erase(m_aList.begin()+iIndex);}
+    inline void erase(const gjUint iIndex)noexcept             {ASSERT(iIndex < m_aList.size()) m_aList.erase(m_aList.begin()+iIndex);}
     inline void erase(const gjConstIterator& Iterator)noexcept {m_aList.erase(Iterator);}
     inline void clear()noexcept                                {m_aList.clear();}
     //! @}
@@ -104,7 +104,7 @@ private:
 template <typename T> gjLookup<T>::gjLookup()noexcept
 {
     // reserve variable sized memory
-    constexpr_var gjUint iSize = 1 + 64/sizeof(T);
+    const gjUint iSize = 1 + 64/sizeof(T);
     m_aList.reserve(iSize);
 }
 

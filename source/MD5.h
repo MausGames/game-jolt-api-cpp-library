@@ -1,6 +1,6 @@
 /* MD5
  converted to C++ class by Frank Thilo (thilo@unix-ag.org)
- for bzflag (http://www.bzflag.org)
+ for bzflag (https://www.bzflag.org)
 
    based on:
 
@@ -33,11 +33,6 @@ documentation and/or software.
 #pragma once
 #ifndef _MD5_H_
 #define _MD5_H_
-
-
-// #define _HAS_EXCEPTIONS (0)
-#define _CRT_SECURE_NO_WARNINGS
-#define _ALLOW_RTCc_IN_STL
 
 #include <cstring>
 #include <string>
@@ -95,5 +90,6 @@ private:
 };
 
 std::string md5(const std::string &str);
+
 
 #endif
