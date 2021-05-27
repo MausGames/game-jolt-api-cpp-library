@@ -80,11 +80,13 @@
     #if (_GJ_MSVC_) < 1700
         #define final
     #endif
-#else
+#elif defined(_GJ_GCC_)
     #if (_GJ_GCC_) < 40700
         #define override
         #define final
     #endif
+    #define delete_func = delete
+#else
     #define delete_func = delete
 #endif
 
