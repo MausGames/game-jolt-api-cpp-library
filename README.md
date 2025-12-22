@@ -1,5 +1,8 @@
 # Game Jolt API C++ Library
 
+[![software license: unlicense](material/readme/badge_license_software.svg)](LICENSE.txt)
+[![content license: CC0](material/readme/badge_license_content.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
 [Game Jolt][1] is a host for **free independently developed computer games**.
 
 As a gamer you are able to play every game on this site for free, rate them with shiny stars, write awesome comments, get trophies and highscores and talk about stuff on the forum or the chat. As a developer you can upload your game, add screenshots, embed videos, write news, receive feedback, eat pizza and do other great things.
@@ -8,12 +11,12 @@ And if your game is written in C++, then **this library is able to connect your 
 (for other languages/engines/platforms take a look [here][2])
 
 > - full access to the [Game Jolt API][3]
-> - non-blocking transfer with object-related callback system 
+> - non-blocking transfer with object-related callback system
 > - prefetching, caching and request merging for maximum performance
-> - integrated Base64url encoding to easily transfer binary data (e.g. to the data store) 
+> - integrated Base64url encoding to easily transfer binary data (e.g. to the data store)
 > - integrated file downloader (for avatars, trophy images and anything else)
 
-#
+## Links
 
 **Documentation:**  
 <https://www.maus-games.at/files/gamejolt/cpp/>
